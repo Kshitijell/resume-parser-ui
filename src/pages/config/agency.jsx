@@ -6,7 +6,9 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { toast } from 'react-toastify';
-import { Box } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
+
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const validationSchema = Yup.object({
     orgId: Yup.string().required('Organization ID is required'),
@@ -60,7 +62,11 @@ const Agencyform = () => {
         }}>
             <Card
             >
+                <IconButton sx={{ padding: '5px', margin: '10px' }} onClick={() => window.history.back()} aria-label="back" title='Back to selection'>
+                    <ArrowBackIcon />
+                </IconButton>
                 <CardContent>
+
                     <form onSubmit={formik.handleSubmit}>
                         <TextField
                             fullWidth

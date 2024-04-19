@@ -7,7 +7,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { Box } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const validationSchema = Yup.object({
     orgId: Yup.string().required('Organization ID is required'),
@@ -75,6 +76,9 @@ const Userform = () => {
             backgroundColor: '#E0FFFF'
         }}>
             <Card>
+                <IconButton sx={{ padding: '5px', margin: '10px' }} onClick={() => window.history.back()} aria-label="back" title='Back to selection'>
+                    <ArrowBackIcon />
+                </IconButton>
                 <CardContent>
                     <form onSubmit={formik.handleSubmit}>
                         <TextField
@@ -152,7 +156,7 @@ const Userform = () => {
                         />
                         <Box display="flex" justifyContent="center" marginTop={2}>
                             <Button color="primary" variant="contained" type="submit">
-                                Create Organization
+                                Create User
                             </Button>
                         </Box>
                     </form>
