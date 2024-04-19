@@ -85,9 +85,9 @@ const Selectionpage = () => {
               <Button
                 variant="contained"
                 sx={{ width: '100%' }}
-                onClick={() => navigate('/power-apps-dashboard')}
+                onClick={() => navigate('/parser')}
               >
-                Resume Parser
+                Resume Ranker
               </Button>
             </Card>
           )}
@@ -109,9 +109,9 @@ const Selectionpage = () => {
               <Button
                 variant="contained"
                 sx={{ width: '100%' }}
-                onClick={() => navigate('/parser')}
+                onClick={() => navigate('/power-apps-dashboard')}
               >
-                Resume Ranker
+                Resume Parser
               </Button>
             </Card>
           )}
