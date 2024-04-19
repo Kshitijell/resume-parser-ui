@@ -1,119 +1,124 @@
 import React from 'react';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import selectionBackgroundImage from '../../assets/images/selectionPageBackgorund.jpg';
+import { adminLogo,parserLogo,rankerLogo } from 'src/assets/images';
+
 
 const Selectionpage = () => {
-    const navigate = useNavigate(); // Move the hook inside the functional component
+  const navigate = useNavigate(); // Move the hook inside the functional component
 
-    const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
-    return (
+  return (
+    <>
+      <Box
+        sx={{
+          height: '-webkit-fill-available',
+          backgroundImage: `url(${selectionBackgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          position: 'relative',
+          padding: '6% 12%',
+        }}
+      >
         <Box
-            sx={{
-                height: '100%',
-                width: 1,
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}
+          sx={{
+            height: '100%',
+            borderRadius: '11px',
+            borderradius: '11px',
+            // opacity: '0.11',
+            background: 'rgba(246, 248, 253, 0.65)',
+
+            boxShadow: ' 0px 4px 34.3px 2px rgba(30, 45, 87, 0.24)',
+
+            display: 'flex',
+            padding: '25px',
+            justifyContent:"space-evenly"
+          }}
         >
+          {userDetails?.isAdmin.includes('True') && (
             <Card
-                sx={{
-                    width: '90%',
-                    borderRadius: '30px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: 2,
-                    height: '90%',
-                }}
+              sx={{
+                padding: '10px',
+                cursor: 'pointer',
+                borderRadius: '10px',
+                boxShadow: 3,
+                width: '450px',
+                height: '100%',
+                marginRight: '10px',
+                paddingTop:"20px"
+              }}
             >
-                <CardContent>
-                    <Typography
-                        sx={{
-                            margin: '20px',
-                            padding: '5px',
-                            textAlign: 'center'
-                        }}
-                        variant='h3'
-                        color='white'
-                    >
-                        Please make a selection
-                    </Typography>
-                    <Grid container justifyContent="center" spacing={2} sx={{ marginTop: '200px' }}>
-                        {userDetails?.isAdmin.includes('True') && (
-                            <Grid item>
-                                <Card
-                                    onClick={() => navigate('/config')}
-                                    sx={{
-                                        padding: '10px',
-                                        textAlign: 'center',
-                                        cursor: 'pointer',
-                                        borderRadius: '10px',
-                                        boxShadow: 3,
-                                        width: '450px',
-                                        height: '200px'
-                                    }}
-                                >
-                                    <CardContent>
-                                        <Typography variant="h3" color="primary" style={{ marginTop: '50px ' }}>
-                                            Admin
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        )}
-                        {userDetails?.application.includes('Ranker') && (
-                            <Grid item>
-                                <Card
-                                    onClick={() => navigate('/parser')}
-                                    sx={{
-                                        padding: '10px',
-                                        textAlign: 'center',
-                                        cursor: 'pointer',
-                                        borderRadius: '10px',
-                                        boxShadow: 3,
-                                        width: '450px',
-                                        height: '200px'
-                                    }}
-                                >
-                                    <CardContent>
-                                        <Typography variant="h3" color="primary" style={{ marginTop: '50px ' }}>
-                                            Resume Ranker
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        )}
-                        {userDetails?.application.includes('Parse') && (
-                            <Grid item>
-                                <Card
-                                    onClick={() => navigate('/power-apps-dashboard')}
-                                    sx={{
-                                        padding: '10px',
-                                        textAlign: 'center',
-                                        cursor: 'pointer',
-                                        borderRadius: '10px',
-                                        boxShadow: 3,
-                                        width: '450px',
-                                        height: '200px'
-                                    }}
-                                >
-                                    <CardContent>
-                                        <Typography variant="h3" color="primary" style={{ marginTop: '50px ' }}>
-                                            Resume Parser
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        )}
-                    </Grid>
-                </CardContent>
+              {/* <Logo/> */}
+              <div style={{ height: '90%',padding:"10%",display:"flex" }}>
+              <img src={adminLogo} alt='admin'/>
+              </div>
+              <Button
+                variant="contained"
+                sx={{ width: '100%' }}
+                onClick={() => navigate('/config')}
+              >
+                Admin's Area
+              </Button>
             </Card>
+          )}
+          {userDetails?.application.includes('Ranker') && (
+            <Card
+              sx={{
+                padding: '10px',
+                cursor: 'pointer',
+                borderRadius: '10px',
+                boxShadow: 3,
+                width: '450px',
+                height: '100%',
+                marginRight: '10px',
+                paddingTop:"20px"
+              }}
+            >
+              <div style={{ height: '90%',padding:"10%",display:"flex" }}>
+              <img src={rankerLogo} alt='admin' />
+
+                {/* <img src={'../../assets/adminLogo.svg'} /> */}
+              </div>
+              <Button
+                variant="contained"
+                sx={{ width: '100%' }}
+                onClick={() => navigate('/power-apps-dashboard')}
+              >
+                Resume Ranker
+              </Button>
+            </Card>
+          )}
+          {userDetails?.application.includes('Parse') && (
+            <Card
+              sx={{
+                padding: '10px',
+                cursor: 'pointer',
+                borderRadius: '10px',
+                boxShadow: 3,
+                width: '450px',
+                height: '100%',
+                paddingTop:"20px"
+              }}
+            >
+              <div style={{ height: '90%',padding:"10%",display:"flex" }}>
+                <img src={parserLogo} alt='admin'/>
+              </div>
+              <Button
+                variant="contained"
+                sx={{ width: '100%' }}
+                onClick={() => navigate('/parser')}
+              >
+                Resume Parser
+              </Button>
+            </Card>
+          )}
         </Box>
-    );
+      </Box>
+    </>
+  );
 };
 
 export default Selectionpage;

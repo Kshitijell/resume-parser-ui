@@ -5,6 +5,9 @@ export { default as minLogoDark } from './KBR_WGlobe.png';
 export { default as BusinessInt } from './Business_interview.svg';
 export { default as EllLogoBlack } from './logo_black.png';
 export { default as EllLogoWhite } from './logo_black.png';
-export { default as businessWomen } from './businesswomen.svg'
-export { default as background_Image } from './background-image.jpg'
-export { default as logo_black_emergys } from './logo_emergys.png'
+export { default as businessWomen } from './businesswomen.svg';
+export { default as background_Image } from './background-image.jpg';
+export { default as logo_black_emergys } from './ell-logo.png';
+export { default as adminLogo } from './adminLogo.svg';
+export { default as parserLogo } from './parserLogo.svg';
+export { default as rankerLogo } from './rankerLogo.svg';
