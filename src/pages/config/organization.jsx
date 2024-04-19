@@ -28,7 +28,7 @@ const handleSubmit = (values) => {
     formData.append('API_KEY', values.apiKey);
     formData.append('Org_name', values.orgName);
 
-    fetch('http://52.1.28.231:5000:5000/insert_organization', {
+    fetch('http://52.1.28.231:5000/insert_organization', {
         method: 'POST',
         body: formData
     })

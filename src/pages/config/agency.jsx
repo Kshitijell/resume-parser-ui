@@ -26,7 +26,7 @@ const handleSubmit = (values) => {
     formData.append('Agency_name', values.agencyName);
     formData.append('Agency_email', values.agencyEmail);
 
-    fetch('http://52.1.28.231:5000:5000/insert_agency', {
+    fetch('http://52.1.28.231:5000/insert_agency', {
         method: 'POST',
         body: formData
     }).then(response => {

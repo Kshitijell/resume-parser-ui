@@ -58,7 +58,7 @@ function ResumeParser() {
         }
 
         try {
-          const res = await axios.post('http://52.1.28.231:5000:5000/upload', formData);
+          const res = await axios.post('http://52.1.28.231:5000/upload', formData);
           if (res.data) {
             const resData = res.data.data;
             toast.success('JD Uploaded.');
@@ -81,7 +81,7 @@ function ResumeParser() {
   };
   const fetchReqIds = async () => {
     try {
-      const res = await axios.post('http://52.1.28.231:5000:5000/recommend');
+      const res = await axios.post('http://52.1.28.231:5000/recommend');
       if (res.data) {
         const resData = res.data.data;
         setInitialReqIds(resData);
