@@ -90,7 +90,7 @@ export function AuthProvider({ children }) {
       formData.append('username', res.username);
       formData.append('password', res.password);
 
-      const response = await fetch('http://192.168.1.105:5000/login', {
+      const response = await fetch('http://172.31.16.232:5000/login', {
         method: 'POST',
         body: formData,
       });

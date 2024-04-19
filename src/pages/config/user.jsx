@@ -37,7 +37,7 @@ const handleSubmit = (values) => {
     formData.append('Application_Access', values.applicationAccess);
 
 
-    fetch('http://192.168.1.105:5000/insert_user', {
+    fetch('http://172.31.16.232:5000/insert_user', {
         method: 'POST',
         body: formData
     })
