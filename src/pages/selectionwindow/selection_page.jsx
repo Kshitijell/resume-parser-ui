@@ -87,7 +87,7 @@ const Selectionpage = () => {
                 sx={{ width: '100%' }}
                 onClick={() => navigate('/power-apps-dashboard')}
               >
-                Resume Ranker
+                Resume Parser
               </Button>
             </Card>
           )}
@@ -111,7 +111,7 @@ const Selectionpage = () => {
                 sx={{ width: '100%' }}
                 onClick={() => navigate('/parser')}
               >
-                Resume Parser
+                Resume Ranker
               </Button>
             </Card>
           )}
