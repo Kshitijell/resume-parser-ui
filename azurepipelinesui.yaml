@@ -1,0 +1,74 @@
+name: $(BuildDefinitionName)_$(SourceBranchName)_$(date:yyyyMMdd)$(rev:.r)
+  
+trigger:
+  - main
+  - Stage
+  - Dev
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  archiveName: 'KBR.SURe.UI.zip'
+
+steps:
+
+- task: NexusIqPipelineTask@1
+  inputs:
+    nexusIqService: 'IQ_hou-nexus_CIT'
+    applicationId: 'SURe-frontend-AppID'
+    stage: 'Build'
+    scanTargets: '**/*.*'
+
+# - task: SonarQubePrepare@5
+#   inputs:
+#     SonarQube: 'SQ_hou-sonar_CIT'
+#     scannerMode: 'CLI'
+#     configMode: 'manual'
+#     cliProjectKey: 'SURe'
+#     cliProjectName: 'SURe'
+#     cliSources: '.'
+
+- task: Npm@1
+  displayName: 'npm install'
+  inputs:
+    verbose: false
+
+- task: Npm@1
+  displayName: 'npm custom'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'run build'
+
+- task: CopyFiles@2
+  inputs:
+    Contents: "**"
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(archiveName)'
+    replaceExistingArchive: true
+
+# - task: JavaToolInstaller@0
+#   inputs:
+#     versionSpec: '17'
+#     jdkArchitectureOption: 'x64'
+#     jdkSourceOption: 'PreInstalled'
+
+# - task: SonarQubeAnalyze@5
+#   inputs:
+#     jdkversion: 'JAVA_HOME_17_X64'
+
+# - task: SonarQubePublish@5
+#   inputs:
+#     pollingTimeoutSec: '300'
+    
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/dist'
+    ArtifactName: 'drop'
