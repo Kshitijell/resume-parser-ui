@@ -28,7 +28,7 @@ export const DashboardRoutes = () => [
     ),
     children: [
       {
-        path: 'selection',
+        path: 'home',
         element: <SelectionPage />,
       },
       {
@@ -40,23 +40,23 @@ export const DashboardRoutes = () => [
         element: <TableComponent />,
       },
       {
-        path: 'power-apps-dashboard',
+        path: 'ranker',
         element: <PowerAppsPage />,
       },
       {
-        path: 'config',
+        path: 'admin',
         element: <ConfigPage />,
       },
       {
-        path: 'config/create-user',
+        path: 'admin/create-user',
         element: <UserCreationPage />,
       },
       {
-        path: 'config/create-agency',
+        path: 'admin/create-agency',
         element: <AgencyCreationPage />,
       },
       {
-        path: 'config/create-organization',
+        path: 'admin/create-organization',
         element: <OrganizationCreationPage />,
       },
     ],

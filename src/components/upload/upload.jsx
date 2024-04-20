@@ -49,12 +49,12 @@ export default function Upload({
   const renderPlaceholder = (
     <Stack spacing={3} alignItems="center" justifyContent="center" flexWrap="wrap">
       {/* <UploadIllustration sx={{ width: 1, maxWidth: 200 }} /> */}
-      <Stack spacing={1} sx={{ textAlign: 'center' }}>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>Browse PDF Documents</Typography>
+      <Stack spacing={1} sx={{ textAlign: 'center',marginTop:'150px' }}>
+        <Typography variant="body5" sx={{ color: 'text.secondary' }}>Browse PDF Documents</Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           OR
         </Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+        <Typography variant="body5" sx={{ color: 'text.secondary' }}>
           Drag and drop PDF document here
         </Typography>
       </Stack>

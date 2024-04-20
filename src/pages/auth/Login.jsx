@@ -24,7 +24,7 @@ const Login = () => {
     const res = await login({ username, password });
     if (res) {
       setLoggedIn(true);
-      router.push('/selection');
+      router.push('/home');
     } else {
       setError('Invalid username or password');
     }
@@ -67,9 +67,9 @@ const Login = () => {
 
   return (
     <div className="main-container">
-      <img src={logo_black_emergys} alt='logo' className='logo' />
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="card-container">
+          <img src={logo_black_emergys} alt='logo' className='logo' style={{ width: '20%' }} />
           <Card sx={{ height: '540px', width: '140%', left: '300px' }}>
             <CardContent>
               <Typography variant='h3' sx={{ marginTop: '20px', backgroundImage: 'linear-gradient(to right, #ff7e5f, #feb47b, #ffeda7)' }}>RecruitSmart</Typography>

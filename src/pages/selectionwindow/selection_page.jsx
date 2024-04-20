@@ -1,9 +1,8 @@
 import React from 'react';
 import Card from '@mui/material/Card';
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import selectionBackgroundImage from '../../assets/images/selectionPageBackgorund.jpg';
-import { adminLogo,parserLogo,rankerLogo } from 'src/assets/images';
+import { adminLogo,parserLogo,rankerLogo,selectionBackgroundImage } from 'src/assets/images';
 
 
 const Selectionpage = () => {
@@ -34,7 +33,7 @@ const Selectionpage = () => {
             boxShadow: ' 0px 4px 34.3px 2px rgba(30, 45, 87, 0.24)',
 
             display: 'flex',
-            padding: '25px',
+            padding: '45px',
             justifyContent:"space-evenly"
           }}
         >
@@ -58,9 +57,9 @@ const Selectionpage = () => {
               <Button
                 variant="contained"
                 sx={{ width: '100%' }}
-                onClick={() => navigate('/config')}
+                onClick={() => navigate('/admin')}
               >
-                Admin's Area
+                Admin
               </Button>
             </Card>
           )}
@@ -85,7 +84,7 @@ const Selectionpage = () => {
               <Button
                 variant="contained"
                 sx={{ width: '100%' }}
-                onClick={() => navigate('/parser')}
+                onClick={() => navigate('/ranker')}
               >
                 Resume Ranker
               </Button>
@@ -109,7 +108,7 @@ const Selectionpage = () => {
               <Button
                 variant="contained"
                 sx={{ width: '100%' }}
-                onClick={() => navigate('/power-apps-dashboard')}
+                onClick={() => navigate('/parser')}
               >
                 Resume Parser
               </Button>

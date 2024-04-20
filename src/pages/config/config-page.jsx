@@ -1,110 +1,122 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import { useNavigate } from 'react-router-dom';
-import { Grid, IconButton, Typography } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { adminBackgroundImage, agencyImage } from 'src/assets/images';
+import { createUserImage } from 'src/assets/images';
+import { orgnizationImage } from 'src/assets/images';
 
 const Configpage = () => {
     const navigate = useNavigate()
     const handleCreateUser = () => {
-        navigate('/config/create-user')
+        navigate('/admin/create-user')
     };
 
     const handleCreateOrganization = () => {
-        navigate('/config/create-organization')
+        navigate('/admin/create-organization')
     };
 
     const handleCreateAgency = () => {
-        navigate('/config/create-agency')
+        navigate('/admin/create-agency')
     };
 
     return (
         <>
-            <Grid>
-                <IconButton sx={{ padding: '5px', margin: '10px' }} onClick={() => window.history.back()} aria-label="back" title='Back to selection'>
-                    <ArrowBackIcon />
-                </IconButton>
-            </Grid>
             <Box
                 sx={{
-                    height: '100%',
-                    width: 1,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: '#E0FFFF'
+                    height: '-webkit-fill-available',
+                    backgroundImage: `url(${adminBackgroundImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    position: 'relative',
+                    padding: '6% 12%',
                 }}
             >
-                <Card sx={{
-                    width: '90%',
-                    borderRadius: '30px',
+                <Box sx={{
+                    height: '100%',
+                    borderRadius: '11px',
+                    borderradius: '11px',
+                    // opacity: '0.11',
+                    background: 'rgba(246, 248, 253, 0.65)',
+                    boxShadow: ' 0px 4px 34.3px 2px rgba(30, 45, 87, 0.24)',
                     display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: 2,
-                    height: '90%',
-                    backgroundColor: '#81D8D0'
+                    padding: '45px',
+                    justifyContent: "space-evenly",
+                    paddingLeft: '1px',
                 }}>
-                    <CardContent>
-                        <Grid container justifyContent="center" spacing={2} sx={{ marginTop: '200px' }}>
-                            <Grid item>
-                                <Card sx={{
-                                    padding: '10px',
-                                    textAlign: 'center',
-                                    cursor: 'pointer',
-                                    borderRadius: '10px',
-                                    boxShadow: 3,
-                                    width: '450px',
-                                    height: '200px'
-                                }} onClick={handleCreateUser} style={{ marginBottom: '10px' }}>
-                                    <CardContent>
-                                        <Typography variant="h3" color="primary" style={{ marginTop: '55px' }}>
-                                            Create User
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                            <Grid item>
-                                <Card sx={{
-                                    padding: '10px',
-                                    textAlign: 'center',
-                                    cursor: 'pointer',
-                                    borderRadius: '10px',
-                                    boxShadow: 3,
-                                    width: '450px',
-                                    height: '200px'
-                                }} onClick={handleCreateOrganization} style={{ marginBottom: '10px' }}>
-                                    <CardContent>
-                                        <Typography variant="h3" color="primary" style={{ marginTop: '55px' }}>
-                                            Create Organization
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                            <Grid item>
-                                <Card sx={{
-                                    padding: '10px',
-                                    textAlign: 'center',
-                                    cursor: 'pointer',
-                                    borderRadius: '10px',
-                                    boxShadow: 3,
-                                    width: '450px',
-                                    height: '200px'
-                                }}
-                                    onClick={handleCreateAgency}>
-                                    <CardContent>
-                                        <Typography variant="h3" color="primary" style={{ marginTop: '55px' }}>
-                                            Create Agency
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        </Grid>
-                    </CardContent>
-                </Card>
-            </Box>
+                    <div >
+                        <IconButton onClick={() => window.history.back()} aria-label="back" title='Back to selection'>
+                            <ArrowBackIcon />
+                        </IconButton>
+                    </div>
+                    <Card sx={{
+                        padding: '10px',
+                        cursor: 'pointer',
+                        borderRadius: '10px',
+                        boxShadow: 3,
+                        width: '450px',
+                        height: '100%',
+                        marginRight: '10px',
+                        paddingTop: "20px"
+                    }} style={{ marginBottom: '10px' }}>
+                        <div style={{ height: '90%', padding: "10%", display: "flex" }}>
+                            <img src={orgnizationImage} alt='admin' />
+                        </div>
+                        <Button
+                            variant="contained"
+                            sx={{ width: '100%' }}
+                            onClick={handleCreateOrganization}
+                        >
+                            Create Organization
+                        </Button>
+                    </Card>
+                    <Card sx={{
+                        padding: '10px',
+                        cursor: 'pointer',
+                        borderRadius: '10px',
+                        boxShadow: 3,
+                        width: '450px',
+                        height: '100%',
+                        marginRight: '10px',
+                        paddingTop: "20px"
+                    }} style={{ marginBottom: '10px' }}>
+
+                        <div style={{ height: '90%', padding: "10%", display: "flex" }}>
+                            <img src={createUserImage} alt='admin' />
+                        </div>
+                        <Button
+                            variant="contained"
+                            sx={{ width: '100%' }}
+                            onClick={handleCreateUser}
+                        >
+                            Create User
+                        </Button>
+                    </Card>
+                    <Card sx={{
+                        padding: '10px',
+                        cursor: 'pointer',
+                        borderRadius: '10px',
+                        boxShadow: 3,
+                        width: '450px',
+                        height: '100%',
+                        marginRight: '10px',
+                        paddingTop: "20px"
+                    }}
+                    > <div style={{ height: '90%', padding: "10%", display: "flex" }}>
+                            <img src={agencyImage} alt='admin' />
+                        </div>
+                        <Button
+                            variant="contained"
+                            sx={{ width: '100%' }}
+                            onClick={handleCreateAgency}
+                        >
+                            Create Agency
+                        </Button>
+                    </Card>
+                </Box>
+            </Box >
         </>
     );
 };
