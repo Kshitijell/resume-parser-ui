@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import { IconButton } from '@mui/material';
@@ -12,8 +12,8 @@ import Agencyform from './agency';
 
 const Configpage = () => {
     const window_1 = <Organizationform />
-    const window_2 = <Userform />
     const window_3 = <Agencyform />
+    const window_2 = <Userform />
 
     return (
         <>

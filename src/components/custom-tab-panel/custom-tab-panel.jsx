@@ -70,10 +70,23 @@ export default function BasicTabs({ item_1, item_2, item_3 }) {
           variant="scrollable"
           sx={{ padding: '15px' }}
         >
-          <Tab label="Organization" {...a11yProps(0)} sx={getTabStyle(0)} />
-          <Tab label="User" {...a11yProps(1)} sx={getTabStyle(1)} />
-          <Tab label="Agency" {...a11yProps(2)} sx={getTabStyle(2)} />
+          <Tab
+            label="Organization"
+            {...a11yProps(0)}
+            sx={{ ...getTabStyle(0), '&:hover': { backgroundColor: 'transparent' } }}
+          />
+          <Tab
+            label="User"
+            {...a11yProps(1)}
+            sx={{ ...getTabStyle(1), '&:hover': { backgroundColor: 'transparent' } }}
+          />
+          <Tab
+            label="Agency"
+            {...a11yProps(2)}
+            sx={{ ...getTabStyle(2), '&:hover': { backgroundColor: 'transparent' } }}
+          />
         </Tabs>
+
       </Box>
       <CustomTabPanel value={value} index={0}>
         {item_1}

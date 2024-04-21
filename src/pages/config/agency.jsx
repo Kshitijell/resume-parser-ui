@@ -1,119 +1,103 @@
-import React from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
-import { Box } from '@mui/material';
+import { Autocomplete, Box } from '@mui/material';
 import { agencyImage } from 'src/assets/images';
-import CustomAutoFetchComplete from 'src/components/custom-autocomplete/custom-auto-fetch-complete';
 
-const validationSchema = Yup.object({
-    orgId: Yup.string().required('Organization ID is required'),
-    agencyName: Yup.string().required('Agency name is required'),
-    agencyEmail: Yup.string()
-        .required('Agency email is required')
-        .email('Invalid email address')
-        .matches(/\.com$|\.org$/, 'Email must end with .com or .org'),
-});
-
-
-const initialValues = {
+const initialFormValues = {
     orgId: '',
     agencyName: '',
     agencyEmail: '',
 };
 
-const handleSubmit = (values) => {
-    const formData = new FormData();
-    formData.append('org_id', values.orgId);
-    formData.append('Agency_name', values.agencyName);
-    formData.append('Agency_email', values.agencyEmail);
-
-
-    fetch('http://52.1.28.231:5000/insert_agency', {
-        method: 'POST',
-        body: formData
-    }).then(response => {
-        if (!response.ok) {
-            throw new Error('Something went wrong, error is logged');
-        }
-        return response.json();
-    }).then(data => {
-        toast.success('Agency creation successful');
-    })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-};
-
-
 const Agencyform = () => {
-    const [orgId, setOrgId] = React.useState('');
-    const [open, setOpen] = React.useState(false);
+    const [formValues, setFormValues] = useState(initialFormValues);
 
-    const handleInputChange = (event, newInputValue) => {
-        event?.preventDefault();
-        setOrgId(newInputValue);
+    const [orgOptions, setOrgOptions] = useState([]);
+    const [selectedOrg, setSelectedOrg] = useState(null);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
     };
 
-    const formik = useFormik({
-        initialValues,
-        validationSchema,
-        onSubmit: handleSubmit,
-    });
+    useEffect(() => {
+        fetch('http://52.1.28.231:5000/get_all_organizations')
+            .then(response => response.json())
+            .then(data => {
+                const transformedOptions = data.organizations?.map(org => ({
+                    label: org.Org_name,
+                    id: org.Org_id,
+                }));
+                setOrgOptions(transformedOptions);
+            })
+            .catch(error => {
+                console.error('Error fetching organizations:', error);
+            });
+    }, []);
+
+    const handleOrgChange = (event, newValue) => {
+        setSelectedOrg(newValue);
+        setFormValues({
+            ...formValues,
+            orgId: newValue ? newValue.id : ''
+        });
+    };
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('org_id', formValues.orgId);
+        formData.append('Agency_name', formValues.agencyName);
+        formData.append('Agency_email', formValues.agencyEmail);
+
+        fetch('http://52.1.28.231:5000/insert_agency', {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Something went wrong, error is logged');
+            }
+            return response.json();
+        }).then(data => {
+            toast.success('Creation of agency successful');
+        })
+            .catch(error => {
+                toast.error('Something went wrong');
+                console.error('Error:', error);
+            });
+    };
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', margin: '4%' }}>
-            <div >
-                <img src={agencyImage} alt="admin"  width="500px" height="300px" />
+            <div>
+                <img src={agencyImage} alt="admin" width="500px" height="300px" />
             </div>
             <div style={{ marginTop: '40px', paddingLeft: '10px' }}>
-                <form onSubmit={formik.handleSubmit}>
-                    {/* <TextField
-                    fullWidth
-                    id="orgId"
-                    name="orgId"
-                    label="Organisation ID"
-                    value={formik.values.orgId}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.touched.orgId && Boolean(formik.errors.orgId)}
-                    helperText={formik.touched.orgId && formik.errors.orgId}
-                    margin="normal"
-                /> */}
-                    <CustomAutoFetchComplete
-                        options={['ds01', 'ds02', 'ds03']}
-                        autoCompleteProps={{
-                            open,
-                            onOpen: () => {
-                                setOpen(true);
-                            },
-                            onClose: () => {
-                                setOpen(false);
-                            },
-                            value: orgId,
-                            onInputChange: handleInputChange,
-                            onKeyDown: (e) => handleEnter(),
-                            getOptionLabel: (option) => option,
-                            isOptionEqualToValue: (option, value) => option === value,
-                        }}
-                        inputProps={{
-                            label: 'Organization ID',
-                            name: 'Org_id',
-                        }}
+                <form onSubmit={handleSubmit}>
+                    <Autocomplete
+                        options={orgOptions}
+                        getOptionLabel={option => option.label}
+                        value={selectedOrg}
+                        onChange={handleOrgChange}
+                        renderInput={params => (
+                            <TextField
+                                {...params}
+                                name='orgId'
+                                label="Organization ID"
+                            />
+                        )}
                     />
                     <TextField
                         fullWidth
                         id="agencyName"
                         name="agencyName"
                         label="Agency name"
-                        disabled={orgId.length <= 0}
-                        value={formik.values.agencyName}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.touched.agencyName && Boolean(formik.errors.agencyName)}
-                        helperText={formik.touched.agencyName && formik.errors.agencyName}
+                        disabled={formValues.orgId.length <= 0}
+                        value={formValues.agencyName}
+                        onChange={handleChange}
                         margin="normal"
                     />
                     <TextField
@@ -121,12 +105,9 @@ const Agencyform = () => {
                         id="agencyEmail"
                         name="agencyEmail"
                         label="Agency email"
-                        value={formik.values.agencyEmail}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        disabled={orgId.length <= 0}
-                        error={formik.touched.agencyEmail && Boolean(formik.errors.agencyEmail)}
-                        helperText={formik.touched.agencyEmail && formik.errors.agencyEmail}
+                        value={formValues.agencyEmail}
+                        onChange={handleChange}
+                        disabled={formValues.agencyName.length <= 0}
                         margin="normal"
                     />
 
