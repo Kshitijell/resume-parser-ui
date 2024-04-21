@@ -54,6 +54,7 @@
     "dev": "set NODE_OPTIONS=--max_old_space_size=4096 && vite",
     "start": "vite preview",
     "build": "vite build",
+    "serve": "vite",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "rm:all": "rm -rf node_modules .next out dist build",
     "re:start": "yarn rm:all && yarn install && yarn dev",
