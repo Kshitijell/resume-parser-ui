@@ -1,0 +1,1 @@
+export { default as CustomTabPanel } from './custom-tab-panel'

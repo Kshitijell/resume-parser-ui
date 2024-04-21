@@ -33,7 +33,7 @@ const Selectionpage = () => {
             boxShadow: ' 0px 4px 34.3px 2px rgba(30, 45, 87, 0.24)',
 
             display: 'flex',
-            padding: '45px',
+            padding: '20px',
             justifyContent:"space-evenly"
           }}
         >

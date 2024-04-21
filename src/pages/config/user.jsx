@@ -7,8 +7,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { Box, IconButton } from '@mui/material';
+import { Box, Grid, IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { createUserImage } from 'src/assets/images';
+import CustomAutoFetchComplete from 'src/components/custom-autocomplete/custom-auto-fetch-complete';
 
 const validationSchema = Yup.object({
     orgId: Yup.string().required('Organization ID is required'),
@@ -58,6 +60,14 @@ const handleSubmit = (values) => {
 
 
 const Userform = () => {
+    const [orgId, setOrgId] = React.useState('');
+    const [open, setOpen] = React.useState(false);
+
+    const handleInputChange = (event, newInputValue) => {
+        event?.preventDefault();
+        setOrgId(newInputValue);
+    };
+
     const formik = useFormik({
         initialValues,
         validationSchema,
@@ -67,70 +77,104 @@ const Userform = () => {
     });
 
     return (
-        <Box sx={{
-            height: '100%',
-            width: 1,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: '#E0FFFF'
-        }}>
-            <Card>
-                <IconButton sx={{ padding: '5px', margin: '10px' }} onClick={() => window.history.back()} aria-label="back" title='Back to selection'>
-                    <ArrowBackIcon />
-                </IconButton>
-                <CardContent>
-                    <form onSubmit={formik.handleSubmit}>
-                        <TextField
-                            fullWidth
-                            id="orgId"
-                            name="orgId"
-                            label="Organisation ID"
-                            value={formik.values.orgId}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.orgId && Boolean(formik.errors.orgId)}
-                            helperText={formik.touched.orgId && formik.errors.orgId}
-                            margin="normal"
-                        />
-                        <TextField
-                            fullWidth
-                            id="accessLevel"
-                            name="accessLevel"
-                            label="Access Level"
-                            value={formik.values.accessLevel}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.accessLevel && Boolean(formik.errors.accessLevel)}
-                            helperText={formik.touched.accessLevel && formik.errors.accessLevel}
-                            margin="normal"
-                        />
-                        <TextField
-                            fullWidth
-                            id="username"
-                            name="username"
-                            label="Username"
-                            value={formik.values.username}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.username && Boolean(formik.errors.username)}
-                            helperText={formik.touched.username && formik.errors.username}
-                            margin="normal"
-                        />
-                        <TextField
-                            fullWidth
-                            id="password"
-                            name="password"
-                            label="Password"
-                            type="password"
-                            value={formik.values.password}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.password && Boolean(formik.errors.password)}
-                            helperText={formik.touched.password && formik.errors.password}
-                            margin="normal"
-                        />
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '4%' }}>
+            <div>
+                <img src={createUserImage} alt="admin" width="500px" height="300px" />
+            </div>
+            <div style={{ paddingLeft: '30px' }}>
+                <form onSubmit={formik.handleSubmit}>
+                    {/* <TextField
+                        sx={{ width: '35%', padding: '5px' }}
+                        id="accessLevel"
+                        name="accessLevel"
+                        label="Access Level"
+                        value={formik.values.accessLevel}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.accessLevel && Boolean(formik.errors.accessLevel)}
+                        helperText={formik.touched.accessLevel && formik.errors.accessLevel}
+                        margin="normal"
+                    /> */}
+                    <CustomAutoFetchComplete
+                        options={['ds01', 'ds02', 'ds03']}
+                        autoCompleteProps={{
+                            open,
+                            onOpen: () => {
+                                setOpen(true);
+                            },
+                            onClose: () => {
+                                setOpen(false);
+                            },
+                            value: orgId,
+                            onInputChange: handleInputChange,
+                            onKeyDown: (e) => handleEnter(),
+                            getOptionLabel: (option) => option,
+                            isOptionEqualToValue: (option, value) => option === value,
+                        }}
+                        inputProps={{
+                            label: 'Organization ID',
+                            name: 'Org_id',
+                        }}
+                    />
+                    <TextField
+                        sx={{ width: '50%', padding: '5px', borderColor: 'black' }}
+                        id="username"
+                        name="username"
+                        label="Username"
+                        value={formik.values.username}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.username && Boolean(formik.errors.username)}
+                        helperText={formik.touched.username && formik.errors.username}
+                        margin="normal"
+                    />
+                    <TextField
+                        sx={{ width: '50%', padding: '5px' }}
+                        id="password"
+                        name="password"
+                        label="Password"
+                        type="password"
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.password && Boolean(formik.errors.password)}
+                        helperText={formik.touched.password && formik.errors.password}
+                        margin="normal"
+                    />
+
+                    <Grid>
                         <FormControlLabel
+                            sx={{ width: '20%', padding: '5px' }}
+                            control={
+                                <Checkbox
+                                    id="admin"
+                                    name="admin"
+                                    checked={formik.values.admin}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                />
+                            }
+                            label="Ranker"
+                        />
+                    </Grid>
+                    <Grid>
+                        <FormControlLabel
+                            sx={{ width: '20%', padding: '5px' }}
+                            control={
+                                <Checkbox
+                                    id="admin"
+                                    name="admin"
+                                    checked={formik.values.admin}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                />
+                            }
+                            label="Parser"
+                        />
+                    </Grid>
+                    <Grid>
+                        <FormControlLabel
+                            sx={{ width: '15%', padding: '5px' }}
                             control={
                                 <Checkbox
                                     id="admin"
@@ -142,27 +186,16 @@ const Userform = () => {
                             }
                             label="Admin"
                         />
-                        <TextField
-                            fullWidth
-                            id="applicationAccess"
-                            name="applicationAccess"
-                            label="Application Access"
-                            value={formik.values.applicationAccess}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.applicationAccess && Boolean(formik.errors.applicationAccess)}
-                            helperText={formik.touched.applicationAccess && formik.errors.applicationAccess}
-                            margin="normal"
-                        />
-                        <Box display="flex" justifyContent="center" marginTop={2}>
-                            <Button color="primary" variant="contained" type="submit">
-                                Create User
-                            </Button>
-                        </Box>
-                    </form>
-                </CardContent>
-            </Card>
-        </Box>
+                    </Grid>
+                    <Box display="flex" justifyContent="center" marginTop={2}>
+                        <Button color="primary" variant="contained" type="submit">
+                            Create User
+                        </Button>
+                    </Box>
+                </form>
+            </div>
+        </div>
+
     );
 };
 

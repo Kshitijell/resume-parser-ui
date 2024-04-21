@@ -6,6 +6,7 @@ import {
   CircularProgress,
   FormControl,
   FormControlLabel,
+  IconButton,
   Radio,
   RadioGroup,
 } from '@mui/material';
@@ -18,6 +19,8 @@ import Iconify from 'src/components/iconify';
 import { Upload } from 'src/components/upload';
 import './login_main.css';
 import CustomAutoFetchComplete from 'src/components/custom-autocomplete/custom-auto-fetch-complete';
+import { parserBackground } from 'src/assets/images';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const validationSchema = Yup.object({
   inputValue: Yup.string().required('Please enter/select a requisition id.'),
@@ -176,33 +179,40 @@ function ResumeParser() {
   return (
     <Box
       sx={{
-        height: '100%',
-        width: 1,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        height: '-webkit-fill-available',
+        backgroundImage: `url(${parserBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        position: 'relative',
+        padding: '3% 20%',
       }}
     >
-      <Card
+      <Box
         sx={{
-          width: '90%',
-          borderRadius: '30px',
+          height: '100%',
+          borderRadius: '11px',
+          borderradius: '11px',
+          // opacity: '0.11',
+          background: 'rgba(246, 248, 253, 0.65)',
+          boxShadow: ' 0px 4px 34.3px 2px rgba(30, 45, 87, 0.24)',
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 2,
-          height: '90%'
+          padding: '20px',
+          justifyContent: "space-evenly",
         }}
       >
-        <CardContent
-          sx={{
-            width: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-          }}
-        >
-          <Box display="flex" flexDirection="row" gap={3}>
+        <Card sx={{ width: '100%' }}>
+          <div style={{ marginTop: '10px' }}>
+            <IconButton onClick={() => window.history.back()} aria-label="back" title='Back to selection'>
+              <ArrowBackIcon />
+            </IconButton>
+          </div>
+          <CardContent
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 1,
+            }}
+          >
             <FormControl>
               <RadioGroup
                 row
@@ -216,6 +226,7 @@ function ResumeParser() {
                 }}
                 onChange={handleRadioButtonChange}
               >
+
                 <FormControlLabel
                   value="new"
                   control={
@@ -240,9 +251,8 @@ function ResumeParser() {
                 />
               </RadioGroup>
             </FormControl>
-          </Box>
-          <Box display="flex" flexDirection="column" sx={{ width: '200px' }} gap={1}>
             <CustomAutoFetchComplete
+              sx={{ width: '30%' }}
               options={reqIds}
               autoCompleteProps={{
                 open,
@@ -264,48 +274,49 @@ function ResumeParser() {
                 name: 'req_id',
               }}
             />
-          </Box>
 
-          <Box sx={{ display: 'flex', justifyContent: 'space-around', gap: 2 }}>
-            {selectedOption === 'new' && (
+
+
+            <Box sx={{ display: 'flex', justifyContent: 'space-around', gap: 2 }}>
+              {selectedOption === 'new' && (
+                <Upload
+                  label="Upload JD"
+                  multiple
+                  files={uploadedFiles}
+                  accept={{
+                    'application/pdf': ['.docx'],
+                  }}
+                  onDrop={handleFileUpload}
+                  onRemove={handleRemoveFile}
+                  isDirectUploadFile
+                />
+              )}
               <Upload
-                label="Upload JD"
                 multiple
-                files={uploadedFiles}
+                label="Upload Resume"
+                files={[]}
                 accept={{
                   'application/pdf': ['.docx'],
                 }}
-                onDrop={handleFileUpload}
-                onRemove={handleRemoveFile}
+                onDrop={handleFileChange}
+                disabled={uploadResume}
                 isDirectUploadFile
               />
-            )}
-            <Upload
-              multiple
-              label="Upload Resume"
-              files={[]}
-              accept={{
-                'application/pdf': ['.docx'],
-              }}
-              onDrop={handleFileChange}
-              disabled={uploadResume}
-              isDirectUploadFile
-            />
-          </Box>
-          {formError && <div className="error-message">{formError}</div>}
-          <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
-            <Button
-              startIcon={tableLoading ? <CircularProgress size={15} /> : null}
-              variant="contained"
-              color="secondary"
-              onClick={handleSubmit}
-              disabled={tableLoading || uploadResume}
-            >
-              Recommend Best Candidate
-            </Button>
-          </Box>
-        </CardContent>
-      </Card>
+            </Box>
+            {formError && <div className="error-message">{formError}</div>}
+            <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
+              <Button
+                startIcon={tableLoading ? <CircularProgress size={15} /> : null}
+                variant="contained"
+                onClick={handleSubmit}
+                disabled={tableLoading || uploadResume}
+              >
+                Recommend Best Candidate
+              </Button>
+            </Box>
+          </CardContent>
+        </Card>
+      </Box>
     </Box>
   );
 }

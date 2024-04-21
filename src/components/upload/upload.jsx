@@ -49,7 +49,7 @@ export default function Upload({
   const renderPlaceholder = (
     <Stack spacing={3} alignItems="center" justifyContent="center" flexWrap="wrap">
       {/* <UploadIllustration sx={{ width: 1, maxWidth: 200 }} /> */}
-      <Stack spacing={1} sx={{ textAlign: 'center',marginTop:'150px' }}>
+      <Stack spacing={1} sx={{ textAlign: 'center', marginTop: '150px' }}>
         <Typography variant="body5" sx={{ color: 'text.secondary' }}>Browse PDF Documents</Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           OR
@@ -107,8 +107,8 @@ export default function Upload({
   );
 
   return (
-    <Box sx={{ width: 1, position: 'relative', ...sx }}>
-      {label && <Typography variant='body1' sx={{color:'text.secondary'}}>{label}</Typography>}
+    <Box sx={{ width: 1, position: 'relative', padding: 1, ...sx }}>
+      {label && <Typography variant='body1' sx={{ color: 'text.secondary' }}>{label}</Typography>}
       <Box
         {...getRootProps()}
         sx={{

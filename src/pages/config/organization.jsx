@@ -3,24 +3,22 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import { toast } from 'react-toastify';
-import { Box, IconButton } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Box } from '@mui/material';
+import { orgnizationImage } from 'src/assets/images';
 
 const validationSchema = Yup.object({
     orgId: Yup.string().required('Organization ID is required'),
-    orgName: Yup.string().required('Organization name is required'),
-    apiKey: Yup.string().required('Api key is required'),
-
+    orgName: Yup.string()
+        .required('Organization name is required')
+        .matches(/^[A-Za-z]+$/, 'Organization name must contain\nonly alphabetic characters'), // Error message with newline
+    apiKey: Yup.string().required('API key is required'),
 });
 
 const initialValues = {
     orgId: '',
     orgName: '',
     apiKey: '',
-
 };
 
 const handleSubmit = (values) => {
@@ -31,93 +29,76 @@ const handleSubmit = (values) => {
 
     fetch('http://52.1.28.231:5000/insert_organization', {
         method: 'POST',
-        body: formData
+        body: formData,
     })
-        .then(response => {
+        .then((response) => {
             if (!response.ok) {
                 throw new Error('Something went wrong error is consoled');
             }
             return response.json();
         })
-        .then(data => {
-            toast.success('Creation of organization successful')
-
+        .then((data) => {
+            toast.success('Creation of organization successful');
         })
-        .catch(error => {
+        .catch((error) => {
             console.error('Error:', error);
         });
-}
+};
 
 const Organizationform = () => {
     const formik = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: (values) => {
-            handleSubmit(values)
-        },
+        onSubmit: handleSubmit,
     });
 
     return (
-        <Box sx={{
-            height: '100%',
-            width: 1,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: '#E0FFFF'
-        }}>
-            <Card>
-                <IconButton sx={{ padding: '5px', margin: '10px' }} onClick={() => window.history.back()} aria-label="back" title='Back to selection'>
-                    <ArrowBackIcon />
-                </IconButton>
-                <CardContent>
-                    <form onSubmit={formik.handleSubmit}>
-                        <TextField
-                            fullWidth
-                            id="orgId"
-                            name="orgId"
-                            label="Organisation ID"
-                            value={formik.values.orgId}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.orgId && Boolean(formik.errors.orgId)}
-                            helperText={formik.touched.orgId && formik.errors.orgId}
-                            margin="normal"
-                        />
-                        <TextField
-                            fullWidth
-                            id="orgName"
-                            name="orgName"
-                            label="Organization name"
-                            value={formik.values.orgName}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.orgName && Boolean(formik.errors.orgName)}
-                            helperText={formik.touched.orgName && formik.errors.orgName}
-                            margin="normal"
-                        />
-                        <TextField
-                            fullWidth
-                            id="apiKey"
-                            name="apiKey"
-                            label="Api key"
-                            value={formik.values.apiKey}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.apiKey && Boolean(formik.errors.apiKey)}
-                            helperText={formik.touched.apiKey && formik.errors.apiKey}
-                            margin="normal"
-                        />
-
-                        <Box display="flex" justifyContent="center" marginTop={2}>
-                            <Button color="primary" variant="contained" type="submit">
-                                Create Organization
-                            </Button>
-                        </Box>
-                    </form>
-                </CardContent>
-            </Card>
-        </Box>
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '4%' }}>
+            <div>
+                <img src={orgnizationImage} alt="admin"  width="500px" height="300px"  />
+            </div>
+            <div style={{ marginTop: '60px' }}>
+                <form onSubmit={formik.handleSubmit}>
+                    <TextField
+                        fullWidth
+                        id="orgName"
+                        name="orgName"
+                        label="Organization name"
+                        value={formik.values.orgName}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.orgName && Boolean(formik.errors.orgName)}
+                        helperText={formik.touched.orgName && formik.errors.orgName ? (
+                            <span style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word', display: 'block' }}>
+                                {formik.errors.orgName}
+                            </span>
+                        ) : ''}
+                        margin="normal"
+                    />
+                    <TextField
+                        fullWidth
+                        id="apiKey"
+                        name="apiKey"
+                        label="API key"
+                        value={formik.values.apiKey}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.apiKey && Boolean(formik.errors.apiKey)}
+                        helperText={formik.touched.apiKey && formik.errors.apiKey ? (
+                            <span style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word', display: 'block' }}>
+                                {formik.errors.apiKey}
+                            </span>
+                        ) : ''}
+                        margin="normal"
+                    />
+                    <Box display="flex" justifyContent="center" marginTop={2}>
+                        <Button color="primary" variant="contained" type="submit">
+                            Create Organization
+                        </Button>
+                    </Box>
+                </form>
+            </div>
+        </div>
     );
 };
 

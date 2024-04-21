@@ -5,10 +5,11 @@ import { StyledAutocomplete } from './styles';
 
 const CustomAutoFetchComplete = ({ options, inputProps, autoCompleteProps, ...other }) => (
   <StyledAutocomplete
-    options={options}
+    sx={{ width: '100%' }}
+     options={options}
     {...autoCompleteProps}
     {...other}
-    renderInput={(params) => <CustomTextField {...params} {...inputProps}  />}
+    renderInput={(params) => <CustomTextField {...params} {...inputProps} />}
   />
 );
 

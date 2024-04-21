@@ -69,7 +69,7 @@ const Login = () => {
     <div className="main-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="card-container">
-          <img src={logo_black_emergys} alt='logo' className='logo' style={{ width: '20%' }} />
+          <img src={logo_black_emergys} alt="black_emergys" />
           <Card sx={{ height: '540px', width: '140%', left: '300px' }}>
             <CardContent>
               <Typography variant='h3' sx={{ marginTop: '20px', backgroundImage: 'linear-gradient(to right, #ff7e5f, #feb47b, #ffeda7)' }}>RecruitSmart</Typography>
@@ -107,10 +107,10 @@ const Login = () => {
           </Card>
         </div>
 
-      </form>
+      </form >
 
       {loggedIn && <Link to="/main">Go to Home</Link>}
-    </div>
+    </div >
 
   );
 };

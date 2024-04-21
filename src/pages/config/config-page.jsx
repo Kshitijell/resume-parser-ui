@@ -1,26 +1,19 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import { useNavigate } from 'react-router-dom';
-import { Button, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { adminBackgroundImage, agencyImage } from 'src/assets/images';
-import { createUserImage } from 'src/assets/images';
-import { orgnizationImage } from 'src/assets/images';
+import { adminBackgroundImage } from 'src/assets/images';
+import { CustomTabPanel } from 'src/components/custom-tab-panel';
+import Organizationform from './organization';
+import Userform from './user';
+import Agencyform from './agency';
+
 
 const Configpage = () => {
-    const navigate = useNavigate()
-    const handleCreateUser = () => {
-        navigate('/admin/create-user')
-    };
-
-    const handleCreateOrganization = () => {
-        navigate('/admin/create-organization')
-    };
-
-    const handleCreateAgency = () => {
-        navigate('/admin/create-agency')
-    };
+    const window_1 = <Organizationform />
+    const window_2 = <Userform />
+    const window_3 = <Agencyform />
 
     return (
         <>
@@ -31,7 +24,7 @@ const Configpage = () => {
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     position: 'relative',
-                    padding: '6% 12%',
+                    padding: '2%'
                 }}
             >
                 <Box sx={{
@@ -42,16 +35,26 @@ const Configpage = () => {
                     background: 'rgba(246, 248, 253, 0.65)',
                     boxShadow: ' 0px 4px 34.3px 2px rgba(30, 45, 87, 0.24)',
                     display: 'flex',
-                    padding: '45px',
+                    padding: '25px',
                     justifyContent: "space-evenly",
-                    paddingLeft: '1px',
                 }}>
-                    <div >
-                        <IconButton onClick={() => window.history.back()} aria-label="back" title='Back to selection'>
-                            <ArrowBackIcon />
-                        </IconButton>
-                    </div>
+
                     <Card sx={{
+                        padding: '10px',
+                        borderRadius: '10px',
+                        boxShadow: 3,
+                        width: '100%',
+                        height: '100%',
+                        marginRight: '10px',
+                        paddingTop: "20px"
+                    }} style={{ marginBottom: '10px' }}>
+                        <div >
+                            <IconButton onClick={() => window.history.back()} aria-label="back" title='Back to selection'>
+                                <ArrowBackIcon />
+                            </IconButton>
+                        </div>
+                        {/*
+                       <Card sx={{
                         padding: '10px',
                         cursor: 'pointer',
                         borderRadius: '10px',
@@ -113,8 +116,12 @@ const Configpage = () => {
                             onClick={handleCreateAgency}
                         >
                             Create Agency
-                        </Button>
+                        </Button> 
+                        </Card>
+                        */}
+                        <CustomTabPanel item_1={window_1} item_2={window_2} item_3={window_3} />
                     </Card>
+
                 </Box>
             </Box >
         </>
