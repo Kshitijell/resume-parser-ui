@@ -74,7 +74,7 @@ const Login = () => {
         <div className="card-container">
           <Card sx={{ height: '540px', width: '140%', left: '300px' }}>
             <CardContent>
-              <Typography variant='h3' sx={{ marginTop: '20px', backgroundImage: 'linear-gradient(to right, #ff7e5f, #feb47b, #ffeda7)' }}>RecruitSmart</Typography>
+              <Typography variant='h3' sx={{ marginTop: '20px', backgroundImage: 'linear-gradient(to right, #ff7e5f, #feb47b, #ffeda7)' }}>AccuHire</Typography>
               <br />
               <Grid>
                 <Typography variant='h6'>Take the next step towards</Typography>

@@ -37,7 +37,10 @@ const Organizationform = () => {
                 return response.json();
             })
             .then((data) => {
-                toast.success('Creation of organization successful');
+                if (data?.message.includes('Inserted into organization_table')) {
+                    setFormValues(initialFormValues)
+                    toast.success('Creation of user successful')
+                }
             })
             .catch((error) => {
                 toast.error('Something went wrong');
@@ -56,7 +59,7 @@ const Organizationform = () => {
                         fullWidth
                         id="orgName"
                         name="orgName"
-                        label="Organization Name"
+                        label="Organization Name*"
                         value={formValues.orgName}
                         onChange={handleChange}
                         margin="normal"
@@ -65,7 +68,7 @@ const Organizationform = () => {
                         fullWidth
                         id="apiKey"
                         name="apiKey"
-                        label="API Key"
+                        label="API Key*"
                         value={formValues.apiKey}
                         onChange={handleChange}
                         margin="normal"

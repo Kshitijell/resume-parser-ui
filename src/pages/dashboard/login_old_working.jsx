@@ -146,7 +146,7 @@ function ScreenComponent() {
           }}
         >
           <Typography variant="h5" align="center" color="#fff" gutterBottom>
-            RecruitSmart
+            AccuHire
           </Typography>
           <Card
             sx={{

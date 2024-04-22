@@ -2,7 +2,7 @@ import React from 'react';
 import Card from '@mui/material/Card';
 import { Box, Button, } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { adminLogo,parserLogo,rankerLogo,selectionBackgroundImage } from 'src/assets/images';
+import { adminLogo, parserLogo, rankerLogo, selectionBackgroundImage } from 'src/assets/images';
 
 
 const Selectionpage = () => {
@@ -34,7 +34,7 @@ const Selectionpage = () => {
 
             display: 'flex',
             padding: '20px',
-            justifyContent:"space-evenly"
+            justifyContent: "space-evenly"
           }}
         >
           {userDetails?.isAdmin.includes('true') && (
@@ -47,12 +47,12 @@ const Selectionpage = () => {
                 width: '450px',
                 height: '100%',
                 marginRight: '10px',
-                paddingTop:"20px"
+                paddingTop: "20px"
               }}
             >
               {/* <Logo/> */}
-              <div style={{ height: '90%',padding:"10%",display:"flex" }}>
-              <img src={adminLogo} alt='admin'/>
+              <div style={{ height: '90%', padding: "10%", display: "flex" }}>
+                <img src={adminLogo} alt='admin' />
               </div>
               <Button
                 variant="contained"
@@ -73,11 +73,11 @@ const Selectionpage = () => {
                 width: '450px',
                 height: '100%',
                 marginRight: '10px',
-                paddingTop:"20px"
+                paddingTop: "20px"
               }}
             >
-              <div style={{ height: '90%',padding:"10%",display:"flex" }}>
-              <img src={rankerLogo} alt='admin' />
+              <div style={{ height: '90%', padding: "10%", display: "flex" }}>
+                <img src={rankerLogo} alt='admin' />
 
                 {/* <img src={'../../assets/adminLogo.svg'} /> */}
               </div>
@@ -99,11 +99,11 @@ const Selectionpage = () => {
                 boxShadow: 3,
                 width: '450px',
                 height: '100%',
-                paddingTop:"20px"
+                paddingTop: "20px"
               }}
             >
-              <div style={{ height: '90%',padding:"10%",display:"flex" }}>
-                <img src={parserLogo} alt='admin'/>
+              <div style={{ height: '90%', padding: "10%", display: "flex" }}>
+                <img src={parserLogo} alt='admin' />
               </div>
               <Button
                 variant="contained"

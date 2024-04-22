@@ -38,7 +38,7 @@ export default function Header({ onOpenNav }) {
         spacing={{ xs: 0.5, sm: 1 }}
       >
         <Typography variant="h6" sx={{ color: '#2596be' }}>
-          RecruitSmart
+          AccuHire
         </Typography>
         <AccountPopover showOnlyAvatar />
         {/* <SettingsButton /> */}

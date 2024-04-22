@@ -85,6 +85,7 @@ const Userform = () => {
             })
             .then(data => {
                 if (data?.message.includes('Inserted into user_table')) {
+                    setFormValues(initialFormValues)
                     toast.success('Creation of user successful')
                 }
             })
@@ -126,7 +127,7 @@ const Userform = () => {
                             <TextField
                                 {...params}
                                 name='orgId'
-                                label="Organization Name"
+                                label="Organization Name*"
                             />
                         )}
                     />
@@ -141,7 +142,7 @@ const Userform = () => {
                             <TextField
                                 {...params}
                                 name='accessLevel'
-                                label="Access Level"
+                                label="Access Level*"
                             />
                         )}
                     />
@@ -149,7 +150,7 @@ const Userform = () => {
                         sx={{ width: '50%', padding: '5px' }}
                         id="username"
                         name="username"
-                        label="Username"
+                        label="Username*"
                         value={formValues.username}
                         onChange={handleChange}
                         margin="normal"
@@ -159,7 +160,7 @@ const Userform = () => {
                         sx={{ width: '50%', padding: '5px' }}
                         id="password"
                         name="password"
-                        label="Password"
+                        label="Password*"
                         type="password"
                         disabled={formValues.username.length <= 0}
                         value={formValues.password}
@@ -181,29 +182,25 @@ const Userform = () => {
                                 }
                                 label="Admin"
                             />
-                        </Grid>
-                        <Grid item xs={12}>
                             <FormControlLabel
                                 sx={{ padding: '5px' }}
                                 control={
                                     <Checkbox
                                         id="ranker"
                                         name="Ranker"
-                                        checked={formValues.Ranker}
+                                        checked={formValues.Ranker || true}
                                         onChange={handleChange}
                                     />
                                 }
                                 label="Ranker"
                             />
-                        </Grid>
-                        <Grid item xs={12}>
                             <FormControlLabel
                                 sx={{ padding: '5px' }}
                                 control={
                                     <Checkbox
                                         id="parser"
                                         name="Parser"
-                                        checked={formValues.Parser}
+                                        checked={formValues.Parser || true}
                                         onChange={handleChange}
                                     />
                                 }

@@ -62,7 +62,10 @@ const Agencyform = () => {
             }
             return response.json();
         }).then(data => {
-            toast.success('Creation of agency successful');
+            if (data?.message.inculdes('Inserted into agency_table')) {
+                setFormValues(initialFormValues)
+                toast.success('Creation of agency successful');
+            }
         })
             .catch(error => {
                 toast.error('Something went wrong');
@@ -86,7 +89,7 @@ const Agencyform = () => {
                             <TextField
                                 {...params}
                                 name='orgId'
-                                label="Organization ID"
+                                label="Organization ID*"
                             />
                         )}
                     />
@@ -104,7 +107,7 @@ const Agencyform = () => {
                         fullWidth
                         id="agencyEmail"
                         name="agencyEmail"
-                        label="Agency email"
+                        label="Agency email*"
                         value={formValues.agencyEmail}
                         onChange={handleChange}
                         disabled={formValues.agencyName.length <= 0}
