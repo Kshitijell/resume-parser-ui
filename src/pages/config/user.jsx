@@ -13,14 +13,15 @@ const Userform = () => {
         accessLevel: '',
         username: '',
         password: '',
-        admin: false,
-        ranker: false,
-        parser: false,
+        Admin: false,
+        Ranker: false,
+        Parser: false,
         applicationAccess: ''
     });
 
     const [orgOptions, setOrgOptions] = useState([]);
     const [selectedOrg, setSelectedOrg] = useState(null);
+    const [selectedAccess, setSelectedAccess] = useState(null)
 
     useEffect(() => {
         fetch('http://52.1.28.231:5000/get_all_organizations')
@@ -38,12 +39,27 @@ const Userform = () => {
     }, []);
 
     const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormValues({
-            ...formValues,
-            [name]: type === 'checkbox' ? checked : value
-        });
+        const { name, type, checked } = e.target;
+        let newApplicationAccess = [...formValues.applicationAccess];
+        setFormValues((prevFormValues) => ({
+            ...prevFormValues,
+            [name]: type === 'checkbox' ? checked : e.target.value
+        }));
+        if (type === 'checkbox') {
+            if (checked) {
+
+                newApplicationAccess.push(name);
+            } else {
+                newApplicationAccess = newApplicationAccess.filter((accessType) => accessType !== name);
+            }
+            setFormValues((prevFormValues) => ({
+                ...prevFormValues,
+                applicationAccess: newApplicationAccess
+            }));
+        }
     };
+
+    useEffect(() => { console.log(formValues.applicationAccess) }, [formValues.applicationAccess])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -52,9 +68,9 @@ const Userform = () => {
         formData.append('Access_level', formValues.accessLevel);
         formData.append('User_name', formValues.username);
         formData.append('Password', formValues.password);
-        formData.append('IsAdmin', formValues.admin.toString());
-        formData.append('IsRanker', formValues.ranker.toString());
-        formData.append('IsParser', formValues.parser.toString());
+        formData.append('IsAdmin', formValues.Admin.toString());
+        formData.append('IsRanker', formValues.Ranker.toString());
+        formData.append('IsParser', formValues.Parser.toString());
         formData.append('Application', formValues.applicationAccess);
 
         fetch('http://52.1.28.231:5000/insert_user', {
@@ -67,7 +83,11 @@ const Userform = () => {
                 }
                 return response.json();
             })
-            .then(toast.success('Creation of user success'))
+            .then(data => {
+                if (data?.message.includes('Inserted into user_table')) {
+                    toast.success('Creation of user successful')
+                }
+            })
             .catch(error => {
                 toast.error('Something went wrong');
                 console.error('Error:', error);
@@ -79,6 +99,14 @@ const Userform = () => {
         setFormValues({
             ...formValues,
             orgId: newValue ? newValue.id : ''
+        });
+    };
+
+    const handleAccessChange = (event, newValue) => {
+        setSelectedAccess(newValue);
+        setFormValues({
+            ...formValues,
+            accessLevel: newValue ? newValue.id : ''
         });
     };
 
@@ -98,7 +126,22 @@ const Userform = () => {
                             <TextField
                                 {...params}
                                 name='orgId'
-                                label="Organization ID"
+                                label="Organization Name"
+                            />
+                        )}
+                    />
+                    <br />
+                    <Autocomplete
+                        options={[{ id: 'superuser', label: 'Super User' }, { id: 'user', label: 'User' }]}
+                        getOptionLabel={option => option.label}
+                        value={selectedAccess}
+                        disabled={formValues.orgId.length <= 0}
+                        onChange={handleAccessChange}
+                        renderInput={params => (
+                            <TextField
+                                {...params}
+                                name='accessLevel'
+                                label="Access Level"
                             />
                         )}
                     />
@@ -124,14 +167,15 @@ const Userform = () => {
                         margin="normal"
                     />
                     <Grid container spacing={1}>
+
                         <Grid item xs={12}>
                             <FormControlLabel
                                 sx={{ padding: '5px' }}
                                 control={
                                     <Checkbox
                                         id="admin"
-                                        name="admin"
-                                        checked={formValues.admin}
+                                        name="Admin"
+                                        checked={formValues.Admin}
                                         onChange={handleChange}
                                     />
                                 }
@@ -144,8 +188,8 @@ const Userform = () => {
                                 control={
                                     <Checkbox
                                         id="ranker"
-                                        name="ranker"
-                                        checked={formValues.ranker}
+                                        name="Ranker"
+                                        checked={formValues.Ranker}
                                         onChange={handleChange}
                                     />
                                 }
@@ -158,8 +202,8 @@ const Userform = () => {
                                 control={
                                     <Checkbox
                                         id="parser"
-                                        name="parser"
-                                        checked={formValues.parser}
+                                        name="Parser"
+                                        checked={formValues.Parser}
                                         onChange={handleChange}
                                     />
                                 }

@@ -37,7 +37,7 @@ const Selectionpage = () => {
             justifyContent:"space-evenly"
           }}
         >
-          {userDetails?.isAdmin.includes('True') && (
+          {userDetails?.isAdmin.includes('true') && (
             <Card
               sx={{
                 padding: '10px',

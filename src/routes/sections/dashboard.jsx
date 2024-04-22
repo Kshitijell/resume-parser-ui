@@ -33,7 +33,7 @@ export const DashboardRoutes = () => [
       },
       {
         path: 'parser',
-        element: <ResumeParser />,
+        element: <PowerAppsPage />,
       },
       {
         path: 'table',
@@ -41,23 +41,11 @@ export const DashboardRoutes = () => [
       },
       {
         path: 'ranker',
-        element: <PowerAppsPage />,
+        element: <ResumeParser />,
       },
       {
         path: 'admin',
         element: <ConfigPage />,
-      },
-      {
-        path: 'admin/create-user',
-        element: <UserCreationPage />,
-      },
-      {
-        path: 'admin/create-agency',
-        element: <AgencyCreationPage />,
-      },
-      {
-        path: 'admin/create-organization',
-        element: <OrganizationCreationPage />,
       },
     ],
   },
