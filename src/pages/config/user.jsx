@@ -198,7 +198,7 @@ const Userform = () => {
                                     <Checkbox
                                         id="ranker"
                                         name="Ranker"
-                                        checked={formValues.Ranker || true}
+                                        checked={formValues.Ranker}
                                         onChange={handleChange}
                                     />
                                 }
@@ -210,7 +210,7 @@ const Userform = () => {
                                     <Checkbox
                                         id="parser"
                                         name="Parser"
-                                        checked={formValues.Parser || true}
+                                        checked={formValues.Parser}
                                         onChange={handleChange}
                                     />
                                 }

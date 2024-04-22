@@ -95,7 +95,7 @@ const Agencyform = () => {
                         fullWidth
                         id="agencyName"
                         name="agencyName"
-                        label="Agency name"
+                        label="Agency name*"
                         disabled={formValues.orgId.length <= 0}
                         value={formValues.agencyName}
                         onChange={handleChange}
