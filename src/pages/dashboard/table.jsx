@@ -171,7 +171,7 @@ function TableComponent() {
                     sx={{ textTransform: 'none' }}
                     variant="contained"
                     onClick={() => {
-                      navigate('/parser');
+                      navigate('/ranker');
                     }}
                   >
                     Back
