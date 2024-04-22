@@ -84,8 +84,18 @@ const Userform = () => {
                 return response.json();
             })
             .then(data => {
-                if (data?.message.includes('Inserted into user_table')) {
-                    setFormValues(initialFormValues)
+                if (data?.message?.includes('Inserted into user_table')) {
+                    setSelectedOrg(null)
+                    setFormValues({
+                        orgId: '',
+                        accessLevel: '',
+                        username: '',
+                        password: '',
+                        Admin: false,
+                        Ranker: false,
+                        Parser: false,
+                        applicationAccess: ''
+                    })
                     toast.success('Creation of user successful')
                 }
             })

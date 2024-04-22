@@ -13,10 +13,8 @@ const initialFormValues = {
 
 const Agencyform = () => {
     const [formValues, setFormValues] = useState(initialFormValues);
-
     const [orgOptions, setOrgOptions] = useState([]);
     const [selectedOrg, setSelectedOrg] = useState(null);
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
@@ -62,15 +60,15 @@ const Agencyform = () => {
             }
             return response.json();
         }).then(data => {
-            if (data?.message.inculdes('Inserted into agency_table')) {
+            if (data?.message?.includes('Inserted into agency_table')) {
+                setSelectedOrg(null)
                 setFormValues(initialFormValues)
-                toast.success('Creation of agency successful');
+                toast.success('Creation of user successful')
             }
-        })
-            .catch(error => {
-                toast.error('Something went wrong');
-                console.error('Error:', error);
-            });
+        }).catch(error => {
+            toast.error('Something went wrong');
+            console.error('Error:', error);
+        });
     };
 
     return (
