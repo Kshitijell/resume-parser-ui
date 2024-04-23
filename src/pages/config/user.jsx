@@ -130,16 +130,22 @@ const Userform = () => {
                 <form onSubmit={handleSubmit}>
                     <Autocomplete
                         options={orgOptions}
-                        getOptionLabel={option => option?.label}
+                        getOptionLabel={(option) => option?.label}
                         value={selectedOrg}
                         onChange={handleOrgChange}
-                        renderInput={params => (
+                        renderInput={(params) => (
                             <TextField
                                 {...params}
                                 name='orgId'
-                                label="Organization Name*"
-                                inputProps={{ style: { fontSize: 19 } }}
-                                InputLabelProps={{ style: { fontSize: 19 } }}
+                                label='Organization ID'
+                                sx={{
+                                    label: {
+                                        fontSize: '20px',
+                                    },
+                                    input: {
+                                        fontSize: '20px',
+                                    },
+                                }}
                             />
                         )}
                     />
@@ -153,10 +159,16 @@ const Userform = () => {
                         renderInput={params => (
                             <TextField
                                 {...params}
-                                inputProps={{ style: { fontSize: 19, cursor: formValues?.orgId.length <= 0 ? 'not-allowed' : 'auto' } }}
-                                InputLabelProps={{ style: { fontSize: 19 } }}
                                 name='accessLevel'
                                 label="Access Level*"
+                                sx={{
+                                    label: {
+                                        fontSize: '20px',
+                                    },
+                                    input: {
+                                        fontSize: '20px',
+                                    },
+                                }}
                             />
                         )}
                     />
@@ -182,7 +194,7 @@ const Userform = () => {
                         value={formValues?.password}
                         onChange={handleChange}
                         margin="normal"
-                        inputProps={{ style: { fontSize: 19, cursor: formValues?.orgId.length <= 0 ? 'not-allowed' : 'auto' } }}
+                        inputProps={{ style: { fontSize: 19, cursor: formValues?.username.length <= 0 ? 'not-allowed' : 'auto' } }}
                         InputLabelProps={{ style: { fontSize: 19 } }}
                     />
                     <Grid container spacing={1}>

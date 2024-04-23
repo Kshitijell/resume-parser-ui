@@ -88,8 +88,14 @@ const Agencyform = () => {
                                 {...params}
                                 name='orgId'
                                 label="Organization ID*"
-                                inputProps={{ style: { fontSize: 19 } }}
-                                InputLabelProps={{ style: { fontSize: 19 } }}
+                                sx={{
+                                    label: {
+                                        fontSize: '20px',
+                                    },
+                                    input: {
+                                        fontSize: '20px',
+                                    },
+                                }}
                             />
                         )}
                     />

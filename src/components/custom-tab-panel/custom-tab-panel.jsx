@@ -45,16 +45,15 @@ export default function BasicTabs({ item_1, item_2, item_3 }) {
     setValue(newValue);
   };
 
-  // Function to determine the styles for each Tab based on whether it is active
   const getTabStyle = (index) => {
     if (index === value) {
       return {
-        fontSize: '40px', // Font size of 25px when active
+        fontSize: '35px', 
         color: '#2596be',
       };
     } else {
       return {
-        fontSize: '25px', // Default font size when not active
+        fontSize: '20px', 
         color: '#2596be',
       };
     }
