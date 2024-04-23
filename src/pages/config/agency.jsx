@@ -108,8 +108,8 @@ const Agencyform = () => {
                         value={formValues.agencyName}
                         onChange={handleChange}
                         margin="normal"
-                        inputProps={{ style: { fontSize: 19, cursor: formValues?.orgId?.length <= 0 ? 'not-allowed' : 'auto' } }}
-                        InputLabelProps={{ style: { fontSize: 19 } }}
+                        inputProps={{ style: { fontSize: 20, cursor: formValues?.orgId?.length <= 0 ? 'not-allowed' : 'auto' } }}
+                        InputLabelProps={{ style: { fontSize: 20 } }}
                     />
                     <TextField
                         fullWidth
@@ -120,8 +120,8 @@ const Agencyform = () => {
                         onChange={handleChange}
                         disabled={formValues.agencyName.length <= 0}
                         margin="normal"
-                        inputProps={{ style: { fontSize: 19, cursor: formValues?.agencyName?.length <= 0 ? 'not-allowed' : 'auto' } }}
-                        InputLabelProps={{ style: { fontSize: 19 } }}
+                        inputProps={{ style: { fontSize: 20, cursor: formValues?.agencyName?.length <= 0 ? 'not-allowed' : 'auto' } }}
+                        InputLabelProps={{ style: { fontSize: 20 } }}
                     />
 
                     <Box display="flex" justifyContent="center" marginTop={2}>

@@ -181,8 +181,8 @@ const Userform = () => {
                         onChange={handleChange}
                         margin="normal"
                         disabled={formValues.orgId === ''}
-                        inputProps={{ style: { fontSize: 19, cursor: formValues?.orgId.length <= 0 ? 'not-allowed' : 'auto' } }}
-                        InputLabelProps={{ style: { fontSize: 19 } }}
+                        inputProps={{ style: { fontSize: 20, cursor: formValues?.orgId.length <= 0 ? 'not-allowed' : 'auto' } }}
+                        InputLabelProps={{ style: { fontSize: 20 } }}
                     />
                     <TextField
                         sx={{ width: '50%', padding: '5px' }}
@@ -194,8 +194,8 @@ const Userform = () => {
                         value={formValues?.password}
                         onChange={handleChange}
                         margin="normal"
-                        inputProps={{ style: { fontSize: 19, cursor: formValues?.username.length <= 0 ? 'not-allowed' : 'auto' } }}
-                        InputLabelProps={{ style: { fontSize: 19 } }}
+                        inputProps={{ style: { fontSize: 20, cursor: formValues?.username.length <= 0 ? 'not-allowed' : 'auto' } }}
+                        InputLabelProps={{ style: { fontSize: 20 } }}
                     />
                     <Grid container spacing={1}>
 
@@ -204,7 +204,7 @@ const Userform = () => {
                                 sx={{
                                     padding: '5px',
                                     '& .MuiTypography-root': {
-                                        fontSize: '18px',
+                                        fontSize: '20px',
                                     }
                                 }}
                                 control={
@@ -222,7 +222,7 @@ const Userform = () => {
                                 sx={{
                                     padding: '5px',
                                     '& .MuiTypography-root': {
-                                        fontSize: '18px',
+                                        fontSize: '20px',
                                     }
                                 }}
                                 control={
@@ -239,7 +239,7 @@ const Userform = () => {
                                 sx={{
                                     padding: '5px',
                                     '& .MuiTypography-root': {
-                                        fontSize: '18px',
+                                        fontSize: '20px',
                                     }
                                 }}
                                 control={
