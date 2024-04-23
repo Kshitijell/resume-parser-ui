@@ -12,10 +12,17 @@ const CustomTextField = (props) => {
       sx={{
         width: '100%',
         '& .MuiInputBase-root': {
-          height: '44px',
+          height: '55px',
           '& fieldset': {
             borderColor: (theme) => theme.palette.grey[500],
           },
+        },
+
+        label: {
+          fontSize: '20px',
+        },
+        input: {
+          fontSize: '20px',
         },
       }}
       {...configTextfield}

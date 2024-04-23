@@ -202,7 +202,7 @@ function ResumeParser() {
       >
         <Card sx={{ width: '100%' }}>
           <div style={{ marginTop: '10px' }}>
-            <IconButton onClick={() => window.history.back()} aria-label="back" title='Back to selection'>
+            <IconButton onClick={() => navigate('/home')} aria-label="back" title='Back to selection'>
               <ArrowBackIcon />
             </IconButton>
           </div>
@@ -210,7 +210,9 @@ function ResumeParser() {
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              gap: 1,
+              gap: 0.5,
+              paddingTop: '0px',
+              paddingBottom: '0px'
             }}
           >
             <FormControl>
@@ -228,6 +230,12 @@ function ResumeParser() {
               >
 
                 <FormControlLabel
+                  sx={{
+                    padding: '5px',
+                    '& .MuiTypography-root': {
+                      fontSize: '18px',
+                    }
+                  }}
                   value="new"
                   control={
                     <Radio
@@ -239,6 +247,12 @@ function ResumeParser() {
                   labelPlacement="end"
                 />
                 <FormControlLabel
+                  sx={{
+                    padding: '5px',
+                    '& .MuiTypography-root': {
+                      fontSize: '18px',
+                    }
+                  }}
                   value="existing"
                   control={
                     <Radio
@@ -306,6 +320,7 @@ function ResumeParser() {
             {formError && <div className="error-message">{formError}</div>}
             <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
               <Button
+                sx={{ fontSize: '1.2rem' }}
                 startIcon={tableLoading ? <CircularProgress size={15} /> : null}
                 variant="contained"
                 onClick={handleSubmit}

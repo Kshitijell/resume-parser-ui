@@ -47,14 +47,14 @@ export default function Upload({
   const hasError = isDragReject || !!error;
 
   const renderPlaceholder = (
-    <Stack spacing={3} alignItems="center" justifyContent="center" flexWrap="wrap">
+    <Stack spacing={3} alignItems="center" justifyContent="center" flexWrap="no-wrap">
       {/* <UploadIllustration sx={{ width: 1, maxWidth: 200 }} /> */}
       <Stack spacing={1} sx={{ textAlign: 'center', marginTop: '150px' }}>
-        <Typography variant="body5" sx={{ color: 'text.secondary' }}>Browse PDF Documents</Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+        <Typography variant="h4" sx={{ color: 'text.secondary' }}>Browse PDF Documents</Typography>
+        <Typography variant="h5" sx={{ color: 'text.secondary' }}>
           OR
         </Typography>
-        <Typography variant="body5" sx={{ color: 'text.secondary' }}>
+        <Typography variant="h4" sx={{ color: 'text.secondary' }}>
           Drag and drop PDF document here
         </Typography>
       </Stack>
@@ -108,7 +108,7 @@ export default function Upload({
 
   return (
     <Box sx={{ width: 1, position: 'relative', padding: 1, ...sx }}>
-      {label && <Typography variant='body1' sx={{ color: 'text.secondary' }}>{label}</Typography>}
+      {label && <Typography variant='h5' sx={{ color: 'text.secondary' }}>{label}</Typography>}
       <Box
         {...getRootProps()}
         sx={{

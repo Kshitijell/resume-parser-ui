@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { mkConfig, generateCsv, download } from 'export-to-csv';
 import CustomDataTable from './customDataTable';
+import { tableBackground } from 'src/assets/images';
 
 function TableComponent() {
   const location = useLocation();
@@ -126,12 +127,13 @@ function TableComponent() {
   };
 
   return (
-    <Box sx={{ height: '100%', position: 'relative', width: 1 }}>
+    <Box sx={{ height: '100%', position: 'relative', width: 1, height: '-webkit-fill-available' }}>
       <Box
         sx={{
-          height: 'calc(100% - 100px)',
+          height: '100%',
           padding: '50px',
           backgroundSize: '100%',
+          backgroundImage: `url(${tableBackground})`
         }}
       >
         <Card>

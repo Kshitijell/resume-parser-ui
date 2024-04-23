@@ -201,7 +201,12 @@ const Userform = () => {
 
                         <Grid item xs={12}>
                             <FormControlLabel
-                                sx={{ padding: '5px' }}
+                                sx={{
+                                    padding: '5px',
+                                    '& .MuiTypography-root': {
+                                        fontSize: '18px',
+                                    }
+                                }}
                                 control={
                                     <Checkbox
                                         id="admin"
@@ -212,8 +217,14 @@ const Userform = () => {
                                 }
                                 label="Admin"
                             />
+
                             <FormControlLabel
-                                sx={{ padding: '5px' }}
+                                sx={{
+                                    padding: '5px',
+                                    '& .MuiTypography-root': {
+                                        fontSize: '18px',
+                                    }
+                                }}
                                 control={
                                     <Checkbox
                                         id="ranker"
@@ -225,7 +236,12 @@ const Userform = () => {
                                 label="Ranker"
                             />
                             <FormControlLabel
-                                sx={{ padding: '5px' }}
+                                sx={{
+                                    padding: '5px',
+                                    '& .MuiTypography-root': {
+                                        fontSize: '18px',
+                                    }
+                                }}
                                 control={
                                     <Checkbox
                                         id="parser"

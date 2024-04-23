@@ -48,7 +48,7 @@ export default function BasicTabs({ item_1, item_2, item_3 }) {
   const getTabStyle = (index) => {
     if (index === value) {
       return {
-        fontSize: '35px', 
+        fontSize: '30px', 
         color: '#2596be',
       };
     } else {
