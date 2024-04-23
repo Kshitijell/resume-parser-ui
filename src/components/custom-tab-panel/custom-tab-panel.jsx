@@ -49,12 +49,12 @@ export default function BasicTabs({ item_1, item_2, item_3 }) {
   const getTabStyle = (index) => {
     if (index === value) {
       return {
-        fontSize: '25px', // Font size of 25px when active
+        fontSize: '40px', // Font size of 25px when active
         color: '#2596be',
       };
     } else {
       return {
-        fontSize: '15px', // Default font size when not active
+        fontSize: '25px', // Default font size when not active
         color: '#2596be',
       };
     }

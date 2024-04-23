@@ -47,9 +47,9 @@ const Agencyform = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('org_id', formValues.orgId);
-        formData.append('Agency_name', formValues.agencyName);
-        formData.append('Agency_email', formValues.agencyEmail);
+        formData.append('org_id', formValues?.orgId);
+        formData.append('Agency_name', formValues?.agencyName);
+        formData.append('Agency_email', formValues?.agencyEmail);
 
         fetch('http://52.1.28.231:5000/insert_agency', {
             method: 'POST',
@@ -72,15 +72,15 @@ const Agencyform = () => {
     };
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', margin: '4%' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '5%' }}>
             <div>
                 <img src={agencyImage} alt="admin" width="500px" height="300px" />
             </div>
-            <div style={{ marginTop: '40px', paddingLeft: '10px' }}>
+            <div style={{ marginTop: '10px', paddingLeft: '10px' }}>
                 <form onSubmit={handleSubmit}>
                     <Autocomplete
                         options={orgOptions}
-                        getOptionLabel={option => option.label}
+                        getOptionLabel={option => option?.label}
                         value={selectedOrg}
                         onChange={handleOrgChange}
                         renderInput={params => (
@@ -88,6 +88,8 @@ const Agencyform = () => {
                                 {...params}
                                 name='orgId'
                                 label="Organization ID*"
+                                inputProps={{ style: { fontSize: 19 } }}
+                                InputLabelProps={{ style: { fontSize: 19 } }}
                             />
                         )}
                     />
@@ -100,20 +102,24 @@ const Agencyform = () => {
                         value={formValues.agencyName}
                         onChange={handleChange}
                         margin="normal"
+                        inputProps={{ style: { fontSize: 19, cursor: formValues?.orgId?.length <= 0 ? 'not-allowed' : 'auto' } }}
+                        InputLabelProps={{ style: { fontSize: 19 } }}
                     />
                     <TextField
                         fullWidth
                         id="agencyEmail"
                         name="agencyEmail"
-                        label="Agency email*"
+                        label="Agency domain*"
                         value={formValues.agencyEmail}
                         onChange={handleChange}
                         disabled={formValues.agencyName.length <= 0}
                         margin="normal"
+                        inputProps={{ style: { fontSize: 19, cursor: formValues?.agencyName?.length <= 0 ? 'not-allowed' : 'auto' } }}
+                        InputLabelProps={{ style: { fontSize: 19 } }}
                     />
 
                     <Box display="flex" justifyContent="center" marginTop={2}>
-                        <Button color="primary" variant="contained" type="submit">
+                        <Button color="primary" variant="contained" type="submit" sx={{ fontSize: '1.2rem' }}>
                             Create Agency
                         </Button>
                     </Box>

@@ -130,7 +130,7 @@ const Userform = () => {
                 <form onSubmit={handleSubmit}>
                     <Autocomplete
                         options={orgOptions}
-                        getOptionLabel={option => option.label}
+                        getOptionLabel={option => option?.label}
                         value={selectedOrg}
                         onChange={handleOrgChange}
                         renderInput={params => (
@@ -138,19 +138,23 @@ const Userform = () => {
                                 {...params}
                                 name='orgId'
                                 label="Organization Name*"
+                                inputProps={{ style: { fontSize: 19 } }}
+                                InputLabelProps={{ style: { fontSize: 19 } }}
                             />
                         )}
                     />
                     <br />
                     <Autocomplete
                         options={[{ id: 'superuser', label: 'Super User' }, { id: 'user', label: 'User' }]}
-                        getOptionLabel={option => option.label}
+                        getOptionLabel={option => option?.label}
                         value={selectedAccess}
-                        disabled={formValues.orgId.length <= 0}
+                        disabled={formValues?.orgId.length <= 0}
                         onChange={handleAccessChange}
                         renderInput={params => (
                             <TextField
                                 {...params}
+                                inputProps={{ style: { fontSize: 19, cursor: formValues?.orgId.length <= 0 ? 'not-allowed' : 'auto' } }}
+                                InputLabelProps={{ style: { fontSize: 19 } }}
                                 name='accessLevel'
                                 label="Access Level*"
                             />
@@ -161,10 +165,12 @@ const Userform = () => {
                         id="username"
                         name="username"
                         label="Username*"
-                        value={formValues.username}
+                        value={formValues?.username}
                         onChange={handleChange}
                         margin="normal"
                         disabled={formValues.orgId === ''}
+                        inputProps={{ style: { fontSize: 19, cursor: formValues?.orgId.length <= 0 ? 'not-allowed' : 'auto' } }}
+                        InputLabelProps={{ style: { fontSize: 19 } }}
                     />
                     <TextField
                         sx={{ width: '50%', padding: '5px' }}
@@ -172,10 +178,12 @@ const Userform = () => {
                         name="password"
                         label="Password*"
                         type="password"
-                        disabled={formValues.username.length <= 0}
-                        value={formValues.password}
+                        disabled={formValues?.username.length <= 0}
+                        value={formValues?.password}
                         onChange={handleChange}
                         margin="normal"
+                        inputProps={{ style: { fontSize: 19, cursor: formValues?.orgId.length <= 0 ? 'not-allowed' : 'auto' } }}
+                        InputLabelProps={{ style: { fontSize: 19 } }}
                     />
                     <Grid container spacing={1}>
 
@@ -186,7 +194,7 @@ const Userform = () => {
                                     <Checkbox
                                         id="admin"
                                         name="Admin"
-                                        checked={formValues.Admin}
+                                        checked={formValues?.Admin}
                                         onChange={handleChange}
                                     />
                                 }
@@ -198,7 +206,7 @@ const Userform = () => {
                                     <Checkbox
                                         id="ranker"
                                         name="Ranker"
-                                        checked={formValues.Ranker}
+                                        checked={formValues?.Ranker}
                                         onChange={handleChange}
                                     />
                                 }
@@ -210,7 +218,7 @@ const Userform = () => {
                                     <Checkbox
                                         id="parser"
                                         name="Parser"
-                                        checked={formValues.Parser}
+                                        checked={formValues?.Parser}
                                         onChange={handleChange}
                                     />
                                 }
@@ -219,7 +227,7 @@ const Userform = () => {
                         </Grid>
                     </Grid>
                     <Box display="flex" justifyContent="center" marginTop={2}>
-                        <Button color="primary" variant="contained" type="submit" >
+                        <Button color="primary" variant="contained" type="submit" sx={{ fontSize: '1.2rem' }}>
                             Create User
                         </Button>
                     </Box>

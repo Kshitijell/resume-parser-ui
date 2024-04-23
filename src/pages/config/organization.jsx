@@ -39,7 +39,7 @@ const Organizationform = () => {
             .then((data) => {
                 if (data?.message.includes('Inserted into organization_table')) {
                     setFormValues(initialFormValues)
-                    toast.success('Creation of user successful')
+                    toast.success('Creation of organization successful')
                 }
             })
             .catch((error) => {
@@ -60,22 +60,26 @@ const Organizationform = () => {
                         id="orgName"
                         name="orgName"
                         label="Organization Name*"
-                        value={formValues.orgName}
+                        value={formValues?.orgName}
                         onChange={handleChange}
                         margin="normal"
+                        inputProps={{ style: { fontSize: 19 } }}
+                        InputLabelProps={{ style: { fontSize: 19 } }}
                     />
                     <TextField
                         fullWidth
                         id="apiKey"
                         name="apiKey"
                         label="API Key*"
-                        value={formValues.apiKey}
+                        value={formValues?.apiKey}
                         onChange={handleChange}
                         margin="normal"
-                        disabled={formValues.orgName.length <= 0}
+                        disabled={formValues?.orgName.length <= 0}
+                        inputProps={{ style: { fontSize: 19, cursor: formValues?.orgName.length <= 0 ? 'not-allowed' : 'auto' } }}
+                        InputLabelProps={{ style: { fontSize: 19 } }}
                     />
                     <Box display="flex" justifyContent="center" marginTop={2}>
-                        <Button color="primary" variant="contained" type="submit">
+                        <Button color="primary" variant="contained" type="submit" sx={{ fontSize: '1.2rem' }}>
                             Create Organization
                         </Button>
                     </Box>

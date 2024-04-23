@@ -54,13 +54,16 @@ const Selectionpage = () => {
               <div style={{ height: '90%', padding: "10%", display: "flex" }}>
                 <img src={adminLogo} alt='admin' />
               </div>
-              <Button
-                variant="contained"
-                sx={{ width: '100%' }}
-                onClick={() => navigate('/admin')}
-              >
-                Admin
-              </Button>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button
+                  size='large'
+                  variant="contained"
+                  sx={{ width: '50%', fontSize: '1.2rem' }}
+                  onClick={() => navigate('/admin')}
+                >
+                  Admin
+                </Button>
+              </div>
             </Card>
           )}
           {userDetails?.application.includes('Ranker') && (
@@ -81,13 +84,16 @@ const Selectionpage = () => {
 
                 {/* <img src={'../../assets/adminLogo.svg'} /> */}
               </div>
-              <Button
-                variant="contained"
-                sx={{ width: '100%' }}
-                onClick={() => navigate('/ranker')}
-              >
-                Resume Ranker
-              </Button>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button
+                  size='large'
+                  variant="contained"
+                  sx={{ width: '50%', fontSize: '1.2rem' }}
+                  onClick={() => navigate('/ranker')}
+                >
+                  Resume Ranker
+                </Button>
+              </div>
             </Card>
           )}
           {userDetails?.application.includes('Parse') && (
@@ -105,19 +111,20 @@ const Selectionpage = () => {
               <div style={{ height: '90%', padding: "10%", display: "flex" }}>
                 <img src={parserLogo} alt='admin' />
               </div>
-              <Button
-                variant="contained"
-                sx={{ width: '100%' }}
-                onClick={() => window.open('https://apps.powerapps.com/play/e/228140fb-0529-e4b8-b3ca-4d1613a7c5da/a/504422d8-9483-48d3-8a08-4aa1ccb39087?tenantId=b7182a97-d832-4b3a-ab2d-6848149387a3&hint=6dafd70b-a94a-4508-b21c-7cf3a1c5d3af&sourcetime=1711695855614', '_blank')}
-              >
-                Resume Parser
-              </Button>
-
-
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button
+                  size='large'
+                  variant="contained"
+                  sx={{ width: '50%', fontSize: '1.2rem' }}
+                  onClick={() => window.open('https://apps.powerapps.com/play/e/228140fb-0529-e4b8-b3ca-4d1613a7c5da/a/504422d8-9483-48d3-8a08-4aa1ccb39087?tenantId=b7182a97-d832-4b3a-ab2d-6848149387a3&hint=6dafd70b-a94a-4508-b21c-7cf3a1c5d3af&sourcetime=1711695855614', '_blank')}
+                >
+                  Resume Parser
+                </Button>
+              </div>
             </Card>
           )}
         </Box>
-      </Box>
+      </Box >
     </>
   );
 };
