@@ -130,7 +130,6 @@ function ResumeParser() {
       try {
         const res = await axios.post('http://52.1.28.231:5000//upload_resume', formData);
         if (res) {
-          setResumeCount('')
           toast.success('Resume Uploaded.');
         }
       } catch (error) {

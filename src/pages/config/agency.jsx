@@ -67,7 +67,7 @@ const Agencyform = () => {
             } else if (data?.error?.includes('UNIQUE')) {
                 setSelectedOrg(null)
                 setFormValues(initialFormValues)
-                toast.error('Agency already exists, for the selected orgnization')
+                toast.error('Agency already exists, for the selected organization')
             }
         })
     };

@@ -67,9 +67,9 @@ const Login = () => {
 
   return (
     <div className="main-container">
-      <div style={{ position: 'relative', bottom: '330px', right: '425px' }}>
-        <img src={logo_black_emergys} alt="black_emergys" style={{ width: '400px' }} />
-        <Typography variant='h3' sx={{ backgroundImage: 'linear-gradient(to right, #3ec0b5, #69cec5, #d4f1ee)', padding: '17px', color: 'white' }}>AccuHire</Typography>
+      <div>
+        <Typography variant='h1' sx={{ padding: '17px', color: '#3ec0b5', right: '600px', bottom: '275px', position: 'relative' }}>AccuHire</Typography>
+        <img src={logo_black_emergys} alt="black_emergys" style={{ width: '200px', bottom: '250px', position: 'relative', right: '500px' }} />
       </div>
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="card-container">

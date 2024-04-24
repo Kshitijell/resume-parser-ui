@@ -37,7 +37,7 @@ export default function Header({ onOpenNav }) {
         justifyContent="flex-end"
         spacing={{ xs: 0.5, sm: 1 }}
       >
-        <Typography variant="h6" sx={{ color: '#2596be' }}>
+        <Typography variant="h2" sx={{ color: '#2596be' }}>
           AccuHire
         </Typography>
         <AccountPopover showOnlyAvatar />
