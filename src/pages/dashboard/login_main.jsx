@@ -66,7 +66,7 @@ function ResumeParser() {
           const res = await axios.post('http://52.1.28.231:5000/upload', formData);
           if (res.data) {
             const resData = res.data.data;
-            toast.success('JD Uploaded.');
+            toast.success('Resume Ranked!');
             navigate('/table', { state: resData });
             setFormError(null);
             setUploadedFiles([]);
