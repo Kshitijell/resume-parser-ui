@@ -320,7 +320,7 @@ function ResumeParser() {
                 isDirectUploadFile
               />
             </Box>
-            {resumeCount !== '' ? <div style={{ marginLeft: 'auto' }}>< Typography variant='h5' color='#3ec0b5'> {`${resumeCount} Resume(s) selected`}</Typography> </div> : null}
+            {resumeCount !== '' ? <div style={{ marginLeft: 'auto' }}>< Typography variant='h5' color='#3ec0b5'> {`${resumeCount} Resume(s) uploaded`}</Typography> </div> : null}
             {formError && <div className="error-message">{formError}</div>}
             <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
               <Button

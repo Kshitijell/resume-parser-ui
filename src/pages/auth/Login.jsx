@@ -30,7 +30,7 @@ const Login = () => {
     }
   };
 
-  const wordsToStream = ['Recruitment.', 'Onboarding.', 'Engagement.', 'Team building.', 'Talent Acquisition.', 'Collaboration.', 'Productivity.'];
+  const wordsToStream = ['Smart Recruitment.', 'Quick Hiring', 'Talent Acquisition.', 'Easy Screening.'];
   const [streamedText, setStreamedText] = useState('');
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
