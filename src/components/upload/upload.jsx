@@ -84,7 +84,6 @@ export default function Upload({
       <Iconify icon="mingcute:close-line" width={18} />
     </IconButton>
   );
-
   const renderMultiPreview = hasFiles && (
     <>
       <Box sx={{ my: 1 }}>

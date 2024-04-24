@@ -63,13 +63,15 @@ const Agencyform = () => {
             if (data?.message?.includes('Inserted into agency_table')) {
                 setSelectedOrg(null)
                 setFormValues(initialFormValues)
-                toast.success('Creation of user successful')
+                toast.success('Creation of Agency successful')
+            } else if (data?.error?.includes('UNIQUE')) {
+                setSelectedOrg(null)
+                setFormValues(initialFormValues)
+                toast.error('Agency already exists, for the selected orgnization')
             }
-        }).catch(error => {
-            toast.error('Something went wrong');
-            console.error('Error:', error);
-        });
+        })
     };
+    const isButtonDisabled = !(formValues.orgId && formValues.agencyName && formValues.agencyEmail);
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', margin: '5%' }}>
@@ -115,7 +117,7 @@ const Agencyform = () => {
                         fullWidth
                         id="agencyEmail"
                         name="agencyEmail"
-                        label="Agency domain*"
+                        label="Agency identifier*"
                         value={formValues.agencyEmail}
                         onChange={handleChange}
                         disabled={formValues.agencyName.length <= 0}
@@ -125,7 +127,7 @@ const Agencyform = () => {
                     />
 
                     <Box display="flex" justifyContent="center" marginTop={2}>
-                        <Button color="primary" variant="contained" type="submit" sx={{ fontSize: '1.2rem' }}>
+                        <Button color="primary" variant="contained" type="submit" disabled={isButtonDisabled} sx={{ fontSize: '1.2rem' }}>
                             Create Agency
                         </Button>
                     </Box>

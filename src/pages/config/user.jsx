@@ -47,7 +47,6 @@ const Userform = () => {
         }));
         if (type === 'checkbox') {
             if (checked) {
-
                 newApplicationAccess.push(name);
             } else {
                 newApplicationAccess = newApplicationAccess.filter((accessType) => accessType !== name);
@@ -59,15 +58,13 @@ const Userform = () => {
         }
     };
 
-    useEffect(() => { console.log(formValues.applicationAccess) }, [formValues.applicationAccess])
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('Org_id', formValues.orgId);
         formData.append('Access_level', formValues.accessLevel);
-        formData.append('User_name', formValues.username);
-        formData.append('Password', formValues.password);
+        formData.append('User_name', formValues.username.trim());
+        formData.append('Password', formValues.password.trim());
         formData.append('IsAdmin', formValues.Admin.toString());
         formData.append('IsRanker', formValues.Ranker.toString());
         formData.append('IsParser', formValues.Parser.toString());
@@ -97,12 +94,22 @@ const Userform = () => {
                         applicationAccess: ''
                     })
                     toast.success('Creation of user successful')
+                } else if (data?.error?.includes('UNIQUE')) {
+                    setFormValues({
+                        orgId: '',
+                        accessLevel: '',
+                        username: '',
+                        password: '',
+                        Admin: false,
+                        Ranker: false,
+                        Parser: false,
+                        applicationAccess: ''
+                    })
+                    toast.error('User already exists')
+                } else {
+                    toast.error(data?.error)
                 }
             })
-            .catch(error => {
-                toast.error('Something went wrong');
-                console.error('Error:', error);
-            });
     };
 
     const handleOrgChange = (event, newValue) => {
@@ -120,6 +127,7 @@ const Userform = () => {
             accessLevel: newValue ? newValue.id : ''
         });
     };
+    const isButtonDisabled = !(formValues.orgId && formValues.accessLevel && formValues.username && formValues.password);
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', margin: '4%' }}>
@@ -255,7 +263,7 @@ const Userform = () => {
                         </Grid>
                     </Grid>
                     <Box display="flex" justifyContent="center" marginTop={2}>
-                        <Button color="primary" variant="contained" type="submit" sx={{ fontSize: '1.2rem' }}>
+                        <Button color="primary" variant="contained" type="submit" disabled={isButtonDisabled} sx={{ fontSize: '1.2rem' }}>
                             Create User
                         </Button>
                     </Box>

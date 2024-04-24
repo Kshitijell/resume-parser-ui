@@ -69,15 +69,15 @@ const Login = () => {
     <div className="main-container">
       <div style={{ position: 'relative', bottom: '330px', right: '425px' }}>
         <img src={logo_black_emergys} alt="black_emergys" style={{ width: '400px' }} />
+        <Typography variant='h3' sx={{ backgroundImage: 'linear-gradient(to right, #3ec0b5, #69cec5, #d4f1ee)', padding: '17px', color: 'white' }}>AccuHire</Typography>
       </div>
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="card-container">
           <Card sx={{ height: '540px', width: '140%', left: '300px' }}>
             <CardContent>
-              <Typography variant='h3' sx={{ marginTop: '20px', backgroundImage: 'linear-gradient(to right, #ff7e5f, #feb47b, #ffeda7)' }}>AccuHire</Typography>
               <br />
               <Grid>
-                <Typography variant='h6'>Take the next step towards</Typography>
+                <Typography variant='h5'>Take the next step towards</Typography>
                 <br />
                 <Typography variant='h3' color={currentColor}>{streamedText}</Typography>
               </Grid>
@@ -88,7 +88,7 @@ const Login = () => {
                   label="User ID"
                   name="userID"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => setUsername(e.target.value.trim())}
                   required
                 />
                 <TextField
@@ -97,7 +97,7 @@ const Login = () => {
                   label="Password"
                   name="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value.trim())}
                   required
                 />
                 {error && <div className="error-message">{error}</div>}

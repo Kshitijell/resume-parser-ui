@@ -32,21 +32,24 @@ const Organizationform = () => {
         })
             .then((response) => {
                 if (!response.ok) {
+                    console.log(response)
                     throw new Error('Something went wrong. Error is consoled.');
                 }
                 return response.json();
             })
             .then((data) => {
-                if (data?.message.includes('Inserted into organization_table')) {
+                if (data?.message?.includes('Inserted into organization_table')) {
                     setFormValues(initialFormValues)
                     toast.success('Creation of organization successful')
+                } else if (data?.error.includes('UNIQUE')) {
+                    setFormValues(initialFormValues)
+                    toast.error('Organization already exists')
                 }
             })
-            .catch((error) => {
-                toast.error('Something went wrong');
-                console.error('Error:', error);
-            });
     };
+
+    const isButtonDisabled = !(formValues.orgName && formValues.apiKey);
+
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', margin: '4%' }}>
@@ -79,7 +82,7 @@ const Organizationform = () => {
                         InputLabelProps={{ style: { fontSize: 19 } }}
                     />
                     <Box display="flex" justifyContent="center" marginTop={2}>
-                        <Button color="primary" variant="contained" type="submit" sx={{ fontSize: '1.2rem' }}>
+                        <Button color="primary" variant="contained" type="submit" disabled={isButtonDisabled} sx={{ fontSize: '1.2rem' }}>
                             Create Organization
                         </Button>
                     </Box>
