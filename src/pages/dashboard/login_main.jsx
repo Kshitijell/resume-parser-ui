@@ -9,6 +9,7 @@ import {
   IconButton,
   Radio,
   RadioGroup,
+  Typography,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -37,6 +38,7 @@ function ResumeParser() {
   const [formError, setFormError] = useState(null);
   const [tableLoading, setTableLoading] = useState(false);
   const [selectedOption, setSelectedOption] = useState('new');
+  const [resumeCount, setResumeCount] = useState('')
   const loading = open && reqIds.length === 0;
 
   const handleFileUpload = (files) => {
@@ -118,6 +120,7 @@ function ResumeParser() {
 
   const handleFileChange = async (files) => {
     const formData = new FormData();
+    setResumeCount(files.length)
     files.forEach((element) => {
       formData.append('file', element);
     });
@@ -127,6 +130,7 @@ function ResumeParser() {
       try {
         const res = await axios.post('http://52.1.28.231:5000//upload_resume', formData);
         if (res) {
+          setResumeCount('')
           toast.success('Resume Uploaded.');
         }
       } catch (error) {
@@ -317,6 +321,7 @@ function ResumeParser() {
                 isDirectUploadFile
               />
             </Box>
+            {resumeCount !== '' ? <div style={{ marginLeft: 'auto' }}>< Typography variant='h5' color='#3ec0b5'> {`${resumeCount} Resume(s) selected`}</Typography> </div> : null}
             {formError && <div className="error-message">{formError}</div>}
             <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
               <Button
@@ -332,7 +337,7 @@ function ResumeParser() {
           </CardContent>
         </Card>
       </Box>
-    </Box>
+    </Box >
   );
 }
 
