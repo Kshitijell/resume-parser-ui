@@ -24,7 +24,7 @@ const Userform = () => {
     const [selectedAccess, setSelectedAccess] = useState(null)
 
     useEffect(() => {
-        fetch('http://52.1.28.231:5000/get_all_organizations')
+        fetch('http://52.207.190.181:5000/get_all_organizations')
             .then(response => response.json())
             .then(data => {
                 const transformedOptions = data.organizations?.map(org => ({
@@ -71,7 +71,7 @@ const Userform = () => {
         formData.append('IsParser', formValues.Parser.toString());
         formData.append('Application', formValues.applicationAccess);
 
-        fetch('http://52.1.28.231:5000/insert_user', {
+        fetch('http://52.207.190.181:5000/insert_user', {
             method: 'POST',
             body: formData,
         })

@@ -26,7 +26,7 @@ const Organizationform = () => {
         formData.append('API_KEY', formValues.apiKey);
         formData.append('Org_name', formValues.orgName);
 
-        fetch('http://52.1.28.231:5000/insert_organization', {
+        fetch('http://52.207.190.181:5000/insert_organization', {
             method: 'POST',
             body: formData,
         })

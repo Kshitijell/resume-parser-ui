@@ -63,7 +63,7 @@ function ResumeParser() {
         }
 
         try {
-          const res = await axios.post('http://52.1.28.231:5000/upload', formData);
+          const res = await axios.post('http://52.207.190.181:5000/upload', formData);
           if (res.data) {
             const resData = res.data.data;
             toast.success('Resume Ranked!');
@@ -86,7 +86,7 @@ function ResumeParser() {
   };
   const fetchReqIds = async () => {
     try {
-      const res = await axios.post('http://52.1.28.231:5000/recommend');
+      const res = await axios.post('http://52.207.190.181:5000/recommend');
       if (res.data) {
         const resData = res.data.data;
         setInitialReqIds(resData);
@@ -128,7 +128,7 @@ function ResumeParser() {
     if (files.length > 0) {
       setUploadResume(true);
       try {
-        const res = await axios.post('http://52.1.28.231:5000//upload_resume', formData);
+        const res = await axios.post('http://52.207.190.181:5000//upload_resume', formData);
         if (res) {
           toast.success('Resume Uploaded.');
         }

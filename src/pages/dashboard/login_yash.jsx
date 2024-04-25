@@ -48,7 +48,7 @@ function ScreenComponent() {
       setRequisitionId("");
       try {
         const res = await axios.post(
-          "http://52.1.28.231:5000/upload",
+          "http://52.207.190.181:5000/upload",
           formData
         );
         if (res.data) {
@@ -82,7 +82,7 @@ function ScreenComponent() {
       setUploadResume(true);
       try {
         const res = await axios.post(
-          "http://52.1.28.231:5000/upload_resume",
+          "http://52.207.190.181:5000/upload_resume",
           formData
         );
         if (res) {

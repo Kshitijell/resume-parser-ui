@@ -21,7 +21,7 @@ const Agencyform = () => {
     };
 
     useEffect(() => {
-        fetch('http://52.1.28.231:5000/get_all_organizations')
+        fetch('http://52.207.190.181:5000/get_all_organizations')
             .then(response => response.json())
             .then(data => {
                 const transformedOptions = data.organizations?.map(org => ({
@@ -51,7 +51,7 @@ const Agencyform = () => {
         formData.append('Agency_name', formValues?.agencyName);
         formData.append('Agency_email', formValues?.agencyEmail);
 
-        fetch('http://52.1.28.231:5000/insert_agency', {
+        fetch('http://52.207.190.181:5000/insert_agency', {
             method: 'POST',
             body: formData
         }).then(response => {
