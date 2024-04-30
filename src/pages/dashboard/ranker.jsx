@@ -125,7 +125,7 @@ function ResumeParser() {
     setResumeCount(files.length)
     files.forEach((element) => {
       formData.append('file', element);
-      // formData.append('requistionId', requisitionId)
+      formData.append('requisitionId', requisitionId)
     });
 
     if (files.length > 0) {
