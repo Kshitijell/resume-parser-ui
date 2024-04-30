@@ -48,7 +48,7 @@ function TableComponent() {
       .filter((c) => !colsArray.includes(c))
       .map((coll) => ({
         accessorKey: coll,
-        header: `${coll}/5`,
+        header: `${coll}/ 5`,
         muiTableHeadCellProps: { align: 'center' },
         muiTableBodyCellProps: { align: 'center' },
       }));

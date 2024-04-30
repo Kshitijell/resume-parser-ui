@@ -1,4 +1,4 @@
-label{
+label {
     font-size: 1.5rem;
 }
 
@@ -8,4 +8,7 @@ label{
     border: 1px solid #f5c6cb;
     border-radius: 4px;
     padding: 15px;
-  }
+    margin-top: 5px;
+    width: 20%;
+    margin-left: auto;
+}

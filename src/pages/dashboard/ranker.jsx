@@ -120,11 +120,12 @@ function ResumeParser() {
   };
 
   const handleFileChange = async (files) => {
+    setTableLoading(true)
     const formData = new FormData();
     setResumeCount(files.length)
     files.forEach((element) => {
       formData.append('file', element);
-      // formData.append('requistionId',requisitionId)
+      // formData.append('requistionId', requisitionId)
     });
 
     if (files.length > 0) {
@@ -132,12 +133,15 @@ function ResumeParser() {
       try {
         const res = await axios.post('http://52.207.190.181:5000//upload_resume', formData);
         if (res) {
+          setTableLoading(false)
           toast.success('Resume Uploaded.');
         }
       } catch (error) {
+        setTableLoading(false)
         console.error('Error uploading file:', error);
         toast.error('Something went wrong.');
       } finally {
+        setTableLoading(false)
         setUploadResume(false);
       }
     }
@@ -220,6 +224,7 @@ function ResumeParser() {
               paddingBottom: '0px'
             }}
           >
+
             <FormControl>
               <RadioGroup
                 row
@@ -327,7 +332,6 @@ function ResumeParser() {
                   resumeCount={resumeCount}
                 />
               </Grid>
-              {formError && <div className="error-message">{formError}</div>}
             </Grid>
 
             <Button
@@ -341,6 +345,7 @@ function ResumeParser() {
               Rank Resume(s)
             </Button>
             {resumeCount !== '' && resumeCount !== undefined ? <Grid item sx={{ marginLeft: 'auto' }}>< Typography variant='h5' color='#3ec0b5' sx={{ padding: 1, }}> {`${resumeCount} Resume(s) uploaded`}</Typography> </Grid> : null}
+            {formError && <div className="error-message">{formError}</div>}
           </CardContent>
         </Card>
       </Box>
