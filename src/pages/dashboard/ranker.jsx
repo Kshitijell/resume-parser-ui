@@ -6,6 +6,7 @@ import {
   CircularProgress,
   FormControl,
   FormControlLabel,
+  Grid,
   IconButton,
   Radio,
   RadioGroup,
@@ -123,6 +124,7 @@ function ResumeParser() {
     setResumeCount(files.length)
     files.forEach((element) => {
       formData.append('file', element);
+      // formData.append('requistionId',requisitionId)
     });
 
     if (files.length > 0) {
@@ -192,7 +194,7 @@ function ResumeParser() {
     >
       <Box
         sx={{
-          height: '100%',
+          height: 'auto',
           borderRadius: '11px',
           borderradius: '11px',
           // opacity: '0.11',
@@ -294,45 +296,51 @@ function ResumeParser() {
 
 
 
-            <Box sx={{ display: 'flex', justifyContent: 'space-around', gap: 2 }}>
+            {/* <Box sx={{ display: 'flex', justifyContent: 'space-around', gap: 2 }}> */}
+            <Grid container sx={selectedOption !== 'new' ? { display: 'flex', justifyContent: 'space-around', gap: 2 } : {}}>
               {selectedOption === 'new' && (
+                <Grid item sx={{ width: '50%' }}>
+                  <Upload
+                    label="Upload JD"
+                    multiple
+                    files={uploadedFiles}
+                    accept={{
+                      'application/pdf': ['.docx'],
+                    }}
+                    onDrop={handleFileUpload}
+                    onRemove={handleRemoveFile}
+                    isDirectUploadFile
+                  />
+                </Grid>
+              )}
+              <Grid item sx={{ width: '50%' }}>
                 <Upload
-                  label="Upload JD"
                   multiple
-                  files={uploadedFiles}
+                  label="Upload Resume"
+                  files={[]}
                   accept={{
                     'application/pdf': ['.docx'],
                   }}
-                  onDrop={handleFileUpload}
-                  onRemove={handleRemoveFile}
+                  onDrop={handleFileChange}
+                  disabled={uploadResume}
                   isDirectUploadFile
+                  resumeCount={resumeCount}
                 />
-              )}
-              <Upload
-                multiple
-                label="Upload Resume"
-                files={[]}
-                accept={{
-                  'application/pdf': ['.docx'],
-                }}
-                onDrop={handleFileChange}
-                disabled={uploadResume}
-                isDirectUploadFile
-              />
-            </Box>
-            {resumeCount !== '' ? <div style={{ marginLeft: 'auto' }}>< Typography variant='h5' color='#3ec0b5'> {`${resumeCount} Resume(s) uploaded`}</Typography> </div> : null}
-            {formError && <div className="error-message">{formError}</div>}
-            <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
-              <Button
-                sx={{ fontSize: '1.2rem' }}
-                startIcon={tableLoading ? <CircularProgress size={15} /> : null}
-                variant="contained"
-                onClick={handleSubmit}
-                disabled={tableLoading || uploadResume}
-              >
-                Recommend Best Candidate
-              </Button>
-            </Box>
+              </Grid>
+              {formError && <div className="error-message">{formError}</div>}
+            </Grid>
+
+            <Button
+
+              sx={{ fontSize: '1.2rem', width: '20%', marginLeft: 'auto' }}
+              startIcon={tableLoading ? <CircularProgress size={15} /> : null}
+              variant="contained"
+              onClick={handleSubmit}
+              disabled={tableLoading || uploadResume}
+            >
+              Rank Resume(s)
+            </Button>
+            {resumeCount !== '' && resumeCount !== undefined ? <Grid item sx={{ marginLeft: 'auto' }}>< Typography variant='h5' color='#3ec0b5' sx={{ padding: 1, }}> {`${resumeCount} Resume(s) uploaded`}</Typography> </Grid> : null}
           </CardContent>
         </Card>
       </Box>

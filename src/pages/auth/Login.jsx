@@ -68,7 +68,7 @@ const Login = () => {
   return (
     <div className="main-container">
       <div>
-        <Typography variant='h1' sx={{ padding: '17px', color: '#3ec0b5', right: '600px', bottom: '275px', position: 'relative' }}>AccuHire</Typography>
+        <Typography variant='h1' sx={{ padding: '17px', color: '#3ec0b5', right: '550px', bottom: '275px', position: 'relative' }}>AccuHire</Typography>
         <img src={logo_black_emergys} alt="black_emergys" style={{ width: '200px', bottom: '250px', position: 'relative', right: '500px' }} />
       </div>
       <form className="login-form" onSubmit={handleSubmit}>
@@ -102,8 +102,8 @@ const Login = () => {
                 />
                 {error && <div className="error-message">{error}</div>}
               </Grid>
-              <Button type="submit" style={{ marginTop: '50px' }}>
-                Login
+              <Button type="submit" style={{ marginTop: '50px' }} size='lg'>
+                LOGIN
               </Button>
             </CardContent>
           </Card>

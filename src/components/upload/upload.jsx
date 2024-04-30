@@ -16,6 +16,7 @@ export default function Upload({
   disabled,
   multiple = false,
   error,
+  resumeCount,
   helperText,
   file,
   onDelete,
@@ -49,7 +50,7 @@ export default function Upload({
   const renderPlaceholder = (
     <Stack spacing={3} alignItems="center" justifyContent="center" flexWrap="no-wrap">
       {/* <UploadIllustration sx={{ width: 1, maxWidth: 200 }} /> */}
-      <Stack spacing={1} sx={{ textAlign: 'center', marginTop: '150px' }}>
+      <Stack spacing={1} sx={{ textAlign: 'center', marginTop: '75px' }}>
         <Typography variant="h4" sx={{ color: 'text.secondary' }}>Browse PDF Documents</Typography>
         <Typography variant="h5" sx={{ color: 'text.secondary' }}>
           OR
@@ -112,7 +113,7 @@ export default function Upload({
         {...getRootProps()}
         sx={{
           p: 2,
-          height: '400px',
+          height: '300px',
           outline: 'none',
           borderRadius: 1,
           cursor: 'pointer',
@@ -148,7 +149,7 @@ export default function Upload({
       <RejectionFiles fileRejections={fileRejections} maxSize={maxSize} maxFiles={maxFiles} />
 
       {removeSinglePreview}
-
+      
       {helperText && <>{helperText}</>}
 
       {renderMultiPreview}

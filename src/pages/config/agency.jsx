@@ -89,7 +89,7 @@ const Agencyform = () => {
                             <TextField
                                 {...params}
                                 name='orgId'
-                                label="Organization ID*"
+                                label="Organization Name*"
                                 sx={{
                                     label: {
                                         fontSize: '20px',

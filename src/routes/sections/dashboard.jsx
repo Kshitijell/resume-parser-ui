@@ -4,7 +4,7 @@ import { AuthGuard } from 'src/auth/guard';
 import DashboardLayout from 'src/layouts/dashboard';
 import { LoadingScreen } from 'src/components/loading-screen';
 
-const ResumeParser = lazy(() => import('src/pages/dashboard/login_main'));
+const ResumeRanker = lazy(() => import('src/pages/dashboard/ranker'));
 const TableComponent = lazy(() => import('src/pages/dashboard/table'));
 const SelectionPage = lazy(() => import('src/pages/selectionwindow/selection_page'));
 const PowerAppsPage = lazy(() => import('src/pages/dashboard/power-app-page'));
@@ -41,7 +41,7 @@ export const DashboardRoutes = () => [
       },
       {
         path: 'ranker',
-        element: <ResumeParser />,
+        element: <ResumeRanker />,
       },
       {
         path: 'admin',

@@ -1,16 +1,20 @@
-import { Box, Button, Card, CardContent, Grid, Typography } from '@mui/material';
+import React, { useMemo, useState } from 'react';
+import * as XLSX from 'xlsx';
+import { Box, Button, Card, CardContent, Grid, Typography, TextField, IconButton } from '@mui/material';
 import Rating from '@mui/material/Rating';
-import { useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { mkConfig, generateCsv, download } from 'export-to-csv';
 import CustomDataTable from './customDataTable';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { tableBackground } from 'src/assets/images';
 
 function TableComponent() {
   const location = useLocation();
   const navigate = useNavigate();
   const [showExport, setShowExport] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+
   const dataRows = useMemo(() => {
     if (location.state) {
       const resultArr = location.state.map((ele) => {
@@ -21,19 +25,30 @@ function TableComponent() {
     }
     return [];
   }, [location.state]);
+
+  // Filter dataRows based on searchTerm
+  const filteredRows = useMemo(() => {
+    if (searchTerm === '') {
+      return dataRows;
+    }
+    return dataRows.filter(row =>
+      row.Comments.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [dataRows, searchTerm]);
+
   const columnData = useMemo(() => {
-    if (!dataRows.length) {
+    if (!filteredRows.length) {
       setShowExport(false);
       return [];
     }
     setShowExport(true);
-    const col = dataRows[0];
-    const colsArray = ['id', 'Id', 'ID', 'Overall', 'overall', 'Name', 'Comments'];
+    const col = filteredRows[0];
+    const colsArray = ['Comments', 'id', 'Id', 'ID', 'Overall', 'overall', 'Name'];
     const colsData = Object.keys(col)
       .filter((c) => !colsArray.includes(c))
       .map((coll) => ({
         accessorKey: coll,
-        header: coll,
+        header: `${coll}/5`,
         muiTableHeadCellProps: { align: 'center' },
         muiTableBodyCellProps: { align: 'center' },
       }));
@@ -45,10 +60,30 @@ function TableComponent() {
         muiTableHeadCellProps: { align: 'center' },
       },
       {
+        accessorKey: 'Comments',
+        header: 'Comments',
+        muiTableHeadCellProps: { align: 'center' },
+        size: 350,
+        Cell: (params) => (
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              muiTableHeadCellProps: { align: 'center' },
+              muiTableBodyCellProps: { align: 'center' },
+            }}
+          >
+            <Typography sx={{ whiteSpace: 'pre-wrap', maxHeight: '100px', overflowY: 'auto' }}>
+              {params?.row?.original.Comments}
+            </Typography>
+          </Box>
+        ),
+      },
+      {
         accessorKey: 'Overall',
         header: 'Overall Rating',
         muiTableHeadCellProps: { align: 'center' },
-        size: 200,
+        size: 175,
         Cell: (params) => (
           <Box
             sx={{
@@ -77,28 +112,9 @@ function TableComponent() {
         ),
       },
       ...colsData,
-      {
-        accessorKey: 'Comments',
-        header: 'Comments',
-        muiTableHeadCellProps: { align: 'center' },
-        size: 200,
-        Cell: (params) => (
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              muiTableHeadCellProps: { align: 'center' },
-              muiTableBodyCellProps: { align: 'center' },
-            }}
-          >
-            <Typography sx={{ whiteSpace: 'pre-wrap', maxHeight: '100px', overflowY: 'auto' }}>
-              {params?.row?.original.Comments}
-            </Typography>
-          </Box>
-        ),
-      },
     ];
-  }, [dataRows]);
+  }, [filteredRows]);
+
   const csvConfig = mkConfig({
     fieldSeparator: ',',
     decimalSeparator: '.',
@@ -107,23 +123,34 @@ function TableComponent() {
   });
 
   // const handleExportData = () => {
-  //   const data = dataRows.map((ele) => {
-  //     const { id, ...other } = ele;
-  //     return other;
+  //   const commentsArray = filteredRows.map(({ Comments, ...other }) => Comments);
+  //   const data = filteredRows.map(({ id, Comments, ...other }) => other);
+  //   data.forEach((item, index) => {
+  //     item.Comments = commentsArray[index];
   //   });
+
   //   const csv = generateCsv(csvConfig)(data);
   //   download(csvConfig)(csv);
   // };
 
   const handleExportData = () => {
-    const commentsArray = dataRows.map(({ Comments, ...other }) => Comments);
-    const data = dataRows.map(({ id, Comments, ...other }) => other);
-    data.forEach((item, index) => {
-      item.Comments = commentsArray[index];
-    });
 
-    const csv = generateCsv(csvConfig)(data);
-    download(csvConfig)(csv);
+    const data = filteredRows.map(({ Comments, id, ...other }) => ({
+      ...other,
+      Comments,
+    }));
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const excelBlob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const excelURL = window.URL.createObjectURL(excelBlob);
+    const link = document.createElement('a');
+    link.href = excelURL;
+    link.setAttribute('download', 'Ranked-Resume(s).xlsx');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -152,6 +179,9 @@ function TableComponent() {
                   gap: 2,
                 }}
               >
+                <IconButton onClick={() => navigate('/ranker')} aria-label="back" title='Back to Ranker'>
+                  <ArrowBackIcon />
+                </IconButton>
                 <Typography variant="h5">List of Recommended Best Candidates</Typography>
                 <Grid
                   sx={{
@@ -160,37 +190,33 @@ function TableComponent() {
                     gap: 1,
                   }}
                 >
+                  <TextField
+                    label="Search Comments"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
                   {showExport && (
                     <Button
                       sx={{ textTransform: 'none' }}
                       onClick={handleExportData}
                       startIcon={<FileDownloadIcon />}
                     >
-                      Export To CSV
+                      Export To Excel
                     </Button>
                   )}
-                  <Button
-                    sx={{ textTransform: 'none' }}
-                    variant="contained"
-                    onClick={() => {
-                      navigate('/ranker');
-                    }}
-                  >
-                    Back
-                  </Button>
                 </Grid>
               </Box>
               <CustomDataTable
                 columns={columnData}
-                rowData={dataRows}
-                hideFooter={dataRows?.length > 4}
+                rowData={filteredRows}
+                hideFooter={filteredRows?.length > 4}
                 showExport={showExport}
               />
             </Box>
           </CardContent>
         </Card>
       </Box>
-    </Box>
+    </Box >
   );
 }
 

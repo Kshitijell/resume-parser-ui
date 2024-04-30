@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '@mui/material/Card';
-import { Box, Button, } from '@mui/material';
+import { Box, Button, CardContent, } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { adminLogo, parserLogo, rankerLogo, selectionBackgroundImage } from 'src/assets/images';
 
@@ -24,7 +24,8 @@ const Selectionpage = () => {
       >
         <Box
           sx={{
-            height: '100%',
+            // minHeight:'100%',
+            height: 'auto',
             borderRadius: '11px',
             borderradius: '11px',
             // opacity: '0.11',
@@ -45,25 +46,40 @@ const Selectionpage = () => {
                 borderRadius: '10px',
                 boxShadow: 3,
                 width: '450px',
-                height: '100%',
+                height: 'auto',
                 marginRight: '10px',
                 paddingTop: "20px"
               }}
             >
-              {/* <Logo/> */}
-              <div style={{ height: '90%', padding: "10%", display: "flex" }}>
-                <img src={adminLogo} alt='admin' />
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button
-                  size='large'
-                  variant="contained"
-                  sx={{ width: '50%', fontSize: '1.2rem' }}
-                  onClick={() => navigate('/admin')}
-                >
-                  Admin
-                </Button>
-              </div>
+              {/* <CardContent >
+                <div style={{ height: '100%', padding: "10%", display: "flex" }}>
+                  <img src={adminLogo} alt='admin' />
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Button
+                    size='large'
+                    variant="contained"
+                    sx={{ width: '50%', fontSize: '1.2rem' }}
+                    onClick={() => navigate('/admin')}
+                  >
+                    Admin
+                  </Button>
+                </div>
+              </CardContent> */}
+              <CardContent>
+                <div style={{ height: '100%', padding: "10%", display: "flex" }}>
+                  <img src={adminLogo} alt='admin' /></div>
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '8%' }}>
+                  <Button
+                    size='large'
+                    variant="contained"
+                    sx={{ width: '50%', fontSize: '1.2rem' }}
+                    onClick={() => navigate('/admin')}
+                  >
+                    Admin
+                  </Button>
+                </div>
+              </CardContent>
             </Card>
           )}
           {userDetails?.application.includes('Ranker') && (
@@ -74,26 +90,25 @@ const Selectionpage = () => {
                 borderRadius: '10px',
                 boxShadow: 3,
                 width: '450px',
-                height: '100%',
+                height: 'auto',
                 marginRight: '10px',
                 paddingTop: "20px"
               }}
             >
-              <div style={{ height: '90%', padding: "10%", display: "flex" }}>
-                <img src={rankerLogo} alt='admin' />
-
-                {/* <img src={'../../assets/adminLogo.svg'} /> */}
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button
-                  size='large'
-                  variant="contained"
-                  sx={{ width: '50%', fontSize: '1.2rem' }}
-                  onClick={() => navigate('/ranker')}
-                >
-                  Resume Ranker
-                </Button>
-              </div>
+              <CardContent>
+                <div style={{ height: '100%', padding: "10%", display: "flex" }}>
+                  <img src={rankerLogo} alt='ranker' /></div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Button
+                    size='large'
+                    variant="contained"
+                    sx={{ width: '60%', fontSize: '1.2rem' }}
+                    onClick={() => navigate('/ranker')}
+                  >
+                    Resume Ranker
+                  </Button>
+                </div>
+              </CardContent>
             </Card>
           )}
           {userDetails?.application.includes('Parse') && (
@@ -104,23 +119,25 @@ const Selectionpage = () => {
                 borderRadius: '10px',
                 boxShadow: 3,
                 width: '450px',
-                height: '100%',
+                height: 'auto',
                 paddingTop: "20px"
               }}
             >
-              <div style={{ height: '90%', padding: "10%", display: "flex" }}>
-                <img src={parserLogo} alt='admin' />
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button
-                  size='large'
-                  variant="contained"
-                  sx={{ width: '50%', fontSize: '1.2rem' }}
-                  onClick={() => window.open('https://apps.powerapps.com/play/e/228140fb-0529-e4b8-b3ca-4d1613a7c5da/a/504422d8-9483-48d3-8a08-4aa1ccb39087?tenantId=b7182a97-d832-4b3a-ab2d-6848149387a3&hint=6dafd70b-a94a-4508-b21c-7cf3a1c5d3af&sourcetime=1711695855614', '_blank')}
-                >
-                  Resume Parser
-                </Button>
-              </div>
+              <CardContent>
+                <div style={{ height: '100%', padding: "10%", display: "flex" }}>
+                  <img src={parserLogo} alt='parser' />
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Button
+                    size='large'
+                    variant="contained"
+                    sx={{ width: '66%', fontSize: '1.2rem' }}
+                    onClick={() => window.open('https://apps.powerapps.com/play/e/228140fb-0529-e4b8-b3ca-4d1613a7c5da/a/504422d8-9483-48d3-8a08-4aa1ccb310087?tenantId=b7182a97-d832-4b3a-ab2d-6848149387a3&hint=6dafd70b-a94a-4508-b21c-7cf3a1c5d3af&sourcetime=1711695855614', '_blank')}
+                  >
+                    Resume Parser
+                  </Button>
+                </div>
+              </CardContent>
             </Card>
           )}
         </Box>

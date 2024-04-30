@@ -146,7 +146,7 @@ const Userform = () => {
                             <TextField
                                 {...params}
                                 name='orgId'
-                                label='Organization ID*'
+                                label='Organization Name*'
                                 sx={{
                                     label: {
                                         fontSize: '20px',
@@ -189,7 +189,7 @@ const Userform = () => {
                         value={formValues?.username}
                         onChange={handleChange}
                         margin="normal"
-                        disabled={formValues.orgId === ''}
+                        disabled={formValues?.orgId === ''}
                         inputProps={{ style: { fontSize: 20, cursor: formValues?.orgId.length <= 0 ? 'not-allowed' : 'auto' } }}
                         InputLabelProps={{ style: { fontSize: 20 } }}
                     />
