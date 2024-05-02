@@ -101,7 +101,7 @@ export default function AccountPopover({ showOnlyAvatar }) {
                 backgroundColor: (themeColor) => themeColor.palette.primary.main,
                 color: (themeColor) => themeColor.palette.grey[0],
               }}
-              {...stringAvatar(JSON.parse(localStorage.getItem('userDetails'))?.username)}
+              {...stringAvatar(JSON.parse(localStorage.getItem('userDetails'))?.username.toUpperCase())}
             />
           }
           {...(!showOnlyAvatar && {
