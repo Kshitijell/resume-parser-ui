@@ -13,10 +13,6 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const router = useRouter();
-  // const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  // const [currentCharIndex, setCurrentCharIndex] = useState(0);
-
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -56,64 +52,63 @@ const Login = () => {
           }
         }
       }
-    }, 150); // Adjust the interval as needed
+    }, 150);
 
     setCurrentColor(colors[currentWordIndex % colors.length]);
 
-    // Cleanup function to clear interval when component unmounts or when all words are streamed
     return () => clearInterval(interval);
   }, [currentIndex, currentWordIndex, streamedText, allWordsStreamed]);
 
-
   return (
     <div className="main-container">
-      <div>
-        <Typography variant='h1' sx={{ padding: '17px', color: '#3ec0b5', right: '550px', bottom: '275px', position: 'relative' }}>AccuHire</Typography>
-        <img src={logo_black_emergys} alt="black_emergys" style={{ width: '200px', bottom: '250px', position: 'relative', right: '500px' }} />
-      </div>
+      <Grid container justifyContent="center" alignItems="center" className="header-container">
+        <Typography variant='h1' sx={{ color: '#3ec0b5', textAlign: 'center', bottom: '200px', right: '200px', position: 'relative' }}>AccuHire</Typography>
+        <img src={logo_black_emergys} alt="black_emergys" className="logo" style={{ bottom: '150px', right: '250px', position: 'relative', width: '100px', height: '35px' }} />
+      </Grid>
       <form className="login-form" onSubmit={handleSubmit}>
-        <div className="card-container">
-          <Card sx={{ height: '540px', width: '140%', left: '300px' }}>
+        <Grid container justifyContent="center" alignItems="center">
+          <Card sx={{ height: '500px', width: { xs: '100%', md: '100%' }, padding: '1rem' }}>
             <CardContent>
-              <br />
-              <Grid>
-                <Typography variant='h5'>Take the next step towards</Typography>
-                <br />
-                <Typography variant='h3' color={currentColor}>{streamedText}</Typography>
+              <Grid container direction="column" alignItems="center">
+                <Typography variant="h5" padding='10px' align="center">Take the next step towards</Typography>
+                <Typography variant="h3" padding='10px' color={currentColor} align="center" className="streamed-text">
+                  {streamedText}
+                </Typography>
+                <Grid container direction="column" gap={2} sx={{ marginTop: '1rem', width: '100%' }}>
+                  <TextField
+                    type="text"
+                    id="userID"
+                    label="User ID"
+                    name="userID"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value.trim())}
+                    required
+                    fullWidth
+                  />
+                  <TextField
+                    type="password"
+                    id="password"
+                    label="Password"
+                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value.trim())}
+                    required
+                    fullWidth
+                  />
+                  {error && <div className="error-message">{error}</div>}
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button type="submit" sx={{ marginTop: '1rem' }} size="large" variant="contained">
+                      LOGIN
+                    </Button>
+                  </div>
+                </Grid>
               </Grid>
-              <Grid container gap={5} direction="column" sx={{ marginTop: '50px' }}>
-                <TextField
-                  type="text"
-                  id="userID"
-                  label="User ID"
-                  name="userID"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value.trim())}
-                  required
-                />
-                <TextField
-                  type="password"
-                  id="password"
-                  label="Password"
-                  name="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value.trim())}
-                  required
-                />
-                {error && <div className="error-message">{error}</div>}
-              </Grid>
-              <Button type="submit" style={{ marginTop: '50px' }} size='lg'>
-                LOGIN
-              </Button>
             </CardContent>
           </Card>
-        </div>
-
-      </form >
-
-      {loggedIn && <Link to="/main">Go to Home</Link>}
-    </div >
-
+        </Grid>
+      </form>
+      {loggedIn && <Link to="/home" className="home-link">Go to Home</Link>}
+    </div>
   );
 };
 
