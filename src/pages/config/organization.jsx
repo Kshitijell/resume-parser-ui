@@ -82,7 +82,7 @@ const Organizationform = () => {
                         InputLabelProps={{ style: { fontSize: 19 } }}
                     />
                     <Box display="flex" justifyContent="center" marginTop={2}>
-                        <Button color="primary" variant="contained" type="submit" disabled={isButtonDisabled} sx={{ fontSize: '1.2rem' }}>
+                        <Button variant="outlined" type="submit" disabled={isButtonDisabled} sx={{ fontSize: '1.2rem' }}>
                             Create Organization
                         </Button>
                     </Box>

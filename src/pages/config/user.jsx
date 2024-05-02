@@ -264,7 +264,7 @@ const Userform = () => {
                         </Grid>
                     </Grid>
                     <Box display="flex" justifyContent="center" marginTop={2}>
-                        <Button color="primary" variant="contained" type="submit" disabled={isButtonDisabled} sx={{ fontSize: '1.2rem' }}>
+                        <Button  variant="outlined"  type="submit" disabled={isButtonDisabled} sx={{ fontSize: '1.2rem' }}>
                             Create User
                         </Button>
                     </Box>

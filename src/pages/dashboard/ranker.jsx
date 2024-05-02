@@ -335,10 +335,8 @@ function ResumeParser() {
             </Grid>
 
             <Button
-
-              sx={{ fontSize: '1.2rem', width: '20%', marginLeft: 'auto' }}
+              sx={{ fontSize: '1.2rem', width: '20%', marginLeft: 'auto', backgroundColor: '#264393' }}
               startIcon={tableLoading ? <CircularProgress size={15} /> : null}
-              variant="contained"
               onClick={handleSubmit}
               disabled={tableLoading || uploadResume}
             >
