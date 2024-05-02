@@ -1,0 +1,38 @@
+/* Userform.css */
+.formContainer {
+    display: flex;
+    justify-content: center;
+    margin: 4%;
+}
+
+.imageContainer img {
+    width: 500px;
+    height: 300px;
+}
+
+.form {
+    padding-left: 30px;
+}
+
+.textFieldUser {
+    width: 50%;
+    padding: 5px;
+}
+
+.formControlLabel {
+    padding: 5px;
+}
+
+.formControlLabel .MuiTypography-root {
+    font-size: 20px;
+}
+
+.submitButtonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.submitButton {
+    font-size: 1.2rem;
+}

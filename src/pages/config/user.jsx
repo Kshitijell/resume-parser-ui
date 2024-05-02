@@ -6,6 +6,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { Autocomplete, Box, Grid } from '@mui/material';
 import { createUserImage } from 'src/assets/images';
 import { toast } from 'react-toastify';
+import './Userform.css';
 
 const Userform = () => {
     const [formValues, setFormValues] = useState({
@@ -21,7 +22,7 @@ const Userform = () => {
 
     const [orgOptions, setOrgOptions] = useState([]);
     const [selectedOrg, setSelectedOrg] = useState(null);
-    const [selectedAccess, setSelectedAccess] = useState(null)
+    const [selectedAccess, setSelectedAccess] = useState(null);
 
     useEffect(() => {
         fetch('http://52.207.190.181:5000/get_all_organizations')
@@ -58,7 +59,6 @@ const Userform = () => {
         }
     };
 
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -76,14 +76,12 @@ const Userform = () => {
             body: formData,
         })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Something went wrong.');
-                }
                 return response.json();
             })
             .then(data => {
+                console.log(data)
                 if (data?.message?.includes('Inserted into user_table')) {
-                    setSelectedOrg(null)
+                    setSelectedOrg(null);
                     setFormValues({
                         orgId: '',
                         accessLevel: '',
@@ -93,9 +91,10 @@ const Userform = () => {
                         Ranker: false,
                         Parser: false,
                         applicationAccess: ''
-                    })
-                    toast.success('Creation of user successful')
+                    });
+                    toast.success('Creation of user successful');
                 } else if (data?.error?.includes('UNIQUE')) {
+                    setSelectedOrg(null);
                     setFormValues({
                         orgId: '',
                         accessLevel: '',
@@ -105,12 +104,12 @@ const Userform = () => {
                         Ranker: false,
                         Parser: false,
                         applicationAccess: ''
-                    })
-                    toast.error('User already exists')
+                    });
+                    toast.error('User already exists');
                 } else {
-                    toast.error(data?.error)
+                    toast.error('Something went wrong');
                 }
-            })
+            });
     };
 
     const handleOrgChange = (event, newValue) => {
@@ -128,14 +127,15 @@ const Userform = () => {
             accessLevel: newValue ? newValue.id : ''
         });
     };
+
     const isButtonDisabled = !(formValues.orgId && formValues.accessLevel && formValues.username && formValues.password);
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', margin: '4%' }}>
-            <div>
-                <img src={createUserImage} alt="admin" width="500px" height="300px" />
+        <div className="formContainer">
+            <div className="imageContainer">
+                <img src={createUserImage} alt="admin" />
             </div>
-            <div style={{ paddingLeft: '30px' }}>
+            <div className="form">
                 <form onSubmit={handleSubmit}>
                     <Autocomplete
                         options={orgOptions}
@@ -163,7 +163,7 @@ const Userform = () => {
                         options={[{ id: 'superuser', label: 'Super User' }, { id: 'user', label: 'User' }]}
                         getOptionLabel={option => option?.label}
                         value={selectedAccess}
-                        disabled={formValues?.orgId.length <= 0}
+                        disabled={formValues.orgId.length <= 0}
                         onChange={handleAccessChange}
                         renderInput={params => (
                             <TextField
@@ -182,80 +182,63 @@ const Userform = () => {
                         )}
                     />
                     <TextField
-                        sx={{ width: '50%', padding: '5px' }}
+                        className="textFieldUser"
                         id="username"
                         name="username"
                         label="Username*"
-                        value={formValues?.username}
+                        value={formValues.username}
                         onChange={handleChange}
                         margin="normal"
-                        disabled={formValues?.orgId === ''}
-                        inputProps={{ style: { fontSize: 20, cursor: formValues?.orgId.length <= 0 ? 'not-allowed' : 'auto' } }}
+                        disabled={formValues.orgId === ''}
+                        inputProps={{ style: { fontSize: 20, cursor: formValues.orgId.length <= 0 ? 'not-allowed' : 'auto' } }}
                         InputLabelProps={{ style: { fontSize: 20 } }}
                     />
                     <TextField
-                        sx={{ width: '50%', padding: '5px' }}
+                        className="textFieldUser"
                         id="password"
                         name="password"
                         label="Password*"
                         type="password"
-                        disabled={formValues?.username.length <= 0}
-                        value={formValues?.password}
+                        disabled={formValues.username.length <= 0}
+                        value={formValues.password}
                         onChange={handleChange}
                         margin="normal"
-                        inputProps={{ style: { fontSize: 20, cursor: formValues?.username.length <= 0 ? 'not-allowed' : 'auto' } }}
+                        inputProps={{ style: { fontSize: 20, cursor: formValues.username.length <= 0 ? 'not-allowed' : 'auto' } }}
                         InputLabelProps={{ style: { fontSize: 20 } }}
                     />
                     <Grid container spacing={1}>
-
                         <Grid item xs={12}>
                             <FormControlLabel
-                                sx={{
-                                    padding: '5px',
-                                    '& .MuiTypography-root': {
-                                        fontSize: '20px',
-                                    }
-                                }}
+                                className="formControlLabel"
                                 control={
                                     <Checkbox
                                         id="admin"
                                         name="Admin"
-                                        checked={formValues?.Admin}
+                                        checked={formValues.Admin}
                                         onChange={handleChange}
                                     />
                                 }
                                 label="Admin"
                             />
-
                             <FormControlLabel
-                                sx={{
-                                    padding: '5px',
-                                    '& .MuiTypography-root': {
-                                        fontSize: '20px',
-                                    }
-                                }}
+                                className="formControlLabel"
                                 control={
                                     <Checkbox
                                         id="ranker"
                                         name="Ranker"
-                                        checked={formValues?.Ranker}
+                                        checked={formValues.Ranker}
                                         onChange={handleChange}
                                     />
                                 }
                                 label="Ranker"
                             />
                             <FormControlLabel
-                                sx={{
-                                    padding: '5px',
-                                    '& .MuiTypography-root': {
-                                        fontSize: '20px',
-                                    }
-                                }}
+                                className="formControlLabel"
                                 control={
                                     <Checkbox
                                         id="parser"
                                         name="Parser"
-                                        checked={formValues?.Parser}
+                                        checked={formValues.Parser}
                                         onChange={handleChange}
                                     />
                                 }
@@ -263,8 +246,8 @@ const Userform = () => {
                             />
                         </Grid>
                     </Grid>
-                    <Box display="flex" justifyContent="center" marginTop={2}>
-                        <Button  variant="outlined"  type="submit" disabled={isButtonDisabled} sx={{ fontSize: '1.2rem' }}>
+                    <Box className="submitButtonContainer">
+                        <Button className="submitButton" variant="outlined" type="submit" disabled={isButtonDisabled}>
                             Create User
                         </Button>
                     </Box>

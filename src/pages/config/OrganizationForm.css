@@ -1,0 +1,28 @@
+.formContainer {
+    display: flex;
+    justify-content: center;
+    margin: 4%;
+}
+
+.imageContainer img {
+    width: 500px;
+    height: 300px;
+}
+
+.form {
+    margin-top: 60px;
+}
+
+.textFieldOrg {
+    margin-bottom: 16px;
+}
+
+.submitButtonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.submitButton {
+    font-size: 1.2rem;
+}

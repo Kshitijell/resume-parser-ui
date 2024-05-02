@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
 import { Box } from '@mui/material';
 import { orgnizationImage } from 'src/assets/images';
+import './OrganizationForm.css';
 
 const initialFormValues = {
     orgId: '',
@@ -32,31 +33,30 @@ const Organizationform = () => {
         })
             .then((response) => {
                 if (!response.ok) {
-                    console.log(response)
+                    console.log(response);
                     throw new Error('Something went wrong. Error is consoled.');
                 }
                 return response.json();
             })
             .then((data) => {
                 if (data?.message?.includes('Inserted into organization_table')) {
-                    setFormValues(initialFormValues)
-                    toast.success('Creation of organization successful')
+                    setFormValues(initialFormValues);
+                    toast.success('Creation of organization successful');
                 } else if (data?.error.includes('UNIQUE')) {
-                    setFormValues(initialFormValues)
-                    toast.error('Organization already exists')
+                    setFormValues(initialFormValues);
+                    toast.error('Organization already exists');
                 }
-            })
+            });
     };
 
     const isButtonDisabled = !(formValues.orgName && formValues.apiKey);
 
-
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', margin: '4%' }}>
-            <div>
-                <img src={orgnizationImage} alt="admin" width="500px" height="300px" />
+        <div className="formContainer">
+            <div className="imageContainer">
+                <img src={orgnizationImage} alt="admin" />
             </div>
-            <div style={{ marginTop: '60px' }}>
+            <div className="form">
                 <form onSubmit={handleSubmit}>
                     <TextField
                         fullWidth
@@ -66,6 +66,7 @@ const Organizationform = () => {
                         value={formValues?.orgName}
                         onChange={handleChange}
                         margin="normal"
+                        className="textFieldOrg"
                         inputProps={{ style: { fontSize: 19 } }}
                         InputLabelProps={{ style: { fontSize: 19 } }}
                     />
@@ -78,11 +79,12 @@ const Organizationform = () => {
                         onChange={handleChange}
                         margin="normal"
                         disabled={formValues?.orgName.length <= 0}
+                        className="textFieldOrg"
                         inputProps={{ style: { fontSize: 19, cursor: formValues?.orgName.length <= 0 ? 'not-allowed' : 'auto' } }}
                         InputLabelProps={{ style: { fontSize: 19 } }}
                     />
-                    <Box display="flex" justifyContent="center" marginTop={2}>
-                        <Button variant="outlined" type="submit" disabled={isButtonDisabled} sx={{ fontSize: '1.2rem' }}>
+                    <Box className="submitButtonContainer">
+                        <Button variant="outlined" type="submit" disabled={isButtonDisabled} className="submitButton">
                             Create Organization
                         </Button>
                     </Box>

@@ -1,0 +1,30 @@
+.formContainer {
+  display: flex;
+  justify-content: center;
+  margin: 5%;
+}
+
+.imageContainer img {
+  width: 500px;
+  height: 300px;
+}
+
+.form {
+  margin-top: 10px;
+  padding-left: 10px;
+}
+
+.textFieldAgency {
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.submitButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.submitButton {
+  font-size: 1.2rem;
+}
