@@ -338,11 +338,12 @@ function ResumeParser() {
               sx={{ fontSize: '1.2rem', width: '20%', marginLeft: 'auto' }}
               startIcon={tableLoading ? <CircularProgress size={15} /> : null}
               onClick={handleSubmit}
+              variant='outlined'
               disabled={tableLoading || uploadResume}
             >
               Rank Resume(s)
             </Button>
-            {resumeCount !== '' && resumeCount !== undefined ? <Grid item sx={{ marginLeft: 'auto' }}>< Typography variant='h5' color='#3ec0b5' sx={{ padding: 1, }}> {`${resumeCount} Resume(s) uploaded`}</Typography> </Grid> : null}
+            {resumeCount !== '' && resumeCount !== undefined ? <Grid item sx={{ marginLeft: 'auto' }}>< Typography variant='h5' color='#3ec0b5' sx={{ padding: 1, }}> {`${resumeCount} Resume(s) selected`}</Typography> </Grid> : null}
             {formError && <div className="error-message">{formError}</div>}
           </CardContent>
         </Card>
