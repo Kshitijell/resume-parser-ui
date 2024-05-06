@@ -1,13 +1,13 @@
 /* SelectionPage.css */
 .container {
-    height: 100%;
+    height: auto;
     background-size: cover;
     background-position: center;
     padding: 6% 12%;
 }
 
 .cardContainer {
-    height: 100%;
+    height: auto;
     border-radius: 11px;
     background: rgba(246, 248, 253, 0.65);
     box-shadow: 0px 4px 34.3px 2px rgba(30, 45, 87, 0.24);
@@ -17,7 +17,7 @@
 }
 
 .imageContainer {
-    height: 350px;
+    height: 220px;
 }
 
 .card {
@@ -43,4 +43,82 @@
     font-size: 1.2rem;
     background-color: #264393;
     margin-top: 75px;
+}
+
+/* Media Queries */
+
+@media (min-width: 1920px) {
+
+    /* Adjust styles if necessary, for example: */
+    .container {
+        padding: 6% 10%;
+    }
+
+    .card {
+        width: 450px;
+    }
+
+    .imageContainer {
+        height: 220px;
+    }
+}
+
+
+@media (min-width: 1440px) and (max-width: 1919px) {
+    .container {
+        padding: 6% 10%;
+    }
+
+    .card {
+        width: 400px;
+    }
+
+    .imageContainer {
+        height: 220px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .container {
+        padding: 6% 8%;
+    }
+
+    .card {
+        width: 350px;
+        margin-right: 8px;
+    }
+
+    .imageContainer {
+        height: 220px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .container {
+        padding: 4% 6%;
+    }
+
+    .card {
+        width: 300px;
+        margin-right: 5px;
+    }
+
+    .imageContainer {
+        height: 220px;
+    }
+}
+
+@media (max-width: 767px) {
+    .container {
+        padding: 2% 4%;
+    }
+
+    .card {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .imageContainer {
+        height: 220px;
+    }
 }

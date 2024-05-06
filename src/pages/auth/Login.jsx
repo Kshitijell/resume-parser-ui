@@ -62,8 +62,8 @@ const Login = () => {
   return (
     <div className="main-container">
       <Grid container justifyContent="center" alignItems="center" className="header-container">
-        <Typography variant='h1' sx={{ color: '#3ec0b5', textAlign: 'center', bottom: '300px', right: '350px', position: 'relative' }}>AccuHire</Typography>
-        <img src={logo_black_emergys} alt="black_emergys" className="logo" style={{ bottom: '250px', right: '475px', position: 'relative', width: '155px', height: '40px' }} />
+        <Typography variant='h1'>AccuHire</Typography>
+        <img src={logo_black_emergys} alt="black_emergys" className="logo" />
       </Grid>
       <form className="login-form" onSubmit={handleSubmit}>
         <Grid container justifyContent="center" alignItems="center">

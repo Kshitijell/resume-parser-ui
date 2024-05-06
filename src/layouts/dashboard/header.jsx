@@ -29,7 +29,7 @@ export default function Header({ onOpenNav }) {
 
   const renderContent = (
     <>
-      <Logo disabledLink sx={{ width: 180, height: 45 }} />
+      <Logo disabledLink sx={{ width: 170, height: 45 }} />
       <Stack
         flexGrow={1}
         direction="row"
