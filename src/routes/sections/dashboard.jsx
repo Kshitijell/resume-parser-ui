@@ -10,9 +10,6 @@ const SelectionPage = lazy(() => import('src/pages/selectionwindow/selection_pag
 const PowerAppsPage = lazy(() => import('src/pages/dashboard/power-app-page'));
 const ConfigPage = lazy(() => import('src/pages/config/config-page'));
 // Import child components for the config route
-const UserCreationPage = lazy(() => import('src/pages/config/user'));
-const AgencyCreationPage = lazy(() => import('src/pages/config/agency'));
-const OrganizationCreationPage = lazy(() => import('src/pages/config/organization'))
 
 export const DashboardRoutes = () => [
   {

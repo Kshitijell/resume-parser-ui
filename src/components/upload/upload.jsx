@@ -29,6 +29,7 @@ export default function Upload({
   accept,
   isDirectUploadFile,
   maxSize,
+  placeHolder,
   maxFiles,
   ...other
 }) {
@@ -50,13 +51,10 @@ export default function Upload({
   const renderPlaceholder = (
     <Stack spacing={3} alignItems="center" justifyContent="center" flexWrap="no-wrap">
       {/* <UploadIllustration sx={{ width: 1, maxWidth: 200 }} /> */}
-      <Stack spacing={1} sx={{ textAlign: 'center', marginTop: '75px' }}>
-        <Typography variant="h4" sx={{ color: 'text.secondary' }}>Browse PDF Documents</Typography>
-        <Typography variant="h5" sx={{ color: 'text.secondary' }}>
-          OR
-        </Typography>
+      <Stack spacing={1} sx={{ textAlign: 'center', marginTop: '30px' }}>
+        <Typography variant="h5" sx={{ color: 'text.secondary' }}>{placeHolder}</Typography>
         <Typography variant="h4" sx={{ color: 'text.secondary' }}>
-          Drag and drop PDF document here
+          Select or drop file(s) here
         </Typography>
       </Stack>
     </Stack>
@@ -107,13 +105,13 @@ export default function Upload({
   );
 
   return (
-    <Box sx={{ width: 1, position: 'relative', padding: 1, ...sx }}>
+    <Box sx={{ width: 1, height: 1,position: 'relative', padding: 2, ...sx }}>
       {label && <Typography variant='h5' sx={{ color: 'text.secondary' }}>{label}</Typography>}
       <Box
         {...getRootProps()}
         sx={{
           p: 2,
-          height: '300px',
+          height: '175px',
           outline: 'none',
           borderRadius: 1,
           cursor: 'pointer',

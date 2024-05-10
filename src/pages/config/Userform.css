@@ -1,8 +1,7 @@
-/* Userform.css */
 .formContainer {
     display: flex;
     justify-content: center;
-    margin: 4%;
+    margin: 2%;
 }
 
 .imageContainer img {
@@ -15,7 +14,7 @@
 }
 
 .textFieldUser {
-    width: 50%;
+    width: 100%;
     padding: 5px;
 }
 
@@ -29,10 +28,19 @@
 
 .submitButtonContainer {
     display: flex;
+    align-items: center;
     justify-content: center;
     margin-top: 2rem;
 }
 
 .submitButton {
     font-size: 1.2rem;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 767px) {
+    .imageContainer img {
+        width: 300px;
+        /* Width for screens smaller than 768px */
+    }
 }

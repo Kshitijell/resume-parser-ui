@@ -5,7 +5,7 @@ export { default as rankerLogo } from './rankerLogo.svg';
 export { default as background_Image } from './background-image.jpg';
 export { default as adminBackgroundImage } from './admin_page.jpg'
 export { default as createUserImage } from './userImage.svg'
-export { default as orgnizationImage } from './organization.svg'
+export { default as organizationImage } from './organization.svg'
 export { default as agencyImage } from './agencyImage.svg'
 export { default as selectionBackgroundImage } from './selectionPageBackgorund.jpg'
 export { default as parserBackground } from './parserBackground.jpg'

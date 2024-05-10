@@ -10,6 +10,7 @@ import {
   IconButton,
   Radio,
   RadioGroup,
+  TextField,
   Typography,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
@@ -30,6 +31,7 @@ const validationSchema = Yup.object({
 
 function ResumeParser() {
   const navigate = useNavigate();
+  const url = `${import.meta.env.VITE_API_KEY}`
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [open, setOpen] = useState(false);
   const [reqIds, setReqIds] = useState([]);
@@ -64,7 +66,7 @@ function ResumeParser() {
         }
 
         try {
-          const res = await axios.post('http://52.207.190.181:5000/upload', formData);
+          const res = await axios.post(`${url}upload`, formData);
           if (res.data) {
             const resData = res.data.data;
             toast.success('Resume Ranked!');
@@ -87,7 +89,7 @@ function ResumeParser() {
   };
   const fetchReqIds = async () => {
     try {
-      const res = await axios.post('http://52.207.190.181:5000/recommend');
+      const res = await axios.post(`${url}recommend`);
       if (res.data) {
         const resData = res.data.data;
         setInitialReqIds(resData);
@@ -131,7 +133,7 @@ function ResumeParser() {
     if (files.length > 0) {
       setUploadResume(true);
       try {
-        const res = await axios.post('http://52.207.190.181:5000//upload_resume', formData);
+        const res = await axios.post(`${url}upload_resume`, formData);
         if (res) {
           setTableLoading(false)
           toast.success('Resume Uploaded.');
@@ -161,6 +163,14 @@ function ResumeParser() {
       active = false;
     };
   }, [loading]);
+
+  const handleNewID = (e) => {
+    const debounce = setTimeout(() => {
+      setRequisitionId(e.target.value)
+    }, 1000)
+
+    return () => clearTimeout(debounce)
+  }
 
   const handleInputChange = (event, newInputValue) => {
     event?.preventDefault();
@@ -275,7 +285,8 @@ function ResumeParser() {
                 />
               </RadioGroup>
             </FormControl>
-            <CustomAutoFetchComplete
+            {selectedOption === 'new' ? <TextField label='New Requisition ID' sx={{ width: '30%', padding: '5px', marginLeft: '5px' }} inputProps={{ style: { fontSize: '19px' } }}
+              InputLabelProps={{ style: { fontSize: 20 } }} onChange={(e) => handleNewID(e)} /> : <CustomAutoFetchComplete
               sx={{ width: '30%' }}
               options={reqIds}
               autoCompleteProps={{
@@ -297,7 +308,7 @@ function ResumeParser() {
                 label: 'Requisition ID*',
                 name: 'req_id',
               }}
-            />
+            />}
 
 
 
@@ -306,7 +317,8 @@ function ResumeParser() {
               {selectedOption === 'new' && (
                 <Grid item sx={{ width: '50%' }}>
                   <Upload
-                    label="Upload JD"
+                    placeHolder={'Upload JD'}
+                    // label="Upload JD"
                     multiple
                     files={uploadedFiles}
                     accept={{
@@ -321,7 +333,8 @@ function ResumeParser() {
               <Grid item sx={{ width: '50%' }}>
                 <Upload
                   multiple
-                  label="Upload Resume"
+                  placeHolder={'Upload Resume'}
+                  // label="Upload JD"
                   files={[]}
                   accept={{
                     'application/pdf': ['.docx'],
@@ -335,7 +348,7 @@ function ResumeParser() {
             </Grid>
 
             <Button
-              sx={{ fontSize: '1.2rem', width: '20%', marginLeft: 'auto' }}
+              sx={{ fontSize: '1.1rem', width: '20%', marginLeft: 'auto' }}
               startIcon={tableLoading ? <CircularProgress size={15} /> : null}
               onClick={handleSubmit}
               variant='outlined'

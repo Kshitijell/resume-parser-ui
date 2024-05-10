@@ -90,7 +90,7 @@ export function AuthProvider({ children }) {
       formData.append('username', res.username);
       formData.append('password', res.password);
 
-      const response = await fetch('http://52.207.190.181:5000/login', {
+      const response = await fetch(`${import.meta.env.VITE_API_KEY}login`, {
         method: 'POST',
         body: formData,
       });
@@ -106,12 +106,14 @@ export function AuthProvider({ children }) {
         password: users[0].Password,
         application: users[0].Application,
         isAdmin: users[0].IsAdmin,
+        orgId: users[0].Org_id
       };
 
       if (res.username !== userDetails.username && res.password !== userDetails.password) return false;
 
       // Store user details in localStorage
       localStorage.setItem('userDetails', JSON.stringify(userDetails));
+
 
       setSessionStorage('accesstoken', res.username);
       dispatch({

@@ -88,7 +88,7 @@ export default function SplashScreen({ sx, ...other }) {
           }}
         />
       </>
-    </Box>  
+    </Box>
   );
 }
 

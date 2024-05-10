@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
 import { Box } from '@mui/material';
-import { orgnizationImage } from 'src/assets/images';
+import { organizationImage } from 'src/assets/images';
 import './OrganizationForm.css';
 
 const initialFormValues = {
@@ -22,12 +22,13 @@ const Organizationform = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const url = `${import.meta.env.VITE_API_KEY}insert_organization`
         const formData = new FormData();
         formData.append('Org_id', formValues.orgId);
         formData.append('API_KEY', formValues.apiKey);
         formData.append('Org_name', formValues.orgName);
 
-        fetch('http://52.207.190.181:5000/insert_organization', {
+        fetch(url, {
             method: 'POST',
             body: formData,
         })
@@ -54,7 +55,7 @@ const Organizationform = () => {
     return (
         <div className="formContainer">
             <div className="imageContainer">
-                <img src={orgnizationImage} alt="admin" />
+                <img src={organizationImage} alt="admin" style={{ maxWidth: '100%' }} />
             </div>
             <div className="form">
                 <form onSubmit={handleSubmit}>

@@ -38,7 +38,7 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs({ item_1, item_2, item_3 }) {
+export default function BasicTabs({ overview, item_1, item_2, item_3 }) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -48,12 +48,12 @@ export default function BasicTabs({ item_1, item_2, item_3 }) {
   const getTabStyle = (index) => {
     if (index === value) {
       return {
-        fontSize: '30px', 
+        fontSize: '30px',
         color: '#2596be',
       };
     } else {
       return {
-        fontSize: '20px', 
+        fontSize: '20px',
         color: '#2596be',
       };
     }
@@ -67,8 +67,13 @@ export default function BasicTabs({ item_1, item_2, item_3 }) {
           onChange={handleChange}
           aria-label="basic tabs example"
           variant="scrollable"
-          sx={{ padding: '15px' }}
+          sx={{ padding: '5px' }}
         >
+          {/* <Tab
+            label="Overview"
+            {...a11yProps(0)}
+            sx={{ ...getTabStyle(0), '&:hover': { backgroundColor: 'transparent' } }}
+          /> */}
           <Tab
             label="Organization"
             {...a11yProps(0)}
@@ -87,6 +92,9 @@ export default function BasicTabs({ item_1, item_2, item_3 }) {
         </Tabs>
 
       </Box>
+      {/* <CustomTabPanel value={value} index={0} >
+        {overview}
+      </CustomTabPanel> */}
       <CustomTabPanel value={value} index={0}>
         {item_1}
       </CustomTabPanel>

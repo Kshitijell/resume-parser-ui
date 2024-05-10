@@ -1,12 +1,12 @@
 .formContainer {
     display: flex;
     justify-content: center;
-    margin: 4%;
+    margin: 2%;
 }
 
 .imageContainer img {
-    width: 500px;
-    height: 300px;
+    width: 100%;
+    height: auto;
 }
 
 .form {
@@ -14,12 +14,13 @@
 }
 
 .textFieldOrg {
-    margin-bottom: 16px;
+    /* margin-bottom: 16px; */
 }
 
 .submitButtonContainer {
     display: flex;
     justify-content: center;
+    align-items: 'center';
     margin-top: 16px;
 }
 

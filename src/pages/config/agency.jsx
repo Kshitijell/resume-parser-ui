@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
-import { Autocomplete, Box } from '@mui/material';
+import { Autocomplete, Box, Grid } from '@mui/material';
 import { agencyImage } from 'src/assets/images';
 import './AgencyForm.css';
 
@@ -16,10 +16,11 @@ const Agencyform = () => {
     const [formValues, setFormValues] = useState(initialFormValues);
     const [orgOptions, setOrgOptions] = useState([]);
     const [selectedOrg, setSelectedOrg] = useState(null);
+    const url = `${import.meta.env.VITE_API_KEY}`
 
     useEffect(() => {
         // Fetch organization options from the API
-        fetch('http://52.207.190.181:5000/get_all_organizations')
+        fetch(`${url}get_all_organizations`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch organizations');
@@ -55,11 +56,11 @@ const Agencyform = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('org_id', formValues.orgId);
+        formData.append('Org_id', formValues.orgId);
         formData.append('Agency_name', formValues.agencyName);
         formData.append('Agency_email', formValues.agencyEmail);
 
-        fetch('http://52.207.190.181:5000/insert_agency', {
+        fetch(`${url}insert_agency`, {
             method: 'POST',
             body: formData,
         })
@@ -100,43 +101,49 @@ const Agencyform = () => {
                         getOptionLabel={(option) => option?.label || ''}
                         value={selectedOrg}
                         onChange={handleOrgChange}
+                        className='textFieldAgency'
                         renderInput={(params) => (
                             <TextField
                                 {...params}
                                 name="orgId"
                                 label="Organization Name"
-                                className='textFieldAgency'
+                              
                                 required
-                                sx={{ label: { fontSize: '20px' }, input: { fontSize: '20px' } }}
+                                sx={{ label: { fontSize: '19px' }, input: { fontSize: '19px' } }}
                             />
                         )}
                     />
-                    <TextField
-                        id="agencyName"
-                        name="agencyName"
-                        label="Agency Name"
-                        required
-                        disabled={!formValues.orgId}
-                        value={formValues.agencyName}
-                        onChange={handleChange}
-                        autoFocus
-                        className="textFieldAgency"
-                        inputProps={{ style: { fontSize: 20 } }}
-                        InputLabelProps={{ style: { fontSize: 20 } }}
-                    />
-                    <TextField
-                        id="agencyEmail"
-                        name="agencyEmail"
-                        label="Agency Identifier*"
-                        required
-                        value={formValues.agencyEmail}
-                        onChange={handleChange}
-                        disabled={!formValues.agencyName}
-                        className="textFieldAgency"
-                        inputProps={{ style: { fontSize: 20 } }}
-                        InputLabelProps={{ style: { fontSize: 20 } }}
-                    />
-
+                    <Grid container >
+                        <Grid item >
+                            <TextField
+                                id="agencyName"
+                                name="agencyName"
+                                label="Agency Name"
+                                required
+                                disabled={!formValues.orgId}
+                                value={formValues.agencyName}
+                                onChange={handleChange}
+                                autoFocus
+                                className="textFieldAgency"
+                                inputProps={{ style: { fontSize: '19px',cursor: formValues.orgId.length <= 0 ? 'not-allowed' : 'auto'  } }}
+                                InputLabelProps={{ style: { fontSize: '19px' } }}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                id="agencyEmail"
+                                name="agencyEmail"
+                                label="Agency Identifier"
+                                required
+                                value={formValues.agencyEmail}
+                                onChange={handleChange}
+                                disabled={!formValues.agencyName}
+                                className="textFieldAgency"
+                                inputProps={{ style: { fontSize: '19px' ,cursor: formValues.orgId.length <= 0 ? 'not-allowed' : 'auto' } }}
+                                InputLabelProps={{ style: { fontSize: '19px' } }}
+                            />
+                        </Grid>
+                    </Grid>
                     <Box className="submitButtonContainer">
                         <Button
                             variant="outlined"

@@ -20,12 +20,14 @@ const Userform = () => {
         applicationAccess: ''
     });
 
+    const url = `${import.meta.env.VITE_API_KEY}`
     const [orgOptions, setOrgOptions] = useState([]);
     const [selectedOrg, setSelectedOrg] = useState(null);
     const [selectedAccess, setSelectedAccess] = useState(null);
 
+
     useEffect(() => {
-        fetch('http://52.207.190.181:5000/get_all_organizations')
+        fetch(`${url}get_all_organizations`)
             .then(response => response.json())
             .then(data => {
                 const transformedOptions = data.organizations?.map(org => ({
@@ -71,7 +73,7 @@ const Userform = () => {
         formData.append('IsParser', formValues.Parser.toString());
         formData.append('Application', formValues.applicationAccess);
 
-        fetch('http://52.207.190.181:5000/insert_user', {
+        fetch(`${url}insert_user`, {
             method: 'POST',
             body: formData,
         })
@@ -135,77 +137,90 @@ const Userform = () => {
             <div className="imageContainer">
                 <img src={createUserImage} alt="admin" />
             </div>
-            <div className="form">
+            <div className="form" style={{ marginTop: '-2px' }}>
                 <form onSubmit={handleSubmit}>
-                    <Autocomplete
-                        options={orgOptions}
-                        getOptionLabel={(option) => option?.label}
-                        value={selectedOrg}
-                        onChange={handleOrgChange}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                name='orgId'
-                                label='Organization Name*'
-                                sx={{
-                                    label: {
-                                        fontSize: '20px',
-                                    },
-                                    input: {
-                                        fontSize: '20px',
-                                    },
-                                }}
+                    <Grid container>
+                        <Grid item width={'50%'} padding={'5px'}>
+                            <Autocomplete
+                                options={orgOptions}
+                                getOptionLabel={(option) => option?.label}
+                                value={selectedOrg}
+                                onChange={handleOrgChange}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        name='orgId'
+                                        label='Organization Name*'
+                                        sx={{
+                                            label: {
+                                                fontSize: '19px',
+                                            },
+                                            input: {
+                                                fontSize: '19px',
+                                            },
+                                        }}
+                                    />
+                                )}
                             />
-                        )}
-                    />
-                    <br />
-                    <Autocomplete
-                        options={[{ id: 'superuser', label: 'Super User' }, { id: 'user', label: 'User' }]}
-                        getOptionLabel={option => option?.label}
-                        value={selectedAccess}
-                        disabled={formValues.orgId.length <= 0}
-                        onChange={handleAccessChange}
-                        renderInput={params => (
-                            <TextField
-                                {...params}
-                                name='accessLevel'
-                                label="Access Level*"
-                                sx={{
-                                    label: {
-                                        fontSize: '20px',
-                                    },
-                                    input: {
-                                        fontSize: '20px',
-                                    },
-                                }}
+                        </Grid>
+                        <Grid item width={'50%'} padding={'5px'}>
+                            <Autocomplete
+                                options={[{ id: 'superuser', label: 'Super User' }, { id: 'user', label: 'User' }]}
+                                getOptionLabel={option => option?.label}
+                                value={selectedAccess}
+                                disabled={formValues.orgId.length <= 0}
+                                onChange={handleAccessChange}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        name='accessLevel'
+                                        label="Access Level*"
+                                        sx={{
+                                            label: {
+                                                fontSize: '19px',
+                                            },
+                                            input: {
+                                                fontSize: '19px',
+                                                cursor: formValues.orgId.length <= 0 ? 'not-allowed' : 'auto'
+                                            },
+
+                                        }}
+                                    />
+                                )}
                             />
-                        )}
-                    />
-                    <TextField
-                        className="textFieldUser"
-                        id="username"
-                        name="username"
-                        label="Username*"
-                        value={formValues.username}
-                        onChange={handleChange}
-                        margin="normal"
-                        disabled={formValues.orgId === ''}
-                        inputProps={{ style: { fontSize: 20, cursor: formValues.orgId.length <= 0 ? 'not-allowed' : 'auto' } }}
-                        InputLabelProps={{ style: { fontSize: 20 } }}
-                    />
-                    <TextField
-                        className="textFieldUser"
-                        id="password"
-                        name="password"
-                        label="Password*"
-                        type="password"
-                        disabled={formValues.username.length <= 0}
-                        value={formValues.password}
-                        onChange={handleChange}
-                        margin="normal"
-                        inputProps={{ style: { fontSize: 20, cursor: formValues.username.length <= 0 ? 'not-allowed' : 'auto' } }}
-                        InputLabelProps={{ style: { fontSize: 20 } }}
-                    />
+                        </Grid>
+                        <Grid item sx={{ width: '50%' }}>
+                            <TextField
+                                className="textFieldUser"
+                                id="username"
+                                name="username"
+                                label="Username*"
+                                value={formValues.username}
+                                onChange={handleChange}
+                                margin="normal"
+                                disabled={formValues.orgId === ''}
+                                inputProps={{ style: { fontSize: '19px', cursor: formValues.orgId.length <= 0 ? 'not-allowed' : 'auto' } }}
+                                InputLabelProps={{ style: { fontSize: '19px' } }}
+                            />
+                        </Grid>
+                        <Grid item sx={{ width: '50%' }}>
+                            <TextField
+                                className="textFieldUser"
+                                id="password"
+                                name="password"
+                                label="Password*"
+                                type="password"
+                                disabled={formValues.username.length <= 0}
+                                value={formValues.password}
+                                onChange={handleChange}
+                                margin="normal"
+                                inputProps={{ style: { fontSize: '19px', cursor: formValues.username.length <= 0 ? 'not-allowed' : 'auto' } }}
+                                InputLabelProps={{ style: { fontSize: '19px' } }}
+                            />
+                        </Grid>
+                    </Grid>
+
+
                     <Grid container spacing={1}>
                         <Grid item xs={12}>
                             <FormControlLabel
@@ -246,14 +261,14 @@ const Userform = () => {
                             />
                         </Grid>
                     </Grid>
-                    <Box className="submitButtonContainer">
-                        <Button className="submitButton" variant="outlined" type="submit" disabled={isButtonDisabled}>
+                    <Grid item className="submitButtonContainer" >
+                        <Button className="submitButton" height={'40px'} variant="outlined" type="submit" disabled={isButtonDisabled}>
                             Create User
                         </Button>
-                    </Box>
+                    </Grid>
                 </form>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 
