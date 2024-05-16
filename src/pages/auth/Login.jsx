@@ -95,7 +95,7 @@ const Login = () => {
                     required
                     fullWidth
                   />
-                  {error && <div className="error-message">{error}</div>}
+                  {error && <div className="error-message" style={{width:'278px'}}>{error}</div>}
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Button type="submit" sx={{ marginTop: '1rem' }} size="large" variant="contained">
                       LOGIN
