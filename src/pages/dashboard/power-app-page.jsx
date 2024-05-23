@@ -8,7 +8,7 @@ const PowerAppsPage = () => (
             <ArrowBackIcon />
         </IconButton>
         <iframe
-            width='100%' height='750px' src="https://web.powerapps.com/webplayer/iframeapp?source=iframe&appId=/providers/Microsoft.PowerApps/apps/504422d8-9483-48d3-8a08-4aa1ccb39087&source=react"
+            width='100%' height='750px' src="https://web.powerapps.com/webplayer/iframeapp?source=iframe&appId=/providers/Microsoft.PowerApps/apps/504422d8-9483-48d3-8a08-4aa1ccb39087&appsource=react"
         />
     </div>
 );
