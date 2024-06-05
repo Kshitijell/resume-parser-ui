@@ -67,6 +67,7 @@
 @media (min-width: 1440px) and (max-width: 1919px) {
     .container {
         padding: 6% 10%;
+       
     }
 
     .card {
@@ -80,7 +81,8 @@
 
 @media (min-width: 1024px) and (max-width: 1439px) {
     .container {
-        padding: 6% 8%;
+        padding: 1% 8%;
+       
     }
 
     .card {
@@ -96,6 +98,7 @@
 @media (min-width: 768px) and (max-width: 1023px) {
     .container {
         padding: 4% 6%;
+       
     }
 
     .card {
@@ -111,6 +114,7 @@
 @media (max-width: 767px) {
     .container {
         padding: 2% 4%;
+       
     }
 
     .card {
