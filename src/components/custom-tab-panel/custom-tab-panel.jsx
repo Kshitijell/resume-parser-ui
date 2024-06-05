@@ -36,7 +36,7 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs({ overview, item_1, item_2, item_3 }) {
+export default function BasicTabs({ item_1, item_2, item_3 }) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -67,39 +67,39 @@ export default function BasicTabs({ overview, item_1, item_2, item_3 }) {
           variant="scrollable"
           sx={{ padding: '5px' }}
         >
-          <Tab
+          {/* <Tab
             label="Overview"
+            {...a11yProps(0)}
+            sx={{ ...getTabStyle(0), '&:hover': { backgroundColor: 'transparent' } }}
+          /> */}
+          <Tab
+            label="Organization"
             {...a11yProps(0)}
             sx={{ ...getTabStyle(0), '&:hover': { backgroundColor: 'transparent' } }}
           />
           <Tab
-            label="Organization"
-            {...a11yProps(0)}
-            sx={{ ...getTabStyle(1), '&:hover': { backgroundColor: 'transparent' } }}
-          />
-          <Tab
             label="User"
             {...a11yProps(1)}
-            sx={{ ...getTabStyle(2), '&:hover': { backgroundColor: 'transparent' } }}
+            sx={{ ...getTabStyle(1), '&:hover': { backgroundColor: 'transparent' } }}
           />
           <Tab
             label="Agency"
             {...a11yProps(2)}
-            sx={{ ...getTabStyle(3), '&:hover': { backgroundColor: 'transparent' } }}
+            sx={{ ...getTabStyle(2), '&:hover': { backgroundColor: 'transparent' } }}
           />
         </Tabs>
 
       </Box>
-      <CustomTabPanel value={value} index={0} >
+      {/* <CustomTabPanel value={value} index={0} >
         {overview}
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
+      </CustomTabPanel> */}
+      <CustomTabPanel value={value} index={0}>
         {item_1}
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
+      <CustomTabPanel value={value} index={1}>
         {item_2}
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
+      <CustomTabPanel value={value} index={2}>
         {item_3}
       </CustomTabPanel>
     </Box>

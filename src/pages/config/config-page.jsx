@@ -15,7 +15,7 @@ const Configpage = () => {
     const window_1 = <Organizationform />
     const window_3 = <Agencyform />
     const window_2 = <Userform />
-    const overview = <Overview />
+    // const overview = <Overview />
 
     return (
         <>
@@ -52,7 +52,7 @@ const Configpage = () => {
                             <IconButton onClick={() => window.history.back()} aria-label="back" title='Back to selection'>
                                 <ArrowBackIcon />
                             </IconButton>
-                            <CustomTabPanel overview={overview} item_1={window_1} item_2={window_2} item_3={window_3} />
+                            <CustomTabPanel item_1={window_1} item_2={window_2} item_3={window_3} />
                         </CardContent>
                     </Card>
                 </Box>
