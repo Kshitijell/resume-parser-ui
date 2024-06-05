@@ -154,7 +154,7 @@ function TableComponent() {
   };
 
   return (
-    <Box sx={{ height: '100%', position: 'relative', width: 1, height: '-webkit-fill-available' }}>
+    <Box sx={{  position: 'relative', width: 1, height: '-webkit-fill-available' }}>
       <Box
         sx={{
           height: '100%',
