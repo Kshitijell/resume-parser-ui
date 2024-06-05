@@ -2,7 +2,6 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 function CustomTabPanel(props) {
@@ -13,7 +12,6 @@ function CustomTabPanel(props) {
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
       {value === index && (
@@ -69,39 +67,39 @@ export default function BasicTabs({ overview, item_1, item_2, item_3 }) {
           variant="scrollable"
           sx={{ padding: '5px' }}
         >
-          {/* <Tab
+          <Tab
             label="Overview"
             {...a11yProps(0)}
             sx={{ ...getTabStyle(0), '&:hover': { backgroundColor: 'transparent' } }}
-          /> */}
+          />
           <Tab
             label="Organization"
             {...a11yProps(0)}
-            sx={{ ...getTabStyle(0), '&:hover': { backgroundColor: 'transparent' } }}
+            sx={{ ...getTabStyle(1), '&:hover': { backgroundColor: 'transparent' } }}
           />
           <Tab
             label="User"
             {...a11yProps(1)}
-            sx={{ ...getTabStyle(1), '&:hover': { backgroundColor: 'transparent' } }}
+            sx={{ ...getTabStyle(2), '&:hover': { backgroundColor: 'transparent' } }}
           />
           <Tab
             label="Agency"
             {...a11yProps(2)}
-            sx={{ ...getTabStyle(2), '&:hover': { backgroundColor: 'transparent' } }}
+            sx={{ ...getTabStyle(3), '&:hover': { backgroundColor: 'transparent' } }}
           />
         </Tabs>
 
       </Box>
-      {/* <CustomTabPanel value={value} index={0} >
+      <CustomTabPanel value={value} index={0} >
         {overview}
-      </CustomTabPanel> */}
-      <CustomTabPanel value={value} index={0}>
-        {item_1}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        {item_2}
+        {item_1}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
+        {item_2}
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={3}>
         {item_3}
       </CustomTabPanel>
     </Box>

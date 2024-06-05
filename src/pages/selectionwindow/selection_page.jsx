@@ -64,11 +64,11 @@ const Selectionpage = () => {
                   <Button
                     size="large"
                     className="cardButton"
-                    onClick={() => window.open(
-                      'https://apps.powerapps.com/play/e/228140fb-0529-e4b8-b3ca-4d1613a7c5da/a/504422d8-9483-48d3-8a08-4aa1ccb39087?tenantId=b7182a97-d832-4b3a-ab2d-6848149387a3&hint=6dafd70b-a94a-4508-b21c-7cf3a1c5d3af&sourcetime=1714472671911',
-                      '_blank'
-                    )}
-                    // onClick={() => navigate('/parser')}
+                    // onClick={() => window.open(
+                    //   'https://apps.powerapps.com/play/e/228140fb-0529-e4b8-b3ca-4d1613a7c5da/a/504422d8-9483-48d3-8a08-4aa1ccb39087?tenantId=b7182a97-d832-4b3a-ab2d-6848149387a3&hint=6dafd70b-a94a-4508-b21c-7cf3a1c5d3af&sourcetime=1714472671911',
+                    //   '_self'
+                    // )}
+                    onClick={() => navigate('/parser')}
                   >
                     Parser
                   </Button>

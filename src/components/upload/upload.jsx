@@ -30,6 +30,10 @@ export default function Upload({
   isDirectUploadFile,
   maxSize,
   placeHolder,
+  tableLoading,
+  handleSubmit,
+  uploadResume,
+  formError,
   maxFiles,
   ...other
 }) {
@@ -42,6 +46,7 @@ export default function Upload({
     ...other,
   });
 
+
   const hasFile = !!file && !multiple;
 
   const hasFiles = !!files && multiple && !!files.length;
@@ -52,8 +57,8 @@ export default function Upload({
     <Stack spacing={3} alignItems="center" justifyContent="center" flexWrap="no-wrap">
       {/* <UploadIllustration sx={{ width: 1, maxWidth: 200 }} /> */}
       <Stack spacing={1} sx={{ textAlign: 'center', marginTop: '30px' }}>
-        <Typography variant="h5" sx={{ color: 'text.secondary' }}>{placeHolder}</Typography>
-        <Typography variant="h4" sx={{ color: 'text.secondary' }}>
+        <Typography variant="h6" sx={{ color: 'text.secondary' }}>{placeHolder}</Typography>
+        <Typography variant="h7" sx={{ color: 'text.secondary' }}>
           Select or drop file(s) here
         </Typography>
       </Stack>
@@ -105,13 +110,13 @@ export default function Upload({
   );
 
   return (
-    <Box sx={{ width: 1, height: 1,position: 'relative', padding: 2, ...sx }}>
+    <Box sx={{ width: 1, height: 1, position: 'relative', padding: 2, ...sx }}>
       {label && <Typography variant='h5' sx={{ color: 'text.secondary' }}>{label}</Typography>}
       <Box
         {...getRootProps()}
         sx={{
           p: 2,
-          height: '175px',
+          height: '150px',
           outline: 'none',
           borderRadius: 1,
           cursor: 'pointer',
@@ -147,7 +152,7 @@ export default function Upload({
       <RejectionFiles fileRejections={fileRejections} maxSize={maxSize} maxFiles={maxFiles} />
 
       {removeSinglePreview}
-      
+
       {helperText && <>{helperText}</>}
 
       {renderMultiPreview}

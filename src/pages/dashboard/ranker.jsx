@@ -285,7 +285,7 @@ function ResumeParser() {
                 />
               </RadioGroup>
             </FormControl>
-            {selectedOption === 'new' ? <TextField label='New Requisition ID' sx={{ width: '30%', padding: '5px', marginLeft: '5px' }} inputProps={{ style: { fontSize: '19px' } }}
+            {selectedOption === 'new' ? <TextField label='New Requisition ID' sx={{ width: '30%', padding: '5px', marginLeft: '10px' }} inputProps={{ style: { fontSize: '19px' } }}
               InputLabelProps={{ style: { fontSize: 20 } }} onChange={(e) => handleNewID(e)} /> : <CustomAutoFetchComplete
               sx={{ width: '30%' }}
               options={reqIds}
@@ -310,6 +310,7 @@ function ResumeParser() {
               }}
             />}
 
+            {resumeCount !== '' && resumeCount !== undefined ? <Grid item sx={{ marginLeft: 'auto' }}>< Typography variant='h5' color='#3ec0b5' sx={{ padding: 1, }}> {`${resumeCount} Resume(s) selected`}</Typography> </Grid> : null}
 
 
             {/* <Box sx={{ display: 'flex', justifyContent: 'space-around', gap: 2 }}> */}
@@ -348,7 +349,7 @@ function ResumeParser() {
             </Grid>
 
             <Button
-              sx={{ fontSize: '1.1rem', width: '20%', marginLeft: 'auto' }}
+              sx={{ fontSize: '1.1rem', width: '20%', marginLeft: 'auto', marginRight: '17px' }}
               startIcon={tableLoading ? <CircularProgress size={15} /> : null}
               onClick={handleSubmit}
               variant='outlined'
@@ -356,7 +357,6 @@ function ResumeParser() {
             >
               Rank Resume(s)
             </Button>
-            {resumeCount !== '' && resumeCount !== undefined ? <Grid item sx={{ marginLeft: 'auto' }}>< Typography variant='h5' color='#3ec0b5' sx={{ padding: 1, }}> {`${resumeCount} Resume(s) selected`}</Typography> </Grid> : null}
             {formError && <div className="error-message">{formError}</div>}
           </CardContent>
         </Card>

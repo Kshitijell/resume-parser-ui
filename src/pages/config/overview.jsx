@@ -65,9 +65,9 @@ function Overview() {
             fetch(urls.users, userPostOptions).then(response => response.json())
         ])
             .then(([organizations, agencies, users]) => {
-                console.log("Organizations:", organizations);
-                console.log("Agencies:", agencies);
-                console.log("Users:", users);
+                // console.log("Organizations:", organizations);
+                // console.log("Agencies:", agencies);
+                // console.log("Users:", users);
             })
             .catch(error => {
                 console.error("Error fetching data:", error);
