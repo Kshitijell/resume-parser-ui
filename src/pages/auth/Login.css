@@ -1,6 +1,6 @@
 .main-container {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background: #ebedf76e;
   margin: 0;
   display: flex;
@@ -14,8 +14,21 @@
 /* Base styles for the header-container */
 .header-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 4%;
+  margin-top: 4%;
+  justify-content: flex-start;
+  margin-bottom: auto;
+  /* align-items: center; */
+}
+
+.logo {
+  width: 100px;
+}
+
+.header-container .logo {
+  position: relative;
+  /* bottom: 220px;
+  right: 390px; */
 }
 
 /* Styles for Typography (h1) element */
@@ -23,50 +36,48 @@
   color: #3ec0b5;
   text-align: center;
   position: relative;
-  bottom: 300px;
-  right: 350px;
+  /* bottom: 270px;
+  right: 250px; */
 }
 
-/* Styles for img element (logo) */
+/* Styles for img element */
 .header-container img {
   position: relative;
-  bottom: 250px;
+  /* bottom: 250px;
   right: 475px;
   width: 155px;
-  height: 40px;
+  height: 40px; */
 }
 
-/* Media query for screen sizes less than 1440px */
-@media screen and (max-width: 1439px) {
-  /* Adjust the styles as needed for smaller screens */
+/* @media screen and (max-width: 1439px) {
 
-  /* Example adjustments:
-   * - Adjusting the position and size of Typography and img elements
-   */
+  .header-container .logo {
+    position: relative;
+    bottom: 120px;
+    right: 290px;
+  }
+
   .header-container h1 {
     bottom: 175px;
-    /* Adjust bottom value */
-    right: 200px;
-    /* Adjust right value */
+    right: 175px;
   }
 
   .header-container img {
     bottom: 125px;
-    /* Adjust bottom value */
+
     right: 310px;
-    /* Adjust right value */
+
     width: 120px;
-    /* Adjust width */
+
     height: 35px;
-    /* Adjust height */
   }
-}
+} */
 
 .card-container {
   width: 100%;
-  /* Ensure the container takes up the full width */
+
   max-width: 400px;
-  /* Limit the maximum width of the card */
+
 }
 
 .main-container .container {
@@ -86,7 +97,7 @@
   text-align: center;
   border-radius: 10px;
   padding: 20px;
-  min-height: 352px;
+  min-height: 330px;
   right: 125px;
   position: relative;
   padding-top: 60px;

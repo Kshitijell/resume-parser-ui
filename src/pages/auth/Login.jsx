@@ -61,13 +61,17 @@ const Login = () => {
 
   return (
     <div className="main-container">
-      <Grid container justifyContent="center" alignItems="center" className="header-container">
-        <Typography variant='h1'>AccuHire</Typography>
-        <img src={logo_black_emergys} alt="black_emergys" className="logo" />
+      <Grid container className="header-container">
+        <Grid item >
+          <Typography variant='h1'>AccuHire</Typography>
+        </Grid>
+        <Grid item>
+          <img src={logo_black_emergys} alt="black_emergys" className="logo" />
+        </Grid>
       </Grid>
       <form className="login-form" onSubmit={handleSubmit}>
         <Grid container justifyContent="center" alignItems="center">
-          <Card sx={{ height: '500px', width: { xs: '100%', md: '100%' }, padding: '1rem' }}>
+          <Card sx={{ height: '450px', width: { xs: '100%', md: '100%' }, padding: '1rem' }}>
             <CardContent>
               <Grid container direction="column" alignItems="center">
                 <Typography variant="h5" padding='10px' align="center">Take the next step towards</Typography>
@@ -95,7 +99,7 @@ const Login = () => {
                     required
                     fullWidth
                   />
-                  {error && <div className="error-message" style={{width:'278px'}}>{error}</div>}
+                  {error && <div className="error-message" style={{ width: '278px' }}>{error}</div>}
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Button type="submit" sx={{ marginTop: '1rem' }} size="large" variant="contained">
                       LOGIN
