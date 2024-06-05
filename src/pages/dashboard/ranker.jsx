@@ -98,8 +98,12 @@ function ResumeParser() {
       console.error('Error uploading file:', error);
     }
   };
+
+
+
   const handleRemoveFile = () => {
     setUploadedFiles([]);
+    setResumeCount('')
   };
 
   const isOptionEqualToValue = (option, value) => option === value;
@@ -203,7 +207,7 @@ function ResumeParser() {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         position: 'relative',
-        padding: '3% 20%',
+        padding: '1% 8%',
       }}
     >
       <Box
