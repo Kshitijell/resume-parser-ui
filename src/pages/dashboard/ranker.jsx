@@ -170,9 +170,10 @@ function ResumeParser() {
 
   const checkRequisitionId = useCallback(
     debounce((value) => {
+      console.log('debounce');
       const exist = initialIds?.find((r) => r === value);
       if (exist) toast.error('Requisition Id Is already exist!');
-    }, 500),
+    }, 300),
     [initialIds]
   );
 
