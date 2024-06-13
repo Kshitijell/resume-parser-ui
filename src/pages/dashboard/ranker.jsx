@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import {
   Box,
   Button,
@@ -13,7 +14,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import * as Yup from 'yup';
@@ -24,6 +25,7 @@ import './login_main.css';
 import CustomAutoFetchComplete from 'src/components/custom-autocomplete/custom-auto-fetch-complete';
 import { parserBackground } from 'src/assets/images';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { debounce } from 'lodash';
 
 const validationSchema = Yup.object({
   inputValue: Yup.string().required('Please enter/select a requisition id.'),
@@ -31,7 +33,7 @@ const validationSchema = Yup.object({
 
 function ResumeParser() {
   const navigate = useNavigate();
-  const url = `${import.meta.env.VITE_API_KEY}`
+  const url = `${import.meta.env.VITE_API_KEY}`;
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [open, setOpen] = useState(false);
   const [reqIds, setReqIds] = useState([]);
@@ -41,11 +43,11 @@ function ResumeParser() {
   const [formError, setFormError] = useState(null);
   const [tableLoading, setTableLoading] = useState(false);
   const [selectedOption, setSelectedOption] = useState('new');
-  const [resumeCount, setResumeCount] = useState('')
+  const [resumeCount, setResumeCount] = useState('');
   const loading = open && reqIds.length === 0;
 
   const handleFileUpload = (files) => {
-    setFormError(null)
+    setFormError(null);
     setUploadedFiles([files[0]]);
   };
 
@@ -80,7 +82,6 @@ function ResumeParser() {
           toast.error('Something went wrong.');
         } finally {
           setTableLoading(false);
-
         }
       }
     } catch (validationError) {
@@ -99,11 +100,9 @@ function ResumeParser() {
     }
   };
 
-
-
   const handleRemoveFile = () => {
     setUploadedFiles([]);
-    setResumeCount('')
+    setResumeCount('');
   };
 
   const isOptionEqualToValue = (option, value) => option === value;
@@ -126,12 +125,12 @@ function ResumeParser() {
   };
 
   const handleFileChange = async (files) => {
-    setTableLoading(true)
+    setTableLoading(true);
     const formData = new FormData();
-    setResumeCount(files.length)
+    setResumeCount(files.length);
     files.forEach((element) => {
       formData.append('file', element);
-      formData.append('requisitionId', requisitionId)
+      formData.append('requisitionId', requisitionId);
     });
 
     if (files.length > 0) {
@@ -139,19 +138,20 @@ function ResumeParser() {
       try {
         const res = await axios.post(`${url}upload_resume`, formData);
         if (res) {
-          setTableLoading(false)
+          setTableLoading(false);
           toast.success('Resume Uploaded.');
         }
       } catch (error) {
-        setTableLoading(false)
+        setTableLoading(false);
         console.error('Error uploading file:', error);
         toast.error('Something went wrong.');
       } finally {
-        setTableLoading(false)
+        setTableLoading(false);
         setUploadResume(false);
       }
     }
   };
+
   useEffect(() => {
     let active = true;
 
@@ -168,13 +168,19 @@ function ResumeParser() {
     };
   }, [loading]);
 
-  const handleNewID = (e) => {
-    const debounce = setTimeout(() => {
-      setRequisitionId(e.target.value)
-    }, 1000)
+  const checkRequisitionId = useCallback(
+    debounce((value) => {
+      const exist = initialIds?.find((r) => r === value);
+      if (exist) toast.error('Requisition Id Is already exist!');
+    }, 500),
+    [initialIds]
+  );
 
-    return () => clearTimeout(debounce)
-  }
+  const handleNewID = (e) => {
+    const value = e.target.value;
+    setRequisitionId(value);
+    checkRequisitionId(value);
+  };
 
   const handleInputChange = (event, newInputValue) => {
     event?.preventDefault();
@@ -199,6 +205,11 @@ function ResumeParser() {
     setRequisitionId(null);
     setSelectedOption(e.target.value);
   };
+
+  useEffect(() => {
+    fetchReqIds();
+  }, []);
+
   return (
     <Box
       sx={{
@@ -220,12 +231,16 @@ function ResumeParser() {
           boxShadow: ' 0px 4px 34.3px 2px rgba(30, 45, 87, 0.24)',
           display: 'flex',
           padding: '20px',
-          justifyContent: "space-evenly",
+          justifyContent: 'space-evenly',
         }}
       >
         <Card sx={{ width: '100%' }}>
           <div style={{ marginTop: '10px' }}>
-            <IconButton onClick={() => navigate('/home')} aria-label="back" title='Back to selection'>
+            <IconButton
+              onClick={() => navigate('/home')}
+              aria-label="back"
+              title="Back to selection"
+            >
               <ArrowBackIcon />
             </IconButton>
           </div>
@@ -235,10 +250,9 @@ function ResumeParser() {
               flexDirection: 'column',
               gap: 0.5,
               paddingTop: '0px',
-              paddingBottom: '0px'
+              paddingBottom: '0px',
             }}
           >
-
             <FormControl>
               <RadioGroup
                 row
@@ -252,13 +266,12 @@ function ResumeParser() {
                 }}
                 onChange={handleRadioButtonChange}
               >
-
                 <FormControlLabel
                   sx={{
                     padding: '5px',
                     '& .MuiTypography-root': {
                       fontSize: '18px',
-                    }
+                    },
                   }}
                   value="new"
                   control={
@@ -275,7 +288,7 @@ function ResumeParser() {
                     padding: '5px',
                     '& .MuiTypography-root': {
                       fontSize: '18px',
-                    }
+                    },
                   }}
                   value="existing"
                   control={
@@ -289,36 +302,58 @@ function ResumeParser() {
                 />
               </RadioGroup>
             </FormControl>
-            {selectedOption === 'new' ? <TextField label='New Requisition ID' sx={{ width: '30%', padding: '5px', marginLeft: '10px' }} inputProps={{ style: { fontSize: '19px' } }}
-              InputLabelProps={{ style: { fontSize: 20 } }} onChange={(e) => handleNewID(e)} /> : <CustomAutoFetchComplete
-              sx={{ width: '30%' }}
-              options={reqIds}
-              autoCompleteProps={{
-                open,
-                onOpen: () => {
-                  setOpen(true);
-                },
-                onClose: () => {
-                  setOpen(false);
-                },
-                value: requisitionId,
-                onInputChange: handleInputChange,
-                onKeyDown: (e) => handleEnter(),
-                getOptionLabel: (option) => option,
-                isOptionEqualToValue: (option, value) => option === value,
-                loading,
-              }}
-              inputProps={{
-                label: 'Requisition ID*',
-                name: 'req_id',
-              }}
-            />}
+            {selectedOption === 'new' ? (
+              <TextField
+                label="New Requisition ID"
+                sx={{ width: '30%', padding: '5px', marginLeft: '10px' }}
+                inputProps={{ style: { fontSize: '19px' } }}
+                InputLabelProps={{ style: { fontSize: 20 } }}
+                onChange={(e) => handleNewID(e)}
+              />
+            ) : (
+              <CustomAutoFetchComplete
+                sx={{ width: '30%' }}
+                options={reqIds}
+                autoCompleteProps={{
+                  open,
+                  onOpen: () => {
+                    setOpen(true);
+                  },
+                  onClose: () => {
+                    setOpen(false);
+                  },
+                  value: requisitionId,
+                  onInputChange: handleInputChange,
+                  onKeyDown: (e) => handleEnter(),
+                  getOptionLabel: (option) => option,
+                  isOptionEqualToValue: (option, value) => option === value,
+                  loading,
+                }}
+                inputProps={{
+                  label: 'Requisition ID*',
+                  name: 'req_id',
+                }}
+              />
+            )}
 
-            {resumeCount !== '' && resumeCount !== undefined ? <Grid item sx={{ marginLeft: 'auto' }}>< Typography variant='h5' color='#3ec0b5' sx={{ padding: 1, }}> {`${resumeCount} Resume(s) selected`}</Typography> </Grid> : null}
-
+            {resumeCount !== '' && resumeCount !== undefined ? (
+              <Grid item sx={{ marginLeft: 'auto' }}>
+                <Typography variant="h5" color="#3ec0b5" sx={{ padding: 1 }}>
+                  {' '}
+                  {`${resumeCount} Resume(s) selected`}
+                </Typography>{' '}
+              </Grid>
+            ) : null}
 
             {/* <Box sx={{ display: 'flex', justifyContent: 'space-around', gap: 2 }}> */}
-            <Grid container sx={selectedOption !== 'new' ? { display: 'flex', justifyContent: 'space-around', gap: 2 } : {}}>
+            <Grid
+              container
+              sx={
+                selectedOption !== 'new'
+                  ? { display: 'flex', justifyContent: 'space-around', gap: 2 }
+                  : {}
+              }
+            >
               {selectedOption === 'new' && (
                 <Grid item sx={{ width: '50%' }}>
                   <Upload
@@ -356,7 +391,7 @@ function ResumeParser() {
               sx={{ fontSize: '1.1rem', width: '20%', marginLeft: 'auto', marginRight: '17px' }}
               startIcon={tableLoading ? <CircularProgress size={15} /> : null}
               onClick={handleSubmit}
-              variant='outlined'
+              variant="outlined"
               disabled={tableLoading || uploadResume}
             >
               Rank Resume(s)
@@ -365,7 +400,7 @@ function ResumeParser() {
           </CardContent>
         </Card>
       </Box>
-    </Box >
+    </Box>
   );
 }
 
