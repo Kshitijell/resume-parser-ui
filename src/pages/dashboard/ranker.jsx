@@ -154,26 +154,27 @@ function ResumeParser() {
     }
   };
 
-  useEffect(() => {
-    let active = true;
+  // useEffect(() => {
+  //   let active = true;
 
-    if (!loading) {
-      return undefined;
-    }
+  //   if (!loading) {
+  //     return undefined;
+  //   }
 
-    if (active) {
-      fetchReqIds();
-    }
+  //   if (active) {
+  //     fetchReqIds();
+  //   }
 
-    return () => {
-      active = false;
-    };
-  }, [loading]);
+  //   return () => {
+  //     active = false;
+  //   };
+  // }, [loading]);
 
   const handleNewID = (e) => {
     const value = e.target.value;
     setRequisitionId(value);
     const exist = initialIds?.find((r) => r === value);
+    console.log("🚀 ~ handleNewID ~ exist:", exist,initialIds)
     if (exist) {
       setIsExistForNew(true);
       toast.error('Requisition Id Is already exist!');
@@ -208,7 +209,7 @@ function ResumeParser() {
 
   useEffect(() => {
     fetchReqIds();
-  }, []);
+  }, [selectedOption]);
 
   return (
     <Box
