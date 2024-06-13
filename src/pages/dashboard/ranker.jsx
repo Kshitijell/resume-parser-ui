@@ -174,7 +174,6 @@ function ResumeParser() {
     const value = e.target.value;
     setRequisitionId(value);
     const exist = initialIds?.find((r) => r === value);
-    console.log("🚀 ~ handleNewID ~ exist:", exist,initialIds)
     if (exist) {
       setIsExistForNew(true);
       toast.error('Requisition Id Is already exist!');
