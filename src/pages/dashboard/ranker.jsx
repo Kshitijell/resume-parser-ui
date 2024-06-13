@@ -46,6 +46,8 @@ function ResumeParser() {
   const [resumeCount, setResumeCount] = useState('');
   const loading = open && reqIds.length === 0;
 
+  const [isExistForNew, setIsExistForNew] = useState(false);
+
   const handleFileUpload = (files) => {
     setFormError(null);
     setUploadedFiles([files[0]]);
@@ -168,19 +170,16 @@ function ResumeParser() {
     };
   }, [loading]);
 
-  const checkRequisitionId = useCallback(
-    debounce((value) => {
-      const exist = initialIds?.find((r) => r === value);
-      console.log("debounce", exist)
-      if (exist) toast.error('Requisition Id Is already exist!');
-    }, 300),
-    [initialIds]
-  );
-
   const handleNewID = (e) => {
     const value = e.target.value;
     setRequisitionId(value);
-    checkRequisitionId(value);
+    const exist = initialIds?.find((r) => r === value);
+    if (exist) {
+      setIsExistForNew(true);
+      toast.error('Requisition Id Is already exist!');
+    } else {
+      setIsExistForNew(false);
+    }
   };
 
   const handleInputChange = (event, newInputValue) => {
@@ -368,6 +367,7 @@ function ResumeParser() {
                     onDrop={handleFileUpload}
                     onRemove={handleRemoveFile}
                     isDirectUploadFile
+                    disabled={isExistForNew}
                   />
                 </Grid>
               )}
@@ -381,7 +381,7 @@ function ResumeParser() {
                     'application/pdf': ['.docx'],
                   }}
                   onDrop={handleFileChange}
-                  disabled={uploadResume}
+                  disabled={uploadResume || isExistForNew}
                   isDirectUploadFile
                   resumeCount={resumeCount}
                 />
