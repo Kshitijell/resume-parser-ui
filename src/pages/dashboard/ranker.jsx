@@ -84,6 +84,7 @@ function ResumeParser() {
           })
           .finally(() => {
             setTableLoading(false);
+            setUploadResume(false);
           });
       }
     } catch (validationError) {
@@ -141,12 +142,14 @@ function ResumeParser() {
         .then((response) => {
           setTableLoading(false);
           toast.success(response.data.message);
+          setTableLoading(false);
+          setUploadResume(false);
         })
         .catch((error) => {
           toast.error(error?.response?.data?.message);
+          setTableLoading(false);
+          setUploadResume(false);
         });
-      setTableLoading(false);
-      setUploadResume(false);
     }
   };
 
