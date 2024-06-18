@@ -101,12 +101,12 @@ export function AuthProvider({ children }) {
 
       const { data } = await response.json();
       const userDetails = {
-        name: data[0].User_name,
-        username: data[0].User_name,
-        password: data[0].Password,
-        application: data[0].Application,
-        isAdmin: data[0].IsAdmin,
-        orgId: data[0].Org_id
+        name: data?.Users[0]?.User_name,
+        username: data?.Users[0]?.User_name,
+        password: data?.Users[0]?.Password,
+        application: data?.Users[0]?.Application,
+        isAdmin: data?.Users[0]?.IsAdmin,
+        orgId: data?.Users[0]?.Org_id
       };
 
       if (res.username !== userDetails.username && res.password !== userDetails.password) return false;
