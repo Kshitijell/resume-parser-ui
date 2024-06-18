@@ -99,14 +99,14 @@ export function AuthProvider({ children }) {
         throw new Error('Login failed');
       }
 
-      const { users } = await response.json();
+      const { data } = await response.json();
       const userDetails = {
-        name: users[0].User_name,
-        username: users[0].User_name,
-        password: users[0].Password,
-        application: users[0].Application,
-        isAdmin: users[0].IsAdmin,
-        orgId: users[0].Org_id
+        name: data[0].User_name,
+        username: data[0].User_name,
+        password: data[0].Password,
+        application: data[0].Application,
+        isAdmin: data[0].IsAdmin,
+        orgId: data[0].Org_id
       };
 
       if (res.username !== userDetails.username && res.password !== userDetails.password) return false;
