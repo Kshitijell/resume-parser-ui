@@ -69,37 +69,36 @@ function ResumeParser() {
           formData.append('file', uploadedFiles[0]);
         }
 
-        try {
-          const res = await axios.post(`${url}upload`, formData);
-          if (res.data) {
-            const resData = res.data.data;
-            toast.success('Resume Ranked!');
+        axios
+          .post(`${url}upload`, formData)
+          .then((response) => {
+            const resData = response.data.data['Requisition Id'];
+            toast.success(response?.data?.message);
             navigate('/table', { state: resData });
             setFormError(null);
             setUploadedFiles([]);
             setRequisitionId('');
-          }
-        } catch (error) {
-          console.error('Error uploading file:', error);
-          toast.error('Something went wrong.');
-        } finally {
-          setTableLoading(false);
-        }
+          })
+          .catch((error) => {
+            toast.error(error?.response?.data?.message);
+          })
+          .finally(() => {
+            setTableLoading(false);
+          });
       }
     } catch (validationError) {
       setFormError(validationError.errors[0]);
     }
   };
   const fetchReqIds = async () => {
-    try {
-      const res = await axios.post(`${url}recommend`);
-      if (res.data) {
-        const resData = res.data.data;
-        setInitialReqIds(resData);
-      }
-    } catch (error) {
-      console.error('Error uploading file:', error);
-    }
+    axios
+      .post(`${url}recommend`)
+      .then((response) => {
+        setInitialReqIds(response?.data?.data['Recommended Ids']);
+      })
+      .catch((error) => {
+        toast.error(error?.response?.data?.message);
+      });
   };
 
   const handleRemoveFile = () => {
@@ -137,20 +136,17 @@ function ResumeParser() {
 
     if (files.length > 0) {
       setUploadResume(true);
-      try {
-        const res = await axios.post(`${url}upload_resume`, formData);
-        if (res) {
+      axios
+        .post(`${url}upload_resume`, formData)
+        .then((response) => {
           setTableLoading(false);
-          toast.success('Resume Uploaded.');
-        }
-      } catch (error) {
-        setTableLoading(false);
-        console.error('Error uploading file:', error);
-        toast.error('Something went wrong.');
-      } finally {
-        setTableLoading(false);
-        setUploadResume(false);
-      }
+          toast.success(response.data.message);
+        })
+        .catch((error) => {
+          toast.error(error?.response?.data?.message);
+        });
+      setTableLoading(false);
+      setUploadResume(false);
     }
   };
 

@@ -32,16 +32,12 @@ const Organizationform = () => {
     axios
       .post(url, formData)
       .then((response) => {
-        if (response?.data?.message?.includes('Inserted')) {
-          setFormValues(initialFormValues);
-          toast.success('Creation of organization successful');
-        }
+        setFormValues(initialFormValues);
+        toast.success(response?.data?.message);
       })
       .catch((error) => {
-        if (error?.response?.data?.error?.includes('UNIQUE')) {
-          setFormValues(initialFormValues);
-          toast.error('Organization already exists');
-        }
+        setFormValues(initialFormValues);
+        toast.error(error?.response?.data?.message);
       });
   };
 

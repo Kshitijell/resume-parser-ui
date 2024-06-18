@@ -27,17 +27,17 @@ const Userform = () => {
   const [selectedAccess, setSelectedAccess] = useState(null);
 
   useEffect(() => {
-    fetch(`${url}get_all_organizations`)
-      .then((response) => response.json())
-      .then((data) => {
-        const transformedOptions = data.organizations?.map((org) => ({
+    axios
+      .get(`${url}get_all_organizations`)
+      .then((response) => {
+        const transformedOptions = response?.data?.data.Organizations?.map((org) => ({
           label: org.Org_name,
           id: org.Org_id,
         }));
         setOrgOptions(transformedOptions);
       })
       .catch((error) => {
-        console.error('Error fetching organizations:', error);
+        toast.error(error?.response?.data?.message);
       });
   }, []);
 
@@ -76,38 +76,32 @@ const Userform = () => {
     axios
       .post(`${url}insert_user`, formData)
       .then((response) => {
-        if (response?.data?.message?.includes('Inserted')) {
-          setSelectedOrg(null);
-          setFormValues({
-            orgId: '',
-            accessLevel: '',
-            username: '',
-            password: '',
-            Admin: false,
-            Ranker: false,
-            Parser: false,
-            applicationAccess: '',
-          });
-          toast.success('Creation of user successful');
-        }
+        toast.success(response?.data?.message);
+        setSelectedOrg(null);
+        setFormValues({
+          orgId: '',
+          accessLevel: '',
+          username: '',
+          password: '',
+          Admin: false,
+          Ranker: false,
+          Parser: false,
+          applicationAccess: '',
+        });
       })
       .catch((error) => {
-        if (error?.response?.data?.error?.includes('UNIQUE')) {
-          setSelectedOrg(null);
-          setFormValues({
-            orgId: '',
-            accessLevel: '',
-            username: '',
-            password: '',
-            Admin: false,
-            Ranker: false,
-            Parser: false,
-            applicationAccess: '',
-          });
-          toast.error('User already exists');
-        } else {
-          toast.error('Something went wrong');
-        }
+        setSelectedOrg(null);
+        setFormValues({
+          orgId: '',
+          accessLevel: '',
+          username: '',
+          password: '',
+          Admin: false,
+          Ranker: false,
+          Parser: false,
+          applicationAccess: '',
+        });
+        toast.error(error?.response?.data?.message);
       });
   };
 

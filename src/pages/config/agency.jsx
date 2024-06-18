@@ -20,25 +20,17 @@ const Agencyform = () => {
   const url = `${import.meta.env.VITE_API_KEY}`;
 
   useEffect(() => {
-    // Fetch organization options from the API
-    fetch(`${url}get_all_organizations`)
+    axios
+      .get(`${url}get_all_organizations`)
       .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch organizations');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const transformedOptions =
-          data.organizations?.map((org) => ({
-            label: org.Org_name,
-            id: org.Org_id,
-          })) || [];
+        const transformedOptions = response?.data?.data.Organizations?.map((org) => ({
+          label: org.Org_name,
+          id: org.Org_id,
+        }));
         setOrgOptions(transformedOptions);
       })
       .catch((error) => {
-        console.error('Error fetching organizations:', error);
-        toast.error('Failed to fetch organizations. Please try again later.');
+        toast.error(error?.response?.data?.message);
       });
   }, []);
 
@@ -65,18 +57,14 @@ const Agencyform = () => {
     axios
       .post(`${url}insert_agency`, formData)
       .then((response) => {
-        if (response?.data?.message?.includes('Inserted')) {
-          setSelectedOrg(null);
-          setFormValues(initialFormValues);
-          toast.success('Agency created successfully');
-        }
+        toast.success(response?.data?.message);
+        setSelectedOrg(null);
+        setFormValues(initialFormValues);
       })
       .catch((error) => {
-        if (error?.response?.data?.error?.includes('UNIQUE')) {
-          setSelectedOrg(null);
-          setFormValues(initialFormValues);
-          toast.error('Agency already exists for the selected organization');
-        }
+        setSelectedOrg(null);
+        setFormValues(initialFormValues);
+        toast.error(error?.response?.data?.message);
       });
   };
 
