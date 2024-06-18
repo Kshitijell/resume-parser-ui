@@ -39,7 +39,7 @@ export default function App() {
         <ThemeProvider>
           <MotionLazy>
             <ProgressBar />
-            <ToastContainer position="bottom-right" />
+            <ToastContainer position="bottom-right" autoClose={1000} />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <AuthConsumer>
                 <Router />
