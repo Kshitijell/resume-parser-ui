@@ -1,6 +1,15 @@
 import React, { useMemo, useState } from 'react';
 import * as XLSX from 'xlsx';
-import { Box, Button, Card, CardContent, Grid, Typography, TextField, IconButton } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Typography,
+  TextField,
+  IconButton,
+} from '@mui/material';
 import Rating from '@mui/material/Rating';
 import { useLocation, useNavigate } from 'react-router-dom';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
@@ -31,9 +40,7 @@ function TableComponent() {
     if (searchTerm === '') {
       return dataRows;
     }
-    return dataRows.filter(row =>
-      row.Comments.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    return dataRows.filter((row) => row.Comments.toLowerCase().includes(searchTerm.toLowerCase()));
   }, [dataRows, searchTerm]);
 
   const columnData = useMemo(() => {
@@ -81,7 +88,7 @@ function TableComponent() {
       },
       {
         accessorKey: 'Overall',
-        header: 'Overall Rating',
+        header: 'Overall Rating/5',
         muiTableHeadCellProps: { align: 'center' },
         size: 175,
         Cell: (params) => (
@@ -134,16 +141,26 @@ function TableComponent() {
   // };
 
   const handleExportData = () => {
-
-    const data = filteredRows.map(({ Comments, id, ...other }) => ({
-      ...other,
-      Comments,
-    }));
+    const data = filteredRows.map(({ Name, Comments, Overall, ...others }) => {
+      const renamedOthers = Object.fromEntries(
+        Object.entries(others).map(([key, value]) => [`${key}/5`, value])
+      );
+      const items = {
+        Name,
+        Comments,
+        'Overall Rating/5': Overall,
+        ...renamedOthers,
+      };
+      delete items['id/5'];
+      return items;
+    });
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
     const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-    const excelBlob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const excelBlob = new Blob([excelBuffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
     const excelURL = window.URL.createObjectURL(excelBlob);
     const link = document.createElement('a');
     link.href = excelURL;
@@ -154,13 +171,13 @@ function TableComponent() {
   };
 
   return (
-    <Box sx={{  position: 'relative', width: 1, height: '-webkit-fill-available' }}>
+    <Box sx={{ position: 'relative', width: 1, height: '-webkit-fill-available' }}>
       <Box
         sx={{
           height: '100%',
           padding: '50px',
           backgroundSize: '100%',
-          backgroundImage: `url(${tableBackground})`
+          backgroundImage: `url(${tableBackground})`,
         }}
       >
         <Card>
@@ -179,7 +196,11 @@ function TableComponent() {
                   gap: 2,
                 }}
               >
-                <IconButton onClick={() => navigate('/ranker')} aria-label="back" title='Back to Ranker'>
+                <IconButton
+                  onClick={() => navigate('/ranker')}
+                  aria-label="back"
+                  title="Back to Ranker"
+                >
                   <ArrowBackIcon />
                 </IconButton>
                 <Typography variant="h5">List of Recommended Best Candidates</Typography>
@@ -216,7 +237,7 @@ function TableComponent() {
           </CardContent>
         </Card>
       </Box>
-    </Box >
+    </Box>
   );
 }
 

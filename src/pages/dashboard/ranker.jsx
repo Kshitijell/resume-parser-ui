@@ -35,6 +35,7 @@ function ResumeParser() {
   const navigate = useNavigate();
   const url = `${import.meta.env.VITE_API_KEY}`;
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [uploadedFilesResume, setUploadedFilesResume] = useState([]);
   const [open, setOpen] = useState(false);
   const [reqIds, setReqIds] = useState([]);
   const [initialIds, setInitialReqIds] = useState([]);
@@ -127,6 +128,7 @@ function ResumeParser() {
   };
 
   const handleFileChange = async (files) => {
+    setUploadedFilesResume(files);
     setTableLoading(true);
     const formData = new FormData();
     setResumeCount(files.length);
@@ -207,6 +209,11 @@ function ResumeParser() {
 
   useEffect(() => {
     fetchReqIds();
+  }, [selectedOption]);
+
+  useEffect(() => {
+    setUploadedFiles([]);
+    setUploadedFilesResume([]);
   }, [selectedOption]);
 
   return (
@@ -366,10 +373,11 @@ function ResumeParser() {
                     onDrop={handleFileUpload}
                     onRemove={handleRemoveFile}
                     isDirectUploadFile
-                    disabled={isExistForNew}
+                    disabled={isExistForNew || !requisitionId}
                   />
                 </Grid>
               )}
+              {console.log(isExistForNew)}
               <Grid item sx={{ width: '50%' }}>
                 <Upload
                   multiple
@@ -379,8 +387,13 @@ function ResumeParser() {
                   accept={{
                     'application/pdf': ['.docx'],
                   }}
+                  value={uploadedFilesResume}
                   onDrop={handleFileChange}
-                  disabled={uploadResume || isExistForNew}
+                  disabled={
+                    isExistForNew || uploadResume || (selectedOption.includes('existing')
+                      ? !requisitionId
+                      : uploadedFiles?.length === 0 || !requisitionId)
+                  }
                   isDirectUploadFile
                   resumeCount={resumeCount}
                 />
