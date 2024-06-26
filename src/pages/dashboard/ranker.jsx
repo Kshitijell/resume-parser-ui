@@ -390,7 +390,9 @@ function ResumeParser() {
                   value={uploadedFilesResume}
                   onDrop={handleFileChange}
                   disabled={
-                    isExistForNew || uploadResume || (selectedOption.includes('existing')
+                    isExistForNew ||
+                    uploadResume ||
+                    (selectedOption.includes('existing')
                       ? !requisitionId
                       : uploadedFiles?.length === 0 || !requisitionId)
                   }
@@ -405,7 +407,14 @@ function ResumeParser() {
               startIcon={tableLoading ? <CircularProgress size={15} /> : null}
               onClick={handleSubmit}
               variant="outlined"
-              disabled={tableLoading || uploadResume}
+              // disabled={tableLoading || uploadResume || isExistForNew || !requisitionId}
+              disabled={
+                isExistForNew ||
+                uploadResume ||
+                (selectedOption.includes('existing')
+                  ? !requisitionId || uploadedFilesResume?.length === 0
+                  : uploadedFiles?.length === 0 || !requisitionId || uploadedFilesResume?.length === 0)
+              }
             >
               Rank Resume(s)
             </Button>
